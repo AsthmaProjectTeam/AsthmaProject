@@ -1,13 +1,13 @@
 /**
  * Created by tengzhongwei on 5/25/17.
  */
-let Doctor          = require('../../models/doctor'),
-    jwt_parser      = require('../../utils/auth'),
+let Doctor          = require('../../../models/nurse'),
+    jwt_parser      = require('../../../utils/auth'),
     jwt             = require('jsonwebtoken'),
-    Question        = require('../../models/question'),
+    Question        = require('../../../models/backup/question'),
     mongoose        = require('mongoose'),
-    Flow            = require('../../models/flow'),
-    searchFromNode  = require('../../utils/search_flow');
+    Flow            = require('../../../models/backup/flow'),
+    searchFromNode  = require('../../../utils/search_flow');
 
 module.exports = app => {
 

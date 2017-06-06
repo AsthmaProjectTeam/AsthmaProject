@@ -2,7 +2,7 @@
  * Created by tengzhongwei on 6/1/17.
  */
 "use strict";
-let Doctor           = require('../../models/doctor'),
+let Nurse           = require('../../models/nurse'),
     jwt_parser       = require('../../utils/auth'),
     jwt              = require('jsonwebtoken'),
     Joi              = require('joi'),
@@ -21,8 +21,8 @@ function filterPrivateInformation(data) {
 
 
 module.exports = app => {
-    /***************** Create Doctor Account *******************/
-    app.post('/v1/accounts/doctor', (req, res) => {
+    /***************** Create nurse Account *******************/
+    app.post('/v1/accounts/nurse', (req, res) => {
         let schema = Joi.object().keys({
             username:   Joi.string().alphanum().min(5).max(10).required(),
             first_name: Joi.string().regex(/^[a-zA-Z]+$/).required(),
@@ -36,18 +36,17 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                let doctor = new Doctor(data);
-                doctor._id = doctor.username;
-                doctor.save((err)=>{
+                let nurse = new Nurse(data);
+                //nurse._id = nurse.username;
+                nurse.save((err)=>{
                     if(err){
                         res.status(400).send({err});
                     }
                     else {
-                        const token = jwt.sign(doctor, process.env.SECRET_KEY, {
-                            expiresIn:60*1000
+                        const token = jwt.sign(nurse, process.env.SECRET_KEY, {
+                            expiresIn:"10h"
                         });
-                        res.cookie('token',token,{ maxAge: 60*1000});
-                        res.status(200).send({doctor: doctor.username, token:token});
+                        res.status(200).send({nurse: nurse.username, token:token});
                     }
                 });
             }
@@ -83,8 +82,8 @@ module.exports = app => {
         });
     });
 
-    /***************** Doctor Login with Token *******************/
-    app.post('/v1/oauth2/doctor/token', (req, res) => {
+    /***************** nurse Login with Token *******************/
+    app.post('/v1/oauth2/nurse/token', (req, res) => {
         let schema = Joi.object().keys({
             username:   Joi.string().alphanum().min(5).max(10).required(),
             password:   Joi.string().required(),
@@ -94,7 +93,7 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Doctor.findOne({"username":req.body.username},(err,user)=>{
+                Nurse.findOne({"username":req.body.username},(err,user)=>{
                     if(err){
                         res.status(500).send('Internal Error with Database');
                     }

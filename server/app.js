@@ -14,7 +14,7 @@ let path            = require('path'),
 let port = process.env.PORT ? process.env.PORT : 8080;
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
 //process.env.SECRET_KEY = uuid.v4();
-process.env.SECRET_KEY = 'test';
+process.env.SECRET_KEY = 'test111';
 
 /**********************************************************************************************************/
 
@@ -34,7 +34,7 @@ app.set('views', __dirname);
 
 // Connect to mongoBD
 let options = { promiseLibrary: require('bluebird') };
-mongoose.connect('mongodb://127.0.0.1:32772/asthma', options, err => {
+mongoose.connect('mongodb://127.0.0.1:32768/asthma', options, err => {
     if (err) console.log(err);
     else console.log('\t MongoDB connected');
 });
@@ -44,17 +44,17 @@ autoIncrement.initialize(mongoose.connection);
 
 // Import our Data Models
 app.models = {
-    Doctor: require('./models/doctor'),
+    Doctor: require('./models/nurse'),
     Patient: require('./models/patient'),
-    Question: require('./models/question'),
-    Flow: require('./models/flow'),
+    Question: require('./models/backup/question'),
+    Flow: require('./models/backup/flow'),
 };
 
 // Import our API Routes
-require('./api/v1/doctor')(app);
+require('./api/v1/nurse')(app);
 require('./api/v1/patient')(app);
-require('./api/v1/flow')(app);
 require('./api/v1/accounts')(app);
+require('./api/v1/pain_check')(app);
 
 
 /**********************************************************************************************************/
