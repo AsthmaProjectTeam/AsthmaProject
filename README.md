@@ -2,14 +2,25 @@
 
 
 ## Usage
-This area is used for description
+This is a platform that we designed for doctors to collect patients' information easily. The big idea is "information sharing" in the format of questionnaires.
+Doctors will be able to create a questionnaire for his patients, and all doctors of the same patient can get access to this patient's questionnaire record. 
+Patients will get notification from the doctor when he needs to answer a questionnaire, and he can also answer a questionnaire anytime he wants.
+The flow of each questionnaire is different based on the answer of this patient as well as the type of each question. 
 
 ## Client Side Design
 ### Front End Design
-explain features in front endå
+Front End part in this project is built in React Native. The main idea of this app is its generic feature and its simplified user interaface. This app is generic to both Android and IOS. Clients simply scan a QR code to register and no need to log on afterwords. There are three screens descripted as follows.
 
 ### Function explanation 
-xxx
+Three Screens:
+1. #### loginPage: 
+	Lead to Scan QR code page if first time register. 
+	Lead to welcomePage if already registered.
+	  
+2. #### welcomePage: 
+	<Button> Click to start answer questions - lead to questionList page.
+3. #### questionList: 
+	Display all questions and a submit button at bottom.
 
 ### Other parts
 list what you wanna say
