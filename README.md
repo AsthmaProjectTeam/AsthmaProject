@@ -21,7 +21,7 @@ Three Screens:
 	Click start to answer questions button to start answer questions. It directs the client to questionList page.
 3. #### questionList: 
 	Displays all questions for client to select and a submit button at bottom.
-	<span style="color:blue">NOTE: needs to be refactored to display one question on each page</span>
+	**NOTE: needs to be refactored to display one question on each page*
 
 ### Other parts
 list what you wanna say
