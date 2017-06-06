@@ -14,13 +14,14 @@ Front End part in this project is built in React Native. The main idea of this a
 ### Function explanation 
 Three Screens:
 1. #### loginPage: 
-	Lead to Scan QR code page if first time register. 
-	Lead to welcomePage if already registered.
+	Click log in button to QR code scanner if first time register. 
+	After scanning, it directs the client to welcomePage.
 	  
 2. #### welcomePage: 
-	<Button> Click to start answer questions - lead to questionList page.
+	Click start to answer questions button to start answer questions. It directs the client to questionList page.
 3. #### questionList: 
-	Display all questions and a submit button at bottom.
+	Displays all questions for client to select and a submit button at bottom.
+	<span style="color:blue">NOTE: needs to be refactored to display one question on each page</span>
 
 ### Other parts
 list what you wanna say
