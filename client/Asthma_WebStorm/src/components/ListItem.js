@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Card  from './common/Card';
 import { CardSection } from './common/CardSection';
-//import { RadioButton } from './common/RadioButton';
-
 import { List, Radio, Flex, WhiteSpace } from 'antd-mobile';
 
 const RadioItem = Radio.RadioItem;
@@ -30,7 +28,6 @@ class ListItem extends Component {
 
                 <CardSection>
                     <View>
-
                         <List>
                             {this.props.question.options.map(i => (
                                 <RadioItem
