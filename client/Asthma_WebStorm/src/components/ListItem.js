@@ -18,12 +18,7 @@ class ListItem extends Component {
     };
     render() {
         const { value, value2, value3, value4 } = this.state;
-        const { titleStyle, optionStyle } = styles;
-        // const options = [this.props.question.options.map(option=>{
-        //     return(
-        //         {label: {option.detail}}
-        //     );
-        // })];
+        const { titleStyle } = styles;
 
         return (
             <Card>
@@ -38,8 +33,11 @@ class ListItem extends Component {
 
                         <List>
                             {this.props.question.options.map(i => (
-                                <RadioItem key={i.option} checked={value === i.option} onChange={() => this.onChange(i.option)}
-                                           >
+                                <RadioItem
+                                    key={i.option}
+                                    checked={value === i.option}
+                                    onChange={() => this.onChange(i.option)}
+                                >
                                     {i.detail}
                                 </RadioItem>
                             ))}
@@ -54,6 +52,7 @@ class ListItem extends Component {
 const styles = {
     titleStyle: {
         fontSize: 18,
+        fontWeight: 'bold',
         textAlign: 'left',
         padding: 15
     }
