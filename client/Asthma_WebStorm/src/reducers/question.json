@@ -168,5 +168,15 @@
       "4": 14,
       "5": 11
     }
+  },
+  {
+    "_id": 16,
+    "content": "What is your current blood pressure?",
+    "type": "completion"
+    },
+  {
+    "_id": 17,
+    "content": "What would you rate your pain right after the surgery 0-10, 10 being the worst pain you have ever experienced.?",
+    "type": "completion"
   }
 ]
