@@ -35,8 +35,8 @@ let ResultSet = new Schema({
 
 let Patient = new Schema({
     'username':     {type: String, required: true, index: { unique: true } },
-    'doctors':[
-                    {type: String, ref: 'Doctor' }
+    'nurses':[
+                    {type: String, ref: 'Nurse' }
     ],
     'result_set':   {type:[ResultSet]},
     "created_date": {type: Date, default:Date.now},
@@ -59,7 +59,6 @@ Patient.method('authenticate', function(plainText) {
 });
 
 
-/***************** Registration *******************/
 
 Patient.plugin(autoIncrement.plugin, 'Patient');
 
