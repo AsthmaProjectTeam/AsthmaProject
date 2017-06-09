@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, ListView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
-import { Button } from './common/Button';
+import Header from './common/Header';
+import Button from './common/Button';
 import { Actions } from 'react-native-router-flux'
 
 class QuestionList extends Component {
@@ -19,15 +20,18 @@ class QuestionList extends Component {
 
     renderFooter() {
         return (
-            <View style={styles.button}>
-                <TouchableOpacity>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
+            <View>
+                <Button
+                    onPress={console.log("yes")}
+                >
+                    Submit
+                </Button>
             </View>
         )
     }
 
     render() {
+
         return (
             <ListView
                 dataSource={this.dataSource}
@@ -35,27 +39,6 @@ class QuestionList extends Component {
                 renderFooter={this.renderFooter}
             />
         );
-    }
-}
-
-const styles = {
-    button: {
-        width: '80%',
-        alignSelf: 'center',
-        backgroundColor: '#eee',
-        borderRadius: 5,
-        borderWidth: 1.5,
-        borderColor: '#4ea0ed',
-        margin: 5
-    },
-
-    buttonText: {
-        alignSelf: 'center',
-        color: '#4ea0ed',
-        fontSize: 16,
-        fontWeight: '600',
-        paddingTop: 10,
-        paddingBottom: 10
     }
 }
 
