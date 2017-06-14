@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 
 class LoginPage extends Component {
     onButtonPress(){
-        Actions.main();
+        Actions.scanScreen();
     }
 
     render(){

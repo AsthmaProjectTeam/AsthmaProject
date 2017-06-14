@@ -13,8 +13,11 @@ const RouterComponent = () => {
                 <Scene key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
             </Scene>
 
-            <Scene key="main">
+            <Scene key="welcome">
                 <Scene key="welcomePage" component={WelcomePage} title="Welcome"/>
+            </Scene>
+
+            <Scene key="main">
                 <Scene key="questionList" component={QuestionList} title="Questions"/>
             </Scene>
         </Router>
