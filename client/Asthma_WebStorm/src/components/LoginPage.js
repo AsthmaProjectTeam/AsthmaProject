@@ -10,6 +10,7 @@ class LoginPage extends Component {
     }
 
     render(){
+
         return(
             <View>
                 <Button onPress={this.onButtonPress.bind(this)}>

@@ -4,21 +4,25 @@ import QuestionList from './components/QuestionList';
 import LoginPage from './components/LoginPage';
 import ScanScreen from './components/ScanScreen';
 import WelcomePage from './components/WelcomePage';
+import EntrancePage from './components/EntrancePage';
 
 const RouterComponent = () => {
     return (
-        <Router sceneStyle={{ paddingTop: 65 }}>
+        <Router>
+            <Scene key="entrance">
+                <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
+            </Scene>
             <Scene key="auth">
-                <Scene key="loginPage" component={LoginPage} title="Log in" initial/>
-                <Scene key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
+                <Scene style={{ paddingTop: 65 }} key="loginPage" component={LoginPage} title="Log in"/>
+                <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
             </Scene>
 
-            <Scene key="welcome">
-                <Scene key="welcomePage" component={WelcomePage} title="Welcome"/>
+            <Scene key="welcome" >
+                <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
             </Scene>
 
             <Scene key="main">
-                <Scene key="questionList" component={QuestionList} title="Questions"/>
+                <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>
             </Scene>
         </Router>
     );
