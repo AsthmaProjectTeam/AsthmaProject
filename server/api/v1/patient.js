@@ -4,8 +4,8 @@
 "use strict";
 
 
-let Patient = require('../../models/patient'),
-    jwt_parser = require('../../utils/auth'),
+let Patient = require('../../models/patient-model'),
+    jwt_parser = require('../../utils/initiator-auth'),
     jwt  = require('jsonwebtoken');
 
 module.exports = app => {

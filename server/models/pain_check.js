@@ -5,6 +5,20 @@ let mongoose            = require('mongoose'),
     Schema              = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment');
 
+/**
+ * This is schema for Pain-check
+ *
+ * @model PainCheck
+ * @param {String}          patient:    A unique identifier for patients
+ * @param {[Initiator]}     initiators: A array indicates all doctor/nurse who in charge of this patient
+ * @param {[ResultSet]}     result_set: A array show all results this patient has made
+ * @param {String}          first_name: Personal information
+ * @param {String}          last_name:  Personal information
+ * @param {String}          phone:      Personal information
+ * @param {String}          email:      Personal information
+ * @param {String}          role:       Used for Permission. Can only be 'Patient'
+ */
+
 let PainCheck = new Schema({
     patient:{type:Number, ref:'Patient', required:true},
     nurse:{type:Number, ref:'Nurse', required:true},

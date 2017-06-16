@@ -2,11 +2,11 @@
  * Created by tengzhongwei on 6/1/17.
  */
 "use strict";
-let Nurse           = require('../../models/nurse'),
-    jwt_parser       = require('../../utils/auth'),
+let Initiator           = require('../../models/initiator-model'),
+    nurse_jwt_parser       = require('../../utils/initiator-auth'),
     jwt              = require('jsonwebtoken'),
     Joi              = require('joi'),
-    Patient          = require('../../models/patient');
+    Patient          = require('../../models/patient-model');
 
 function filterPrivateInformation(data) {
     const secret= ['hash', 'salt'];
@@ -36,7 +36,7 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                let nurse = new Nurse(data);
+                let nurse = new Initiator(data);
                 //nurse._id = nurse.username;
                 nurse.save((err)=>{
                     if(err){
@@ -93,7 +93,7 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Nurse.findOne({"username":req.body.username},(err,user)=>{
+                Initiator.findOne({"username":req.body.username},(err, user)=>{
                     if(err){
                         res.status(500).send('Internal Error with Database');
                     }
@@ -119,6 +119,29 @@ module.exports = app => {
         });
     });
 
+    /***************** Create Patient Account Via QRCode+UDID. Must have nurse Permission *******************/
+    app.post('/v1/accounts/patient', nurse_jwt_parser, (req, res) => {
+        let schema = Joi.object().keys({
+            uuid:Joi.string().guid({version: ['uuidv4', 'uuidv5']}),
+        });
+
+        Joi.validate(req.body, schema, (err, data) => {
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                let patient = new Patient(data);
+                patient.save((err)=>{
+                    if(err){
+                        res.status(400).send({err});
+                    }
+                    else {
+                        res.status(200).send({patient: patient.username});
+                    }
+                });
+            }
+        });
+    });
 
 
 };

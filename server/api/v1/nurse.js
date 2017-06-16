@@ -1,36 +1,36 @@
 "use strict";
 
 
-let Nurse                      = require('../../models/nurse'),
-    jwt_parser                  = require('../../utils/auth'),
+let Initiator                      = require('../../models/initiator-model'),
+    jwt_parser                  = require('../../utils/initiator-auth'),
     jwt                         = require('jsonwebtoken'),
     Question                    = require('../../models/backup/question'),
     Joi                         = require('joi'),
     mongoose                    = require('mongoose'),
     filterPrivateInformation    = require('../../utils/filterPrivate'),
-    Patient                     = require('../../models/patient');
+    Patient                     = require('../../models/patient-model');
 
 module.exports = app => {
 
-    /***************** Show All Nurse *******************/
+    /***************** Show All Initiator *******************/
     app.get('/v1/nurse', (req, res)=>{
-        Nurse.find({}, (err, Nurses)=>{
+        Initiator.find({}, (err, Nurses)=>{
             console.log(err);
             res.status(200).send({Nurses});
         })
     });
 
-    /***************** Delete All Nurse *******************/
+    /***************** Delete All Initiator *******************/
     app.delete('/v1/nurse', (req, res)=>{
-        Nurse.remove({}, (err)=>{
+        Initiator.remove({}, (err)=>{
             res.status(200).send("delete success");
         })
     });
 
 
-    /***************** Nurse Add new Question *******************/
+    /***************** Initiator Add new Question *******************/
     app.post('/v1/nurse/question', (req, res)=>{
-        Nurse.findOne({username:"test"},(err, Nurse)=>{
+        Initiator.findOne({username:"test"},(err, Nurse)=>{
             let question = new Question(req.body);
             question.author = Nurse;
             question.save((err)=>{
@@ -40,8 +40,8 @@ module.exports = app => {
         });
     });
 
-    // /***************** Nurse list all Question *******************/
-    // app.get('/v1/Nurse/question', (req, res)=>{
+    // /***************** Initiator list all Question *******************/
+    // app.get('/v1/Initiator/question', (req, res)=>{
     //     Question
     //         .find({})
     //         .populate('author','username')
@@ -53,8 +53,8 @@ module.exports = app => {
     // });
     //
     //
-    // /***************** Nurse delete Question *******************/
-    // app.delete('/v1/Nurse/question', (req,res)=>{
+    // /***************** Initiator delete Question *******************/
+    // app.delete('/v1/Initiator/question', (req,res)=>{
     //     Question.remove({}, err=>{
     //         if(err) res.status(403).send({err});
     //         Question.find({}, (err, questions)=>{
@@ -68,11 +68,11 @@ module.exports = app => {
     /***************** New *******************/
     /***************** New *******************/
 
-    /***************** Get a Nurse's profile *******************/
+    /***************** Get a Initiator's profile *******************/
     app.get('/v1/nurse/:id/profile', jwt_parser, (req, res)=>{
         if(req.params.id!=req.user._id) res.status(403).send('You can not access this');
         else{
-            Nurse.findOne({_id:req.params.id})
+            Initiator.findOne({_id:req.params.id})
                 .populate('patients','_id username')
                 .exec((err,Nurse)=>{
                     if(err) res.status(500).send("Internal Database Error");
@@ -83,9 +83,9 @@ module.exports = app => {
         }
     });
 
-    /***************** Update Nurse Profile *******************/
+    /***************** Update Initiator Profile *******************/
     app.patch('/v1/nurse/:id/profile', jwt_parser, (req, res)=>{
-        //TODO: Nurse should have access to their patient. Patients themselvies can access
+        //TODO: Initiator should have access to their patient. Patients themselvies can access
         //TODO: Currently, we allow any user to update profile
         let schema = Joi.object().keys({
             first_name: Joi.string().regex(/^[a-zA-Z]+$/).required(),
@@ -98,14 +98,14 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Nurse.findByIdAndUpdate(req.params.id, {$set:data}, (err, Nurse)=>{
+                Initiator.findByIdAndUpdate(req.params.id, {$set:data}, (err, Nurse)=>{
                     if(err) {res.status(500).send({err})}
                     else{
                         if(Nurse){
                             res.status(200).send(filterPrivateInformation(Nurse._doc));
                         }
                         else {
-                            res.status(400).send("Nurse doesn't exist")
+                            res.status(400).send("Initiator doesn't exist")
                         }
                     }
                 })
@@ -113,7 +113,7 @@ module.exports = app => {
         });
     });
 
-    /***************** Append a patient to Nurse *******************/
+    /***************** Append a patient to Initiator *******************/
     app.post('/v1/nurse/:id/patients/add',jwt_parser,(req, res)=>{
         if(req.params.id != req.user._id) res.status(403).send('You can not access this');
         else{
@@ -129,14 +129,14 @@ module.exports = app => {
                         .exec( (err,patient)=>{
                         if(!err){
                             if(patient){
-                                Nurse.findById(req.params.id, (err, nurse)=>{
+                                Initiator.findById(req.params.id, (err, nurse)=>{
                                     if(!err){
 
                                         if(!nurse.patients.includes(patient._id)){
                                             nurse.patients.push(patient);
                                         }
-                                        if(!patient.nurses.includes(nurse._id)){
-                                            patient.nurses.push(nurse);
+                                        if(!patient.initiators.includes(nurse._id)){
+                                            patient.initiators.push(nurse);
                                         }
                                         patient.save();
                                         nurse.save();
@@ -157,10 +157,10 @@ module.exports = app => {
 
 
 
-    // /***************** Get a Nurse's questions *******************/
-    // app.get('/v1/Nurse/:id/questions', jwt_parser, (req, res)=>{
-    //     Nurse.findOne({_id:req.params.id})
-    //         .exec((err,Nurse)=>{
+    // /***************** Get a Initiator's questions *******************/
+    // app.get('/v1/Initiator/:id/questions', jwt_parser, (req, res)=>{
+    //     Initiator.findOne({_id:req.params.id})
+    //         .exec((err,Initiator)=>{
     //             if(err) res.status(500).send("Internal Database Error");
     //             else {
     //

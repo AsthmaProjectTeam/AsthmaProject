@@ -9,15 +9,16 @@ let path            = require('path'),
     mongoose        = require('mongoose'),
     autoIncrement   = require('mongoose-auto-increment'),
     uuid            = require('uuid'),
-    cookieParser    = require('cookie-parser');
+    cookieParser    = require('cookie-parser'),
+    socketRoute     = require('./api/v2/socket');
 
 let port = process.env.PORT ? process.env.PORT : 8080;
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
+
 //process.env.SECRET_KEY = uuid.v4();
 process.env.SECRET_KEY = 'test111';
 
 /**********************************************************************************************************/
-
 
 // Setup our Express pipeline
 let app = express();
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('pug', require('pug').__express);
 app.set('views', __dirname);
 
+
 // Connect to mongoBD
 let options = { promiseLibrary: require('bluebird') };
 mongoose.connect('mongodb://127.0.0.1:32768/asthma', options, err => {
@@ -44,24 +46,21 @@ autoIncrement.initialize(mongoose.connection);
 
 // Import our Data Models
 app.models = {
-    Doctor: require('./models/nurse'),
-    Patient: require('./models/patient'),
+    Doctor: require('./models/initiator-model'),
+    Patient: require('./models/patient-model'),
     Question: require('./models/backup/question'),
     Flow: require('./models/backup/flow'),
 };
-
 // Import our API Routes
-require('./api/v1/nurse')(app);
-require('./api/v1/patient')(app);
-require('./api/v1/accounts')(app);
-require('./api/v1/pain_check')(app);
-
+require('./api/v2/account-api')(app);
 
 /**********************************************************************************************************/
-
 // Give them the SPA base page
-app.get('*', (req, res) => {
-    res.render('base.pug', {});
+// app.get('*', (req, res) => {
+//     res.render('base.pug', {});
+// });
+app.get('*', socketRoute.foo, function(req, res){
+    res.sendFile(__dirname+'/socket-test.html');
 });
 
 /**********************************************************************************************************/
@@ -70,3 +69,8 @@ app.get('*', (req, res) => {
 let server = app.listen(port, () => {
     console.log('Example app listening on ' + server.address().port);
 });
+
+//Setup Socket.io
+const io = require('socket.io')(server);
+app.set('socketio', io);
+//var io = req.app.get('socketio');

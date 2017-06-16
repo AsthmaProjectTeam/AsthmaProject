@@ -1,0 +1,658 @@
+{
+    "project": {},
+    "files": {
+        "api/v1/backup/flow.js": {
+            "name": "api/v1/backup/flow.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "api/v1/accounts.js": {
+            "name": "api/v1/accounts.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "api/v1/nurse.js": {
+            "name": "api/v1/nurse.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "api/v1/pain_check.js": {
+            "name": "api/v1/pain_check.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "api/v1/patient.js": {
+            "name": "api/v1/patient.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "api/v2/account.js": {
+            "name": "api/v2/account.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/backup/flow.js": {
+            "name": "models/backup/flow.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/backup/question.js": {
+            "name": "models/backup/question.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/initiator-model.js": {
+            "name": "models/initiator-model.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/pain_check.js": {
+            "name": "models/pain_check.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/patient.js": {
+            "name": "models/patient.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/patient_qrcode.js": {
+            "name": "models/patient_qrcode.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/export_xlsx.js": {
+            "name": "utils/export_xlsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/filterPrivate.js": {
+            "name": "utils/filterPrivate.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/generate_qrcode.js": {
+            "name": "utils/generate_qrcode.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/nurse_auth.js": {
+            "name": "utils/nurse_auth.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/patient_auth.js": {
+            "name": "utils/patient_auth.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "utils/search_flow.js": {
+            "name": "utils/search_flow.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "app.js": {
+            "name": "app.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {},
+    "elements": {},
+    "classitems": [
+        {
+            "file": "api/v1/backup/flow.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/25/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v1/backup/flow.js",
+            "line": 14,
+            "class": ""
+        },
+        {
+            "file": "api/v1/backup/flow.js",
+            "line": 32,
+            "class": ""
+        },
+        {
+            "file": "api/v1/backup/flow.js",
+            "line": 43,
+            "class": ""
+        },
+        {
+            "file": "api/v1/backup/flow.js",
+            "line": 53,
+            "class": ""
+        },
+        {
+            "file": "api/v1/accounts.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/1/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v1/accounts.js",
+            "line": 24,
+            "class": ""
+        },
+        {
+            "file": "api/v1/accounts.js",
+            "line": 56,
+            "class": ""
+        },
+        {
+            "file": "api/v1/accounts.js",
+            "line": 85,
+            "class": ""
+        },
+        {
+            "file": "api/v1/accounts.js",
+            "line": 122,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 15,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 23,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 31,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 66,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 67,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 68,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 69,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 71,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 86,
+            "class": ""
+        },
+        {
+            "file": "api/v1/nurse.js",
+            "line": 116,
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/2/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 17,
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 31,
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 68,
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 79,
+            "class": ""
+        },
+        {
+            "file": "api/v1/pain_check.js",
+            "line": 101,
+            "class": ""
+        },
+        {
+            "file": "api/v1/patient.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v1/patient.js",
+            "line": 12,
+            "class": ""
+        },
+        {
+            "file": "api/v1/patient.js",
+            "line": 19,
+            "class": ""
+        },
+        {
+            "file": "api/v1/patient.js",
+            "line": 30,
+            "class": ""
+        },
+        {
+            "file": "api/v1/patient.js",
+            "line": 47,
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/7/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 4,
+            "description": "Created by tengzhongwei on 6/1/17.",
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 27,
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 59,
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 90,
+            "class": ""
+        },
+        {
+            "file": "api/v2/account.js",
+            "line": 128,
+            "class": ""
+        },
+        {
+            "file": "models/backup/flow.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "models/backup/question.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "models/initiator-model.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "models/initiator-model.js",
+            "line": 12,
+            "class": ""
+        },
+        {
+            "file": "models/pain_check.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/6/17.",
+            "class": ""
+        },
+        {
+            "file": "models/patient.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "models/patient.js",
+            "line": 13,
+            "class": ""
+        },
+        {
+            "file": "models/patient_qrcode.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/24/17.",
+            "class": ""
+        },
+        {
+            "file": "models/patient_qrcode.js",
+            "line": 13,
+            "class": ""
+        },
+        {
+            "file": "utils/export_xlsx.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/5/17.",
+            "class": ""
+        },
+        {
+            "file": "utils/filterPrivate.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/2/17.",
+            "class": ""
+        },
+        {
+            "file": "utils/generate_qrcode.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/7/17.",
+            "class": ""
+        },
+        {
+            "file": "utils/nurse_auth.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 3/28/17.",
+            "class": ""
+        },
+        {
+            "file": "utils/patient_auth.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 6/7/17.",
+            "class": ""
+        },
+        {
+            "file": "utils/search_flow.js",
+            "line": 1,
+            "description": "Created by tengzhongwei on 5/25/17.",
+            "class": ""
+        },
+        {
+            "file": "app.js",
+            "line": 20,
+            "class": ""
+        },
+        {
+            "file": "app.js",
+            "line": 62,
+            "class": ""
+        },
+        {
+            "file": "app.js",
+            "line": 69,
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/25/17.",
+            "line": " api/v1/backup/flow.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/backup/flow.js:14"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/backup/flow.js:32"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/backup/flow.js:43"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/backup/flow.js:53"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/1/17.",
+            "line": " api/v1/accounts.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/accounts.js:24"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/accounts.js:56"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/accounts.js:85"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/accounts.js:122"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:15"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:23"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:31"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:66"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:67"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:68"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:69"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:71"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:86"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/nurse.js:116"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/2/17.",
+            "line": " api/v1/pain_check.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/pain_check.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/pain_check.js:31"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/pain_check.js:68"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/pain_check.js:79"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/pain_check.js:101"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " api/v1/patient.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/patient.js:12"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/patient.js:19"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/patient.js:30"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v1/patient.js:47"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/7/17.",
+            "line": " api/v2/account.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/1/17.",
+            "line": " api/v2/account.js:4"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v2/account.js:27"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v2/account.js:59"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v2/account.js:90"
+        },
+        {
+            "message": "Missing item type",
+            "line": " api/v2/account.js:128"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " models/backup/flow.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " models/backup/question.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " models/initiator-model.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " models/initiator-model.js:12"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/6/17.",
+            "line": " models/pain_check.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " models/patient.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " models/patient.js:13"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/24/17.",
+            "line": " models/patient_qrcode.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " models/patient_qrcode.js:13"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/5/17.",
+            "line": " utils/export_xlsx.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/2/17.",
+            "line": " utils/filterPrivate.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/7/17.",
+            "line": " utils/generate_qrcode.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 3/28/17.",
+            "line": " utils/nurse_auth.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 6/7/17.",
+            "line": " utils/patient_auth.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by tengzhongwei on 5/25/17.",
+            "line": " utils/search_flow.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " app.js:20"
+        },
+        {
+            "message": "Missing item type",
+            "line": " app.js:62"
+        },
+        {
+            "message": "Missing item type",
+            "line": " app.js:69"
+        }
+    ]
+}

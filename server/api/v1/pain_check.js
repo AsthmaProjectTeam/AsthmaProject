@@ -3,13 +3,13 @@
  */
 "use strict";
 
-let Nurse                      = require('../../models/nurse'),
-    jwt_parser                  = require('../../utils/auth'),
+let Initiator                      = require('../../models/initiator-model'),
+    jwt_parser                  = require('../../utils/initiator-auth'),
     jwt                         = require('jsonwebtoken'),
     Question                    = require('../../models/backup/question'),
     Joi                         = require('joi'),
     mongoose                    = require('mongoose'),
-    Patient                     = require('../../models/patient'),
+    Patient                     = require('../../models/patient-model'),
     PainCheck                   = require('../../models/pain_check'),
     export_xlsx                 = require('../../utils/export_xlsx');
 
@@ -41,7 +41,7 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Nurse.findById(data.nurse, (err,nurse)=>{
+                Initiator.findById(data.nurse, (err, nurse)=>{
                     if(!err){
                         if (nurse){
                             Patient.findById(data.patient,(err,patient)=>{

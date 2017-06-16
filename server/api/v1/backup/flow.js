@@ -1,8 +1,8 @@
 /**
  * Created by tengzhongwei on 5/25/17.
  */
-let Doctor          = require('../../../models/nurse'),
-    jwt_parser      = require('../../../utils/auth'),
+let Doctor          = require('../../../models/initiator-model'),
+    jwt_parser      = require('../../../utils/initiator-auth'),
     jwt             = require('jsonwebtoken'),
     Question        = require('../../../models/backup/question'),
     mongoose        = require('mongoose'),

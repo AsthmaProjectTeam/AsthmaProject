@@ -14,16 +14,18 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-session": "^1.15.3",
+    "feathers-mongoose": "^5.1.0",
     "jade": "~1.11.0",
     "joi": "^10.5.2",
     "jsonwebtoken": "^7.4.1",
     "mongo-xlsx": "^1.0.12",
-    "mongoose": "^4.10.2",
+    "mongoose": "^4.10.5",
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.8.2",
     "pug": "^2.0.0-rc.1",
     "qrcode": "^0.8.2",
     "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.2",
     "uuid": "^3.0.1"
   }
 }
