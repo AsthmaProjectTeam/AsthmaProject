@@ -6,6 +6,7 @@
     "start": "nodemon ./app.js"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "connect-redis": "^3.3.0",

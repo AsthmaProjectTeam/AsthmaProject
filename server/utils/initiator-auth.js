@@ -2,17 +2,16 @@
  * Created by tengzhongwei on 3/28/17.
  */
 let jwt  = require('jsonwebtoken');
+var assert = require('assert')
 function initiatorAuth(req, res, next) {
     try {
         let dec = jwt.verify(req.headers.authorization.split(' ')[1], process.env.SECRET_KEY);
-        console.log(dec._doc);
-        assert(['nurse','doctor', 'admin'].includes( dec._doc.role));
+        assert(['nurse','doctor', 'admin'].includes( dec._doc.role)===true);
         req.user = dec._doc;
         next();
     }
     catch (err){
-        res.clearCookie('token');
-        res.status(401).send({err});
+        res.status(40e1).send({err});
     }
 }
 

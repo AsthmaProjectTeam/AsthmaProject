@@ -65,7 +65,7 @@ module.exports = app => {
            role:        "temp",
        };
        const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
-           expiresIn: '30s',
+           expiresIn: '3m',
        });
        res.status(200).send({token});
     });
