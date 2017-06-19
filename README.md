@@ -50,6 +50,8 @@ list what you wanna say
 ```js
 {
     "_id": 1,
+    "hash":"",
+    "salt":""
     "first_name": "Lorem",
     "last_name": "Lorem",
     "username": "Lorem",
@@ -58,7 +60,8 @@ list what you wanna say
     ],
     "created_questions": [
         ObjectId("1")
-    ]
+    ],
+    "role":"initiator"
 }
 ```
 
@@ -77,13 +80,12 @@ list what you wanna say
  * @param {String}          role:       Used for Permission. Can only be 'Patient'
 ```js
 {
-    "hash_code": "f1f77bcf86cd7994",
-    "salt": "f1f77bcf86cd7994",
+    "uuid": "f1f77bcf86cd7994",
     "first_name": "Lorem",
     "last_name": "Lorem",
     "address": "Lorem",
     "email": "Lorem",
-    "doctors": [
+    "initiators": [
         ObjectId("1")
     ],
     "results": [
@@ -92,7 +94,8 @@ list what you wanna say
             "answer": 66
         }
     ],
-    "_id": ObjectId("1")
+    "_id": ObjectId("1"),
+    "role":"patient"
 }
 ```
 
