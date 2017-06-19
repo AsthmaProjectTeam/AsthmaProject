@@ -31,7 +31,21 @@ list what you wanna say
 ### Data Model
  Data model in this project is built on MongoDB. NoSQLå data model provide more scalable feature.
 
-1. Doctor  
+1. Initiator  
+/**
+ * This is schema for all possible initiator.
+ *
+ * @model Initiator
+ * @param {String}      username:    A unique identifier for each initiator
+ * @param {String}      email:       Contact email for initiator, should be unique
+ * @param {String}      first_name:  Personal information
+ * @param {String}      last_name:   Personal information
+ * @param {String}      hash:        Hash code for authentication
+ * @param {String}      salt:        Salt code for authentication
+ * @param {[Patient]}   patients:    A array show patients this initiator in charge of
+ * @param {Date}        created_data:The date this initiator created
+ * @param {String}      phone:       Personal information
+ * @param {String}      role:        Indicate the role. Can be 'doctor'/'nurse'/'admin'/'unknown'
 
 ```js
 {
@@ -49,6 +63,18 @@ list what you wanna say
 ```
 
 2. Patient
+/**
+ * This is schema for patient
+ *
+ * @model Patient
+ * @param {String}          uuid:       A unique identifier for patients
+ * @param {[Initiator]}     initiators: A array indicates all doctor/nurse who in charge of this patient
+ * @param {[ResultSet]}     result_set: A array show all results this patient has made
+ * @param {String}          first_name: Personal information
+ * @param {String}          last_name:  Personal information
+ * @param {String}          phone:      Personal information
+ * @param {String}          email:      Personal information
+ * @param {String}          role:       Used for Permission. Can only be 'Patient'
 ```js
 {
     "hash_code": "f1f77bcf86cd7994",
@@ -70,96 +96,47 @@ list what you wanna say
 }
 ```
 
-3. Question
-```js
-{
-    "_id": ObjectId("1"),
-    "description": "How are you feeling today",
-    "type": "option",
-    "options": [
-        {
-            "option": 1,
-            "detail": "Good"
-        }
-    ],
-    "created_time": Timestamp(1460127718,1),
-    "created_by": ObjectId("1")
-}
-```
-
-4. Flow
-```js
-{
-    "_id": ObjectId("1"),
-    "current_q": ObjectId("1"),
-    "next_q": ObjectId("2"),
-    "type": ">",
-    "value": 81
-}
-```
-
-
 
 ### API
 
-##### POST /v1/accounts/doctor
-##### POST /v1/accounts/patient
-
-##### POST /v1/oauth2/doctor/token
-##### POST /v1/oauth2/patient/token
-
-##### GET /v1/doctor/:id/profile
-##### GET /v1/doctor/:id/questions
-##### GET /v1/doctor/:id/question/:id
-##### GET /v1/doctor/:id/patients
-##### GET /v1/doctor/:id/question-set/:start_node
-
-
-
-##### POST /v1/doctor/:id/patient/add
-##### POST /v1/doctor/:id/search-question
-
-
-##### PATCH /v1/doctor/:id/profile
-##### PATCH /v1/patient/:id/profile
-
-##### GET /v1/patient/:id/profile
-##### GET /v1/patient/:id/data
-##### GET /v1/patient/:id/question-set/:start_node
-
-##### POST /v1/patient/:id/submit
+#### Account
 
 | Method        | URL           			 | Description  |
 | ------------- |:-------------:			 | -----:|
-| POST      	| /v1/accounts/doctor 		 | create a doctor account |
-| POST    		| /v1/accounts/patient       | create a patient account |
-| POST 			| /v1/oauth2/doctor/token    | authenticate doctor a token  |
-| POST 			| /v1/oauth2/patient/token   | authenticate patient a token  |
+| POST      	| /v2/accounts/initiator 	 |Create a Initiator |
+| GET    		| /v2/accounts/patient/register/temp-token       | Initiator create a temp token for patient registration|
+| POST 			| /v2/accounts/patients/register    | Create a Patient account  |
+| PATCH 			| /v2/accounts/patients/:uuid/profile/update   | Update a Patient account  |
+|POST| /v2/accounts/initiator/login|Initiator Login|
+|GET|/v2/accounts/patients/:uuid/login/temp-token|Initiator generate temp token(used for QRcode) authenticate user to login|
+|PATCH|v2/accounts/patients/login|Patient Relogin with help of initiator.|
 
---------
-| Method        | URL           				 			| Description  |
-| ------------- |:-------------:				 			| -----:|
-| GET	      	| /v1/doctor/:id/profile		 			| get profile of a doctor with id |
-| GET    		| /v1/doctor/:id/questions       			| get all questions created by a doctor |
-| GET 			| /v1/doctor/:id/question/:id    			| query a question with id |
-| GET 			| /v1/doctor/:id/patients					| get all patients under a doctor  |
-| POST	      	| /v1/doctor/:id/patient/add				| doctor meet a new patient |
-| POST	      	| /v1/doctor/:id/search-question		 	| doctor query a question by keywords |
-| PATCH			| /v1/doctor/:id/profile					| update doctor's profile		|
----
-| Method        | URL           				 			| Description  |
-| ------------- |:-------------:				 			| -----:|
-| GET	      	| /v1/patient/:id/profile		 			| get patient's profile |
-| PATCH			| /v1/patient/:id/profile					| update patient's profile		|
-| GET    		| /v1/patient/:id/data       				| show patient's result set |
-| GET 			| /v1/patient/:id/question-set/:start_node  | query question set start from start node |
-| POST 			| /v1/patient/:id/submit					| patient submit  |
----
+#### Initiator
+| Method        | URL           			 | Description  |
+| ------------- |:-------------:			 | -----:|
+|GET|/v2/initiator/:id/profile|Get a Initiator's profile by ID|
+|PATCH|/v2/initiator/:id/profile|Update a Initiator Profile by ID|
+|POST|/v2/initiator/:id/patients/add|Append/Add a patient to Initiator|
+|POST|/v2/initiator/:id/patients/export|Export patients result set to Excel|
+
+#### Paitient
+| Method        | URL           			 | Description  |
+| ------------- |:-------------:			 | -----:|
+|POST|/v2/patients/:uuid/pain-check/results|Upload patient's pain check result|
+|GET|/v2/patients/:uuid/results| GET all results of a patient|
 
 
+#### Question
+| Method        | URL           			 | Description  |
+| ------------- |:-------------:			 | -----:|
+|POST|/v2/questions/create|Create a Question|
+|GET|/v2/questions/|Query a question|
+|POST|/v2/question-set/create|Create a Question Set|
+|GET|/v2/question-set/:id|GET a Question Set by ID|
+
 ---
-#### POST/v1/accounts/doctor
-Create a doctor account. If success, client will receive 200 with created username.
+#### POST/v2/accounts/initiator
+Create a doctor account. If success, client will receive 200 with created username and json web token.
 
 ##### Resource Information
 | 			     			| 		 			|
@@ -170,7 +147,7 @@ Create a doctor account. If success, client will receive 200 with created userna
 
 ##### Sample Request
 ```
-curl --post --include 'https://localhost/v1/accounts/doctor'
+curl --post --include 'https://localhost/v2/accounts/initiator'
 -H 'Accept: application/json' -d {data.json}
 ```
 ##### Sample Request Data
@@ -200,54 +177,130 @@ curl --post --include 'https://localhost/v1/accounts/doctor'
 | ------------- 			|:-------------:										|
 | 400    					| Invalid request data format. Recheck validation again	|
 
-----------
-
-
-##### POST /v1/accounts/patient
-Create a new patient information. Registion of patient need authntication of doctor. 
-
+##### Sample Response Data
+```js
+{
+	"username": "test",
+    "token":	"****this is json web token***"
+}
+```
+------------------------------------------------------------
+#### GET /v2/accounts/patient/register/temp-token
+Initiator create a temp token for patient registration
 ##### Resource Information
 | 			     			| 		 			|
 | ------------- 			|:-------------:	|
 | Response formats    		| JSON	 			|
 | Requires authentication?  | YES     			|
-| Rate limited? 			| / 				| 
+| Rate limited? 			| / | 
 
 ##### Sample Request
 ```
-curl --post --include 'https://localhost/v1/accounts/patient'
--H 'Accept: application/json' -H 'token: {json web token}' -d {data.json}
+curl --get --include 'https://localhost/v2/accounts/patient/register/temp-token'
+-H 'Accept: application/json' 
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 401    					| Unauthorized User			|
+| 500    					| Internal Database Error								|
+
+##### Sample Response Data
+```js
+{
+    "token":	"****this is json web token***"
+}
+```
+------------------------------------------------------------
+#### POST /v2/accounts/patients/register
+Create a Patient account. Need temporary JWT for authentication.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/accounts/patients/register'
+-H 'Accept: application/json' -d {data.json}
 ```
 ##### Sample Request Data
 ```js
 {
-  "username":		"patient",
-  "first_name":		"mike",
-  "last_name":		"L",
-  "email":			"mike.L@mail.com",
-  "password":		"qqq111!"
-  "phone":			"6121236523"
+  "uuid": "*****uuid****"
 }
 ```
 ##### Request Data Validation
 
 | 		Field 			| 		 	Description 						| Required	| 		 			
 | ------------- 		|:-------------:								|:----		|
-| username    			| consists of letters and number, length: 5-10m	|true		|
-| password  			| \validation update in future\     			|true		|
+| uuid	    			| in the form of uuidv4/uuidv5					|true		|
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
+```js
+{
+    "token":	"****this is json web token***"
+}
+```
+------------------------------------------------------------
+#### PATCH /v2/accounts/patients/:uuid/profile/update
+Initiator update patient's profile.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/accounts/patients/:uuid/profile/update'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "first_name":	"mike",
+  "last_name":	"L",
+  "email":		"mike.L@mail.com",
+  "phone":		"6121236523"
+}
+```
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
 | first_name			| consists of letters(uppercase and lower case) |true		|
 | last_name				| consists of letters(uppercase and lower case) |true		|
-| email					| valid email format							|optional	|
-| phone					| 10 digits										|optional	|
+| email					| valid email format							|true		|
+| phone					| 10 digits										|true		|
 
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
 | ------------- 			|:-------------:										|
 | 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
 
----
-
-#### POST /v1/oauth2/doctor/token
+##### Sample Response Data
+```js
+{
+	"uuid": "******uuid****",
+  "first_name":	"mike",
+  "last_name":	"L",
+  "email":		"mike.L@mail.com",
+  "phone":		"6121236523"
+}
+```
+------------------------------------------------------------
+#### POST /v2/accounts/initiator/login
 Doctor login with token. If success, it will return a valid json web token and doctor's id
 ##### Resource Information
 | 			     			| 		 			|
@@ -257,7 +310,7 @@ Doctor login with token. If success, it will return a valid json web token and d
 | Rate limited? 			| / 				| 
 ##### Sample Request
 ```
-curl --post --include 'https://localhost/v1/oauth2/doctor/token'
+curl --post --include 'https://localhost/v2/accounts/initiator/login'
 -H 'Accept: application/json' -d {data.json}
 ```
 ##### Sample Request Data
@@ -280,65 +333,311 @@ curl --post --include 'https://localhost/v1/oauth2/doctor/token'
 | 400    					| Invalid request data format. Recheck validation again	|
 | 401    					| Username doesn't exist or invalid password			|
 | 500    					| Internal Database Error								|
-
----
-#### POST /v1/oauth2/patient/token
-Patient login with token. If success, it will return a valid json web token.
+------------------------------------------------------------
+#### GET /v2/accounts/patients/:uuid/login/temp-token
+Initiator generate temp token(used for QRcode) authenticate user to login. Token include current patient's uuid.
 ##### Resource Information
 | 			     			| 		 			|
 | ------------- 			|:-------------:	|
 | Response formats    		| JSON	 			|
-| Requires authentication?  | NO    			|
-| Rate limited? 			| / 				| 
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
 ##### Sample Request
 ```
-curl --post --include 'https://localhost/v1/oauth2/patient/token'
+curl --get --include 'https://localhost/v2/accounts/patients/:uuid/login/temp-token'
+-H 'Accept: application/json' 
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 401    					| Unauthorized User			|
+| 500    					| Internal Database Error								|
+
+##### Sample Response Data
+```js
+{
+    "token":	"****this is json web token***"
+}
+```
+------------------------------------------------------------
+#### PATCH /v2/accounts/patients/login
+Patient Relogin via QRCode. Need temporary JWT for authentication.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/accounts/patients/register'
 -H 'Accept: application/json' -d {data.json}
 ```
 ##### Sample Request Data
 ```js
 {
-  "username":		"patient",
-  "password":		"qqq111!"
+  "uuid": "*****uuid****"
 }
 ```
 ##### Request Data Validation
+
 | 		Field 			| 		 	Description 						| Required	| 		 			
 | ------------- 		|:-------------:								|:----		|
-| username    			| consists of letters and number, length: 5-10m	|true		|
-| password  			| \												|true		|
+| uuid	    			| Patient's new uuid in the form of uuidv4/uuidv5|true		|
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
+```js
+{
+    "token":	"****this is json web token***"
+}
+```
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+#### POST /v2/questions/create
+Patient Relogin via QRCode. Need temporary JWT for authentication.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/questions/create'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "app": "pain_check",
+  "type":"option",
+  "option":[
+  		{"key":"A", "value":"Yes"},
+        {"key":"B",  "value":"No"},
+  ]
+}
+```
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
+| app	    			| application which this question below to/must be a string|true		|
+|description|the main part of question. required for all question|true|
+|type|question type; used for client render question|true|
+|option|only required when "type" is "option";indicate options|false|
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
+```js
+{
+    "question":{
+    	"_id":1
+    	"author":1,
+        "app":"pain_check",
+        "description":"How are you feeling today",
+        "type":"option",
+        "option":[
+              {"key":"A", "value":"Yes"},
+              {"key":"B",  "value":"No"},
+        ],
+        "created_date":"2017-06-18"
+    }
+}
+```
+------------------------------------------------------------
+#### GET /v2/questions/
+Query a question
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/questions/?id=1'
+-H 'Accept: application/json' 
+```
+##### Optional Query
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+|id|id number of question|
+|--|||
 
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
 | ------------- 			|:-------------:										|
 | 400    					| Invalid request data format. Recheck validation again	|
-| 401    					| Username doesn't exist or invalid password			|
+| 401    					| No token/Invalid token		|
 | 500    					| Internal Database Error								|
-
----
-#### POST /v1/oauth2/patient/qrcode
-Patient login with QR Code.
-
-##### Not Implement yet
-
-
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
-
-#### GET /v1/doctor/:id/profile
-Retrive a doctor's profile
+##### Sample Response Data
+```js
+{
+    "question":{
+    	"_id":1
+    	"author":1,
+        "app":"pain_check",
+        "description":"How are you feeling today",
+        "type":"option",
+        "option":[
+              {"key":"A", "value":"Yes"},
+              {"key":"B",  "value":"No"},
+        ],
+        "created_date":"2017-06-18"
+    }
+}
+```
+------------------------------------------------------------
+#### POST /v2/question-set/create
+Create a Question Set
 ##### Resource Information
 | 			     			| 		 			|
 | ------------- 			|:-------------:	|
 | Response formats    		| JSON	 			|
-| Requires authentication?  | YES    			|
-| Rate limited? 			| / 				| 
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
 ##### Sample Request
 ```
-curl --get --include 'https://localhost/v1/doctor/:id/profile'
--H 'Accept: application/json'
+curl --post --include 'https://localhost/v2/question-set/create'
+-H 'Accept: application/json' -d {data.json}
 ```
-##### Sample Response
+##### Sample Request Data
+```js
+{
+  "content":[
+  	{
+    	"question":1,
+        "end_question":false,
+        "next_question":[
+        	{
+            	"question_id":"2",
+                "prerequisite":{
+                	"option":"A"
+                }
+            },
+            {
+            	"question_id":"3",
+                "prerequisite":{
+                	"option":"B"
+                }
+            }
+        ]
+    },
+    {
+    	"question":2,
+        "end_question":true
+    },
+    {
+        "question":3,
+        "end_question":true
+    }
+  ]
+}
+```
+specifically, for "prerequisite" field, we can choose one of  them:
+```js
+"prerequisite":{
+"option":"A"
+},
+"prerequisite":{
+"value":52
+},
+"prerequisite":{
+"interval":{
+	"interval":[0,50],
+    "left_close":true,
+    "right_close":true
+    }
+},
+"prerequisite":{
+  "greater_than":{
+      "value":52,
+      "include_value":true
+  }
+ }
+"prerequisite":{
+  "less_than":{
+      "value":52,
+      "include_value":true
+  }
+ }
+
+```
+
+
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
+
+|option|only required when "type" is "option";indicate options|false|
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
+Same as request data
+------------------------------------------------------------
+#### GET /v2/question-set/:id
+GET a Question Set by ID
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --get --include 'https://localhost/v2/question-set/1'
+-H 'Accept: application/json' 
+```
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
+```js
+
+```
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+#### GET /v2/initiator/:id/profile
+Get a Initiator's profile by ID
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator himself)     			|
+| Rate limited? 			| / | 
+##### Sample Request
+```
+curl --get --include 'https://localhost/v2/initiator/:id/profile'
+-H 'Accept: application/json' 
+```
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| No token/Invalid token		|
+| 500    					| Internal Database Error								|
+##### Sample Response Data
 ```js
 {
 	"username":		"doctor",
@@ -350,95 +649,211 @@ curl --get --include 'https://localhost/v1/doctor/:id/profile'
     				 {_id:2,  username:"bell}]
 }
 ```
-##### Error and status codes
-| Status Code	   			| 	Meaning	 											|
-| ------------- 			|:-------------:										|
-| 401    					| User is not authenticated								|
-| 403    					| User does not have authorization to access a specific resource|
-
-------------------------------------------------------------------------------------------------
-#### PATCH /v1/doctor/:id/profile
-#### PATCH /v1/patient/:id/profile
-This two endpoints are used to update doctor/patient basic profile. Note: it's not used to update password.
+------------------------------------------------------
+#### PATCH /v2/initiator/:id/profile
+Update a Initiator Profile by ID
 ##### Resource Information
 | 			     			| 		 			|
 | ------------- 			|:-------------:	|
 | Response formats    		| JSON	 			|
-| Requires authentication?  | YES    			|
-| Rate limited? 			| / 				| 
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
 ##### Sample Request
 ```
-curl --patch --include 'https://localhost/v1/accounts/patient/1'
+curl --post --include 'https://localhost/v2/initiator/:id/profile'
 -H 'Accept: application/json' -d {data.json}
 ```
+##### Sample Request Data
+```js
+{
+  "first_name":	"mike",
+  "last_name":	"L",
+  "email":		"mike.L@mail.com",
+  "phone":		"6121236523"
+}
+```
 ##### Request Data Validation
+
 | 		Field 			| 		 	Description 						| Required	| 		 			
 | ------------- 		|:-------------:								|:----		|
-| first_name    		| 												|optional	|
-| last_name				| 												|optional	|
-| email		    		| 												|optional	|
-| phone					| 												|optional	|
+| first_name			| consists of letters(uppercase and lower case) |true		|
+| last_name				| consists of letters(uppercase and lower case) |true		|
+| email					| valid email format							|true		|
+| phone					| 10 digits										|true		|
+
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
 | ------------- 			|:-------------:										|
 | 400    					| Invalid request data format. Recheck validation again	|
 | 401    					| User is not authenticated								|
 | 403    					| User can't access target user's profile				|
-| 500    					| Internal Database Error								|
-<span style="color:red"> Doctor should have access to their patientS. Patients themselvies can access. Currently, we allow any user to update profile</span>
 
-------------------------------------------------------------------------------------------------
-#### POST /v1/doctor/:id/patient/add
-Append a new patient to doctor's patient lists. Pair Doctor and Patient.
-##### Resource Information
-| 			     			| 		 			|
-| ------------- 			|:-------------:	|
-| Response formats    		| JSON	 			|
-| Requires authentication?  | YES    			|
-| Rate limited? 			| / 				| 
-##### Sample Request
-```
-curl --patch --include 'https://localhost/v1/doctor/:id/patient/add'
--H 'Accept: application/json' -d {data.json}
-```
-##### Request Data Validation
-| 		Field 			| 		 	Description 						| Required	| 		 			
-| ------------- 		|:-------------:								|:----		|
-| patient_id    		|must be a valid patient ID						|true		|
-
-------------------------------------------------------------------------------------------------
-
-#### GET /v1/doctor/:id/questions
-Retrieve all questions created by this doctor
-Retrive a doctor's profile
-##### Resource Information
-| 			     			| 		 			|
-| ------------- 			|:-------------:	|
-| Response formats    		| JSON	 			|
-| Requires authentication?  | YES    			|
-| Rate limited? 			| / 				| 
-##### Sample Request
-```
-curl --get --include 'https://localhost/v1/doctor/:id/profile'
--H 'Accept: application/json'
-```
-##### Sample Response
+##### Sample Response Data
 ```js
 {
-	"username":		"doctor",
-  	"first_name":	"mike",
-  	"last_name":	"L",
-  	"email":		"mike.L@mail.com",
-  	"phone":		"6121236523"
-    "patients":		[{_id:1 , username:"nick"},
-    				 {_id:2,  username:"bell}]
+  "first_name":	"mike",
+  "last_name":	"L",
+  "email":		"mike.L@mail.com",
+  "phone":		"6121236523"
 }
 ```
+------------------------------------------------------
+#### PATCH /v2/initiator/:id/patients/add
+Append/Add a patient to Initiator
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/:id/patients/add'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "uuid": "*****uuid****"
+```
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
+| uuid	    			| Patient's new uuid in the form of uuidv4/uuidv5|true		|
+
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
 | ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
 | 401    					| User is not authenticated								|
-| 403    					| User does not have authorization to access a specific resource|
+| 403    					| User can't access target user's profile				|
+
+##### Sample Response Data
+```js
+"success"
+```
+------------------------------------------------------
+#### GET /v2/initiator/:id/patients/export
+Update a Initiator Profile by ID
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/:id/patients/export/?id=1'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Optional Query
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+|id|id number of patient|
+|--|||
+
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+#### POST /v2/patients/:uuid/results
+Upload patient's result
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/patients/:uuid/results'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "app":"pain_check",
+  "answer_set":[
+  	{"question_id":1, "answer":5}
+  ],
+  "timestamp":"2017-06-19T14:44:54+00:00"
+}
+```
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
+
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+
+##### Sample Response Data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+
+
+
+
+
+
+
+
+
 
 ---------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
