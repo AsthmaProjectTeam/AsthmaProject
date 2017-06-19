@@ -7,7 +7,7 @@ let Initiator           = require('../../models/initiator-model'),
     initiatorAuth       = require('../../utils/initiator-auth'),
     jwt                 = require('jsonwebtoken'),
     Joi                 = require('joi'),
-    Patient             = require('../../models/patient_qrcode'),
+    Patient             = require('../../models/patient-model'),
     tempAuth            = require('../../utils/temp-auth');
 
 module.exports = app => {
@@ -214,12 +214,12 @@ module.exports = app => {
     });
 
     /**
-     * Patient Relogin with help of initiator.
+     * Patient Relogin via QRCode.
      *
      * @param {req.body.uuid} new UUID of Patient
      * @return {token} Return json web token
      */
-    app.patch('v2/accounts/patients/login', tempAuth, (req, res)=>{
+    app.patch('/v2/accounts/patients/login', tempAuth, (req, res)=>{
         const new_patient_uuid       = req.body.uuid;
         const old_patient_uuid       = req.user.patient_uuid;
         Patient.findOne({uuid:old_patient_uuid},(err, patient)=>{

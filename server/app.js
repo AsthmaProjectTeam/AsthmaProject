@@ -9,8 +9,7 @@ let path            = require('path'),
     mongoose        = require('mongoose'),
     autoIncrement   = require('mongoose-auto-increment'),
     uuid            = require('uuid'),
-    cookieParser    = require('cookie-parser'),
-    socketRoute     = require('./api/v2/socket');
+    cookieParser    = require('cookie-parser');
 
 let port = process.env.PORT ? process.env.PORT : 8080;
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
@@ -36,7 +35,7 @@ app.set('views', __dirname);
 
 // Connect to mongoBD
 let options = { promiseLibrary: require('bluebird') };
-mongoose.connect('mongodb://127.0.0.1:32768/asthma', options, err => {
+mongoose.connect('mongodb://asthma:123456@ds131512.mlab.com:31512/asthma', options, err => {
     if (err) console.log(err);
     else console.log('\t MongoDB connected');
 });
@@ -46,22 +45,25 @@ autoIncrement.initialize(mongoose.connection);
 
 // Import our Data Models
 app.models = {
-    Doctor: require('./models/initiator-model'),
+    Initiator: require('./models/initiator-model'),
     Patient: require('./models/patient-model'),
-    Question: require('./models/backup/question'),
-    Flow: require('./models/backup/flow'),
+    Question: require('./models/question-model'),
+    QuestionSet: require('./models/question-set-model'),
 };
 // Import our API Routes
 require('./api/v2/account-api')(app);
+require('./api/v2/initiator-api')(app);
+require('./api/v2/patient-api')(app);
+require('./api/v2/question-api')(app);
 
 /**********************************************************************************************************/
 // Give them the SPA base page
-// app.get('*', (req, res) => {
-//     res.render('base.pug', {});
-// });
-app.get('*', socketRoute.foo, function(req, res){
-    res.sendFile(__dirname+'/socket-test.html');
+app.get('*', (req, res) => {
+    res.render('base.pug', {});
 });
+// app.get('*', socketRoute.foo, function(req, res){
+//     res.sendFile(__dirname+'/socket-test.html');
+// });
 
 /**********************************************************************************************************/
 

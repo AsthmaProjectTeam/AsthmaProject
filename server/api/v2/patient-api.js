@@ -9,14 +9,14 @@ let Patient             = require('../../models/patient-model'),
 module.exports = app => {
 
     /**
-     * Upload patient's pain check result
+     * Upload patient's result
      *
      * @param {req.params.uuid} uuid of patient
      * @param {req.body.pain_level} pain level of  patient
      * @param {req.body.context} context of this pain level check
      * @return {object} Return profile object
      */
-    app.post('/v2/patients/:uuid/pain-check/results', patientAuth, (req, res)=>{
+    app.post('/v2/patients/:uuid/results', patientAuth, (req, res)=>{
         if(req.params.uuid != req.user.uuid) res.status(403).send('You can not access this');
         const schema = Joi.object().keys({
             pain_level: Joi.number().min(0).max(10).required(),

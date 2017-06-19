@@ -76,7 +76,7 @@ module.exports = app => {
      * @param {req.body.uuid} uuid of a patient
      * @return {object} Return success
      */
-    app.post('/v2/initiator/:id/patients/add',initiatorAuth,(req, res)=>{
+    app.patch('/v2/initiator/:id/patients/add',initiatorAuth,(req, res)=>{
         if(req.params.id != req.user._id) res.status(403).send('You can not access this');
         else{
             let schema = Joi.object().keys({

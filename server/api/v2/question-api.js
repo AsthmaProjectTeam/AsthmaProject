@@ -6,14 +6,14 @@ let Initiator           = require('../../models/initiator-model'),
     initiatorAuth       = require('../../utils/initiator-auth'),
     jwt                 = require('jsonwebtoken'),
     Joi                 = require('joi'),
-    Patient             = require('../../models/patient_qrcode'),
+    Patient             = require('../../models/patient-model'),
     tempAuth            = require('../../utils/temp-auth'),
     Question            = require('../../models/question-model'),
     QuestionSet         = require('../../models/question-set-model');
 
 module.exports = app => {
     /**
-     * Create a Question
+     * Initiator Create a Question
      *
      * @param {req.body.app} Application this question below to
      * @param {req.body.type} Type of this question
@@ -24,8 +24,9 @@ module.exports = app => {
     app.post('/v2/questions/create', initiatorAuth, (req, res)=>{
        const initiator = req.user;
        const schema = Joi.object().keys({
-           app:     Joi.string().required(),
-           type:    Joi.string().required(),
+           app:         Joi.string().required(),
+           type:        Joi.string().required(),
+           description: Joi.string.required(),
            options: Joi.object().keys({
                 key:    Joi.string().required(),
                 value:  Joi.string().required(),
@@ -37,7 +38,7 @@ module.exports = app => {
                const message = err.details[0].message;
                res.status(400).send({error: message});
            } else {
-               let question = Question(req.body);
+               let question = Question(data);
                question.author = initiator;
                question.save( err=>{
                  if(err) res.status(500).send('Internal Database Error');
@@ -95,7 +96,7 @@ module.exports = app => {
                                     option:   Joi.string(),
                                     value:    Joi.number(),
                                     interval: Joi.object.keys({
-                                        range: {type: [Joi.number()]},
+                                        range: {type: [Joi.number()].length(2)},
                                         left_close: {type: Joi.boolean().required()},
                                         right_close: {type: Joi.boolean().required()},
                                     }),
@@ -148,7 +149,5 @@ module.exports = app => {
            }
        })
     });
-
-
 
 };
