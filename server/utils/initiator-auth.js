@@ -5,6 +5,7 @@ let jwt  = require('jsonwebtoken');
 function initiatorAuth(req, res, next) {
     try {
         let dec = jwt.verify(req.headers.authorization.split(' ')[1], process.env.SECRET_KEY);
+        console.log(dec._doc);
         assert(['nurse','doctor', 'admin'].includes( dec._doc.role));
         req.user = dec._doc;
         next();

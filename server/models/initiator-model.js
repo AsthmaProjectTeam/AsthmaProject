@@ -47,7 +47,7 @@ let Initiator = new Schema({
     ],
     "created_date": { type: Date, default:Date.now},
     "phone":        {type:String, required: true},
-    "role":         {type:String, enum:['nurse','doctor','admin','unknown'], default:'unknown'}
+    "role":         {type:String, enum:['nurse','doctor','admin'], default:'nurse'}
 });
 
 Initiator.virtual('password').set(function(password) {
