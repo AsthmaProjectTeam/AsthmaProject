@@ -16,7 +16,7 @@ let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
 
 console.log(uuid.v4());
 //process.env.SECRET_KEY = uuid.v4();
-process.env.SECRET_KEY = 'test111';
+process.env.SECRET_KEY = 'test222';
 
 /**********************************************************************************************************/
 
@@ -56,6 +56,7 @@ require('./api/v2/account-api')(app);
 require('./api/v2/initiator-api')(app);
 require('./api/v2/patient-api')(app);
 require('./api/v2/question-api')(app);
+require('./api/v2/admin-api')(app);
 
 /**********************************************************************************************************/
 // Give them the SPA base page

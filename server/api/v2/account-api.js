@@ -40,7 +40,7 @@ module.exports = app => {
                 let initiator = new Initiator(data);
                 initiator.save((err)=>{
                     if(err){
-                        res.status(400).send({err});
+                        res.status(500).send('Internal Database Error');
                     }
                     else {
                         const token = jwt.sign(initiator, process.env.SECRET_KEY, {
@@ -93,22 +93,33 @@ module.exports = app => {
                 Initiator.findOne({username:initiator_username}, (err, initiator)=>{
                     if(err) res.status(500).send({err});
                     else {
-                        let patient = new Patient(data);
-                        patient.initiators.push(initiator);
-                        patient.save((err)=>{
-                            if(err) res.status(500).send({err});
-                            else{
-                                //TODO: May exist atomic update problem
-                                initiator.patients.push(patient);
-                                initiator.save(err=>{
-                                    if(err) res.status(500).send({err});
-                                    else{
-                                        const token = jwt.sign(patient, process.env.SECRET_KEY, {
-                                            expiresIn: "12h",
-                                        });
-                                        res.status(200).send({token});
-                                    }
-                                })
+                        Patient.findOne({uuid:data.uuid}, (err,patient)=>{
+                            if(err) res.status(500).send('Internal Database Error');
+                            else {
+
+                                if(patient){
+                                    res.status(400).send('Duplicate Patient');
+                                }
+                                else {
+                                    let patient = new Patient(data);
+                                    patient.initiators.push(initiator);
+                                    patient.save((err)=>{
+                                        if(err) res.status(500).send('Internal Database Error');
+                                        else{
+                                            //TODO: May exist atomic update problem
+                                            initiator.patients.push(patient);
+                                            initiator.save(err=>{
+                                                if(err) res.status(500).send({err});
+                                                else{
+                                                    const token = jwt.sign(patient, process.env.SECRET_KEY, {
+                                                        expiresIn: "12h",
+                                                    });
+                                                    res.status(200).send({token});
+                                                }
+                                            })
+                                        }
+                                    });
+                                }
                             }
                         });
                     }
@@ -120,14 +131,14 @@ module.exports = app => {
     /**
      * Update a Patient account
      *
-     * @param {req.params.uuid} Unique uuid of the user
+     * @param {req.params.id} id of the user
      * @param {req.body.first_name}
      * @param {req.body.last_name}
      * @param {req.body.email}
      * @param {req.body.phone}
      * @return {200, {patient}} Return updated patient profile
      */
-    app.patch('/v2/accounts/patients/:uuid/profile/update', initiatorAuth, (req, res)=>{
+    app.patch('/v2/accounts/patients/:id/profile/update', initiatorAuth, (req, res)=>{
         let schema = Joi.object().keys({
             first_name: Joi.string().regex(/^[a-zA-Z]*$/).required(),
             last_name:  Joi.string().regex(/^[a-zA-Z]*$/).required(),
@@ -139,11 +150,11 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Patient.update({uuid:req.params.uuid}, {$set:data}, (err, patient)=>{
-                    if(err) res.status(500).send({err});
+                Patient.update({_id:req.params.id}, {$set:data}, (err, patient)=>{
+                    if(err) res.status(500).send("Internal Database Error");
                     else {
                         if (patient.length>0) res.status(200).send(patient);
-                        else res.status(401).send("Invalid UUID");
+                        else res.status(401).send("Invalid ID");
                     }
                 })
             }
@@ -193,20 +204,20 @@ module.exports = app => {
      * @param {req.params.uuid} Username for authentication
      * @return {200, {patient}} Return updated patient profile
      */
-    app.get('/v2/accounts/patients/:uuid/login/temp-token', initiatorAuth,(req, res)=>{
-        Patient.findOne({uuid:req.params.uuid},(err,patient)=>{
+    app.get('/v2/accounts/patients/:id/login/temp-token', initiatorAuth,(req, res)=>{
+        Patient.findOne({_id:req.params.id},(err,patient)=>{
             if(err) res.status(500).send('Internal Error with Database');
             else {
                 if(patient){
                     const temp_user = {
-                        patient_uuid:   req.params.uuid,
+                        patient_uuid:   patient.uuid,
                         role:           'temp,'
                     };
                     const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
                         expiresIn: '30s',
                     });
                 }
-                else res.status(400).send('UUID dose not match any user')
+                else res.status(400).send('ID dose not match any user')
             }
         });
     });

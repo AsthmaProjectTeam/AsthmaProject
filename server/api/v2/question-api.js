@@ -84,27 +84,27 @@ module.exports = app => {
      */
     app.post('/v2/question-set/create', initiatorAuth, (req,res)=>{
         const initiator = req.user;
-        const schema = Joi.object.keys({
+        const schema = Joi.object().keys({
                 content: Joi.array().items(
-                    Joi.object.keys({
+                    Joi.object().keys({
                         question:       Joi.number(),
                         end_question:   Joi.boolean().required(),
                         next_question: Joi.array().items(
                             Joi.object().keys({
-                                question_id:  Joi.number.required(),
-                                prerequisite: Joi.object.keys({
+                                question_id:  Joi.number().required(),
+                                prerequisite: Joi.object().keys({
                                     option:   Joi.string(),
                                     value:    Joi.number(),
-                                    interval: Joi.object.keys({
-                                        range: {type: [Joi.number()].length(2)},
+                                    interval: Joi.object().keys({
+                                        range: {type: Joi.array().items(Joi.number()).length(2)},
                                         left_close: {type: Joi.boolean().required()},
                                         right_close: {type: Joi.boolean().required()},
                                     }),
-                                    greater_than: Joi.object.keys({
+                                    greater_than: Joi.object().keys({
                                         value:        {type:Joi.number()},
                                         include_value:{type:Joi.boolean().required()},
                                     }),
-                                    less_than:    Joi.object.keys({
+                                    less_than:    Joi.object().keys({
                                         value:        {type:Joi.number()},
                                         include_value:{type:Joi.boolean().required()},
                                     }),
@@ -137,7 +137,7 @@ module.exports = app => {
      * @param {req.params.id} Array of question flow
      * @return {200, {username,token}} Return username and json web token
      */
-    app.get('/v2/question-set/:id', initiatorAuth, (req,res)=>{
+    app.get('/v2/question-set/:id', (req,res)=>{
        const id = req.params.id;
        QuestionSet.findById(id, (err, question_set)=>{
            if(err) res.status(500).send('Internal Database Error');

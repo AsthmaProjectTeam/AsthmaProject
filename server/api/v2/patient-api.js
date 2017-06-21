@@ -16,8 +16,7 @@ module.exports = app => {
      * @param {req.body.context} context of this pain level check
      * @return {object} Return profile object
      */
-    app.post('/v2/patients/:id/results', patientAuth, (req, res)=>{
-        if(req.params.uuid != req.user.uuid) res.status(403).send('You can not access this');
+    app.post('/v2/patients/results', patientAuth, (req, res)=>{
         const schema = Joi.object().keys({
             pain_level: Joi.number().min(0).max(10).required(),
             context:    Joi.string().required,
@@ -53,26 +52,28 @@ module.exports = app => {
      *
      * @return {object} Return profile object
      */
-    app.get('/v2/patients/:id/results', patientAuth, (req, res)=>{
-        if(req.params.uuid != req.user.uuid) res.status(403).send('You can not access this');
-        else {
-            if (req.query.context){
-                // if(!QUESTION_CONTEXT.CONTEXT.includes(req.query.context)){
-                //     res.status(400).send("Invalid Query Request!");
-                // }
-                // else {
-                Patient.findOne({_id:req.params.id},(err, patient)=>{
-                    if(err) res.status(401).send({err});
-                    else res.status(200).send(patient.result_set[req.query.context]);
-                });
-                //}
-            } else {
-                Patient.findOne({_id:req.params.id},(err, patient)=>{
-                    if(err) res.status(401).send({err});
-                    else res.status(200).send(patient.result_set);
-                });
-            }
+    app.get('/v2/patients/results', patientAuth, (req, res)=>{
+        if (req.query.context){
+            // if(!QUESTION_CONTEXT.CONTEXT.includes(req.query.context)){
+            //     res.status(400).send("Invalid Query Request!");
+            // }
+            // else {
+            res.status(200).send(req.user.result_set[req.query.context])
+            //}
+        } else {
+            res.status(200).send(req.user.result_set)
         }
+
+    });
+
+
+    /**
+     * GET a patient's profile via jwt
+     *
+     * @return {object} Return profile object
+     */
+    app.get('/v2/patients/profile',patientAuth, (req, res)=>{
+        res.status(200).send(req.user);
     });
 
 

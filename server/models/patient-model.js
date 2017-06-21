@@ -48,7 +48,7 @@ const PainCheck = new Schema({
 let Patient = new Schema({
     'uuid':     {type: String, required: true, index: { unique: true } },
     "initiators":[
-                    {type: String, ref: 'Initiator' }
+                    {type: Number, ref: 'Initiator' }
     ],
     "created_date": { type: Date,       default:Date.now},
     'first_name':   { type: String                      },
@@ -59,6 +59,7 @@ let Patient = new Schema({
     //TODO: Result set can contain different key according to the context of the question
     //TODO: Should limit types of key for result_set
     'result_set':   { pain_check:[PainCheck]},
+    'question_set': {type: [Number]},
 });
 
 
