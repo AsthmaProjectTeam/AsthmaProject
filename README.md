@@ -109,24 +109,26 @@ list what you wanna say
 | POST      	| /v2/accounts/initiator 	 |Create a Initiator |
 | GET    		| /v2/accounts/patient/register/temp-token       | Initiator create a temp token for patient registration|
 | POST 			| /v2/accounts/patients/register    | Create a Patient account  |
-| PATCH 			| /v2/accounts/patients/:uuid/profile/update   | Update a Patient account  |
+| PATCH 			| /v2/accounts/patients/:id/profile/update   | Update a Patient account  |
 |POST| /v2/accounts/initiator/login|Initiator Login|
-|GET|/v2/accounts/patients/:uuid/login/temp-token|Initiator generate temp token(used for QRcode) authenticate user to login|
+|GET|/v2/accounts/patients/:id/login/temp-token|Initiator generate temp token(used for QRcode) authenticate user to login|
 |PATCH|v2/accounts/patients/login|Patient Relogin with help of initiator.|
 
 #### Initiator
 | Method        | URL           			 | Description  |
 | ------------- |:-------------:			 | -----:|
-|GET|/v2/initiator/:id/profile|Get a Initiator's profile by ID|
-|PATCH|/v2/initiator/:id/profile|Update a Initiator Profile by ID|
-|POST|/v2/initiator/:id/patients/add|Append/Add a patient to Initiator|
-|POST|/v2/initiator/:id/patients/export|Export patients result set to Excel|
+|GET|/v2/initiator/profile|Get a Initiator's profile by ID|
+|PATCH|/v2/initiator/profile|Update a Initiator Profile by ID|
+|POST|/v2/initiator/patients/add|Append/Add a patient to Initiator|
+|POST|/v2/initiator/patients/export|Export patients result set to Excel|
+|PATCH|/v2/initiator/patients/question-set|Initiator append new questions set to a patient|
 
 #### Paitient
 | Method        | URL           			 | Description  |
 | ------------- |:-------------:			 | -----:|
-|POST|/v2/patients/:uuid/pain-check/results|Upload patient's pain check result|
-|GET|/v2/patients/:uuid/results| GET all results of a patient|
+|POST|/v2/patients/pain-check/results|Upload patient's pain check result|
+|GET|/v2/patients/results| GET all results of a patient|
+|GET|/v2/patients/profile|GET a patient's profile via jwt|
 
 
 #### Question
@@ -136,6 +138,16 @@ list what you wanna say
 |GET|/v2/questions/|Query a question|
 |POST|/v2/question-set/create|Create a Question Set|
 |GET|/v2/question-set/:id|GET a Question Set by ID|
+
+#### Admin
+| Method        | URL           			 | Description  |
+| ------------- |:-------------:			 | -----:|
+|GET|/v2/admin/patients|get all patients|
+|GET|/v2/admin/initiators|get all initiators|
+|GET|/v2/admin/questions|get all questions|
+|GET|/v2/admin/question-set/:id|get all question-set|
+
+
 
 ---
 #### POST/v2/accounts/initiator
@@ -253,7 +265,7 @@ curl --post --include 'https://localhost/v2/accounts/patients/register'
 }
 ```
 ------------------------------------------------------------
-#### PATCH /v2/accounts/patients/:uuid/profile/update
+#### PATCH /v2/accounts/patients/:id/profile/update
 Initiator update patient's profile.
 ##### Resource Information
 | 			     			| 		 			|
@@ -264,7 +276,7 @@ Initiator update patient's profile.
 
 ##### Sample Request
 ```
-curl --post --include 'https://localhost/v2/accounts/patients/:uuid/profile/update'
+curl --post --include 'https://localhost/v2/accounts/patients/:id/profile/update'
 -H 'Accept: application/json' -d {data.json}
 ```
 ##### Sample Request Data
@@ -337,7 +349,7 @@ curl --post --include 'https://localhost/v2/accounts/initiator/login'
 | 401    					| Username doesn't exist or invalid password			|
 | 500    					| Internal Database Error								|
 ------------------------------------------------------------
-#### GET /v2/accounts/patients/:uuid/login/temp-token
+#### GET /v2/accounts/patients/:id/login/temp-token
 Initiator generate temp token(used for QRcode) authenticate user to login. Token include current patient's uuid.
 ##### Resource Information
 | 			     			| 		 			|
@@ -422,7 +434,8 @@ curl --post --include 'https://localhost/v2/questions/create'
 {
   "app": "pain_check",
   "type":"option",
-  "option":[
+  "description":"This is test Qustion",
+  "options":[
   		{"key":"A", "value":"Yes"},
         {"key":"B",  "value":"No"},
   ]
@@ -621,7 +634,7 @@ curl --get --include 'https://localhost/v2/question-set/1'
 ------------------------------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
-#### GET /v2/initiator/:id/profile
+#### GET /v2/initiator/profile
 Get a Initiator's profile by ID
 ##### Resource Information
 | 			     			| 		 			|
@@ -653,7 +666,7 @@ curl --get --include 'https://localhost/v2/initiator/:id/profile'
 }
 ```
 ------------------------------------------------------
-#### PATCH /v2/initiator/:id/profile
+#### PATCH /v2/initiator/profile
 Update a Initiator Profile by ID
 ##### Resource Information
 | 			     			| 		 			|
@@ -702,7 +715,7 @@ curl --post --include 'https://localhost/v2/initiator/:id/profile'
 }
 ```
 ------------------------------------------------------
-#### PATCH /v2/initiator/:id/patients/add
+#### PATCH /v2/initiator/patients/add
 Append/Add a patient to Initiator
 ##### Resource Information
 | 			     			| 		 			|
@@ -739,7 +752,7 @@ curl --post --include 'https://localhost/v2/initiator/:id/patients/add'
 "success"
 ```
 ------------------------------------------------------
-#### GET /v2/initiator/:id/patients/export
+#### GET /v2/initiator/patients/export
 Update a Initiator Profile by ID
 ##### Resource Information
 | 			     			| 		 			|
@@ -767,9 +780,44 @@ curl --post --include 'https://localhost/v2/initiator/:id/patients/export/?id=1'
 | 401    					| User is not authenticated								|
 | 403    					| User can't access target user's profile				|
 ------------------------------------------------------
+#### PATCH /v2/initiator/patients/question-set
+Initiator assign new questions set to a patient
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/patients/question-set'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Request Data Validation
+
+| 		Field 			| 		 	Description 						| Required	| 		 			
+| ------------- 		|:-------------:								|:----		|
+|patient_id|id of target patient|true|
+|q_id|id of target question set|true|
+##### Sample Request Data
+```js
+{
+  "patient_id":0,
+  "q_id":0
+}
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
 ------------------------------------------------------
 ------------------------------------------------------
-#### POST /v2/patients/:uuid/results
+------------------------------------------------------
+#### POST /v2/patients/results
 Upload patient's result
 ##### Resource Information
 | 			     			| 		 			|
