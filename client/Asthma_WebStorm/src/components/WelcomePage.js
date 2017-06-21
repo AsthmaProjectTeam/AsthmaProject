@@ -5,6 +5,10 @@ import Button from './common/Button';
 import { Actions } from 'react-native-router-flux';
 
 class WelcomePage extends Component {
+    componentWillMount(){
+
+    }
+
     onButtonPress(){
         this.props.dispatch({type: 'startButtonClicked'});
         Actions.main();

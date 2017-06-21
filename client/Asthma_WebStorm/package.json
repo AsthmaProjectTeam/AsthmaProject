@@ -9,7 +9,6 @@
   "dependencies": {
     "antd-mobile": "^1.2.0",
     "barcode-scanner": "0.0.1",
-    "firebase": "^3.9.0",
     "moment": "^2.18.1",
     "native-base": "2.1.0",
     "react": "~15.4.1",
@@ -25,6 +24,7 @@
     "react-native-radio-form": "^1.0.3",
     "react-native-router-flux": "3.38.0",
     "react-native-simple-radio-button": "^2.5.0-alpha.1",
+    "react-native-uuid": "^1.4.9",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",
@@ -34,8 +34,10 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-jest": "19.0.0",
     "babel-plugin-import": "^1.2.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-react-native": "1.9.1",
     "jest": "19.0.2",
     "react-test-renderer": "~15.4.1",
@@ -43,5 +45,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "babel": {
+    "plugins": [
+      "transform-async-to-generator"
+    ]
   }
 }

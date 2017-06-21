@@ -26,8 +26,8 @@ module.exports = app => {
        const schema = Joi.object().keys({
            app:         Joi.string().required(),
            type:        Joi.string().required(),
-           description: Joi.string.required(),
-           options: Joi.object().keys({
+           description: Joi.string().required(),
+           options: Joi.array().items({
                 key:    Joi.string().required(),
                 value:  Joi.string().required(),
                }
