@@ -14,6 +14,7 @@ let path            = require('path'),
 let port = process.env.PORT ? process.env.PORT : 8080;
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
 
+console.log(uuid.v4());
 //process.env.SECRET_KEY = uuid.v4();
 process.env.SECRET_KEY = 'test111';
 

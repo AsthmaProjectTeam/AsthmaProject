@@ -16,7 +16,7 @@ module.exports = app => {
      * @param {req.body.context} context of this pain level check
      * @return {object} Return profile object
      */
-    app.post('/v2/patients/:uuid/results', patientAuth, (req, res)=>{
+    app.post('/v2/patients/:id/results', patientAuth, (req, res)=>{
         if(req.params.uuid != req.user.uuid) res.status(403).send('You can not access this');
         const schema = Joi.object().keys({
             pain_level: Joi.number().min(0).max(10).required(),
@@ -53,7 +53,7 @@ module.exports = app => {
      *
      * @return {object} Return profile object
      */
-    app.get('/v2/patients/:uuid/results', patientAuth, (req, res)=>{
+    app.get('/v2/patients/:id/results', patientAuth, (req, res)=>{
         if(req.params.uuid != req.user.uuid) res.status(403).send('You can not access this');
         else {
             if (req.query.context){
@@ -61,13 +61,13 @@ module.exports = app => {
                 //     res.status(400).send("Invalid Query Request!");
                 // }
                 // else {
-                Patient.findOne({uuid:req.params.uuid},(err, patient)=>{
+                Patient.findOne({_id:req.params.id},(err, patient)=>{
                     if(err) res.status(401).send({err});
                     else res.status(200).send(patient.result_set[req.query.context]);
                 });
                 //}
             } else {
-                Patient.findOne({uuid:req.params.uuid},(err, patient)=>{
+                Patient.findOne({_id:req.params.id},(err, patient)=>{
                     if(err) res.status(401).send({err});
                     else res.status(200).send(patient.result_set);
                 });

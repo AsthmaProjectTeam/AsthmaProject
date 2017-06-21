@@ -53,7 +53,6 @@ module.exports = app => {
         });
     });
 
-
     /**
      * Initiator create a temp token for patient registration
      *
@@ -65,7 +64,7 @@ module.exports = app => {
            role:        "temp",
        };
        const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
-           expiresIn: '3m',
+           expiresIn: '1h',
        });
        res.status(200).send({token});
     });
@@ -158,7 +157,6 @@ module.exports = app => {
      * @param {req.body.password} Password for authentication
      * @return {200, {patient}} Return updated patient profile
      */
-    /***************** Initiator Login *******************/
     app.post('/v2/accounts/initiator/login',(req, res) => {
         let schema = Joi.object().keys({
             username:   Joi.string().alphanum().min(5).max(10).required(),
