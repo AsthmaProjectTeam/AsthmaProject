@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import Entrance from './Entrance';
-import Storage from '../../src/Storage';
 import { AsyncStorage } from 'react-native';
-import ScanScreen from './ScanScreen';
 import { Actions } from 'react-native-router-flux';
 
 class EntrancePage extends Component {
@@ -24,31 +22,36 @@ class EntrancePage extends Component {
                             Actions.auth();
                         }, 2800)
                     } else {
-                        console.log("access to saved data successfully, and saved permanent login token is: " + result);
-                        Actions.welcome();
+                        fetch('http://10.67.181.212:8080/v2/patients/profile', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `token ${result}`,
+                                'Content-Type': 'application/json',
+                            }
+                        }).then(response => response.json())
+                            .then(function (response) {
+                                AsyncStorage.getItem('uuid').then(json=>{
+                                    if(json == response.uuid){
+                                        console.log("access to saved data successfully and uuid matches");
+                                        setTimeout(() => {
+                                            console.log('cannot find saved data, be ready to scan screen');
+                                            Actions.welcome();
+                                        }, 2800)
+                                    } else {
+                                        console.log("patient's profile doesn't match, please register");
+                                        setTimeout(() => {
+                                            Actions.auth();
+                                        }, 2800)
+                                    }
+                                });
+                            }).catch((error) => {
+                            console.log('error:' + error.message);
+                        })
                     }
                 }
             ).catch((error) => {
-                console.log('error:' + error.message);
-            });
-        // storage.load({
-        //     key: 'loginToken',
-        //     autoSync: true,
-        //     syncInBackground: false
-        // }).then(ret => {
-        //     console.log("666" + ret.token);
-        //     Actions.welcome();
-        // }).catch(err => {
-        //     console.log(err.message);
-        //     switch(err.name){
-        //         case 'NotFoundError':
-        //             console.log('NotFoundError');
-        //             break;
-        //         case 'ExpiredError':
-        //             console.log('ExpiredError');
-        //             break;
-        //     }
-        // })
+            console.log('error:' + error.message);
+        });
     }
 
     _hideEntrance() {
@@ -56,12 +59,6 @@ class EntrancePage extends Component {
             show:false
         })
     }
-
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         Actions.auth();
-    //     }, 2800);
-    // }
 
     render(){
         let entrance = this.state.show? <Entrance hideThis={()=> this._hideEntrance()}/>:<View></View>

@@ -3,9 +3,6 @@
 import React, { Component } from 'react';
 import { Linking, View, Text, AsyncStorage } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import Storage from '../../src/Storage';
-import { Actions } from 'react-native-router-flux';
-//import uuid from 'react-native-uuid';
 
 class ScanScreen extends Component {
     // componentWillMount(){
@@ -26,7 +23,8 @@ class ScanScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-            token: null
+            token: null,
+            uuid: ""
         };
     }
 
@@ -40,8 +38,10 @@ class ScanScreen extends Component {
 
     onSuccess(val) {
         this.setState({
-            token:val.data
+            token:val.data,
+            uuid: this.genId()
         });
+        const saveduuid = this.state.uuid;
 
         fetch('http://10.67.181.212:8080/v2/accounts/patients/register', {
             method: 'POST',
@@ -50,24 +50,18 @@ class ScanScreen extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'uuid': this.genId()
+                'uuid': saveduuid
             })
         }).then(response => response.json())
             .then(function(response){
                 console.log('this is replied long term token: ' + response.token);
-                AsyncStorage.setItem("loginToken", response.token)
+
+                AsyncStorage.multiSet([["loginToken", response.token], ["uuid", saveduuid]])
                     .then(
                         () => {
-                            console.log("token is saved");
+                            console.log("token and uuid are saved");
                         }
                     );
-                // storage.save({
-                //     key: 'loginToken',
-                //     data: {
-                //         token: response.token
-                //     },
-                //     expires: null
-                // });
             }).catch((error) => {
                 console.error(error);
             });
@@ -77,7 +71,7 @@ class ScanScreen extends Component {
 
         return(
             <View>
-                <Text style={ [{color:"red"},{fontSize:16}] }>{this.state.token}</Text>
+                <Text style={ [{color:"red"},{fontSize:16}] }>{this.state.uuid}</Text>
                 <QRCodeScanner onRead={this.onSuccess.bind(this)}/>
             </View>
 
