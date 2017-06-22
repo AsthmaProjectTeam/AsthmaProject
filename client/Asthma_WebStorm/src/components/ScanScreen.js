@@ -1,8 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Linking, View, Text } from 'react-native';
+import { Linking, View, Text, AsyncStorage } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import Storage from '../../src/Storage';
 import { Actions } from 'react-native-router-flux';
 //import uuid from 'react-native-uuid';
 
@@ -25,7 +26,7 @@ class ScanScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-            token: 'None'
+            token: null
         };
     }
 
@@ -41,20 +42,38 @@ class ScanScreen extends Component {
         this.setState({
             token:val.data
         });
-    }
 
-    render(){
-        fetch('http://127.0.0.1:8080/v2/accounts/patients/register', {
+        fetch('http://10.67.181.212:8080/v2/accounts/patients/register', {
             method: 'POST',
             headers: {
-                'Authorization': "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhIiwicm9sZSI6InRlbXAiLCJpYXQiOjE0OTgwNjQ2NjYsImV4cCI6MTQ5ODA2ODI2Nn0.u-mTbBLmTP5Dw5KrtHvFtjR2TJIRmDAYl1pSwas9lpA",
+                'Authorization': `token ${this.state.token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 'uuid': this.genId()
             })
         }).then(response => response.json())
-            .then(response => console.log(response));
+            .then(function(response){
+                console.log('this is replied long term token: ' + response.token);
+                AsyncStorage.setItem("loginToken", response.token)
+                    .then(
+                        () => {
+                            console.log("token is saved");
+                        }
+                    );
+                // storage.save({
+                //     key: 'loginToken',
+                //     data: {
+                //         token: response.token
+                //     },
+                //     expires: null
+                // });
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
+
+    render(){
 
         return(
             <View>
