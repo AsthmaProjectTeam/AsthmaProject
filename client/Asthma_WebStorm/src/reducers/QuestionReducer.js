@@ -1,13 +1,16 @@
-import data from './question.json';
+// import data from './question.json';
 const INITIAL_STATE = {
     index: 0,
-    value: null
+    value: null,
+    questionset: []
 };
 
 export default (state=INITIAL_STATE, action) => {
+
     switch (action.type){
-        case 'startButtonClicked':
-            return {  ...state, ...data };
+        case 'getAllQuestionSets':
+
+            return {  ...state, questionset:action.payload.questionset };
         case 'nextButtonClicked':
             return { ...state, index:action.payload.index };
         case 'optionSelected' :

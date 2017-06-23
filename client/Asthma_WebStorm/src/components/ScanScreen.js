@@ -5,20 +5,6 @@ import { Linking, View, Text, AsyncStorage } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 class ScanScreen extends Component {
-    // componentWillMount(){
-    //     fetch('http://127.0.0.1:8080/v2/accounts/patients/register', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Authorization': `token ${this.state.token}`,
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             'uuid': this.genId()
-    //         })
-    //     }).then(function(response){
-    //         console.log(response);
-    //     });
-    // }
 
     constructor(props){
         super(props);
@@ -43,7 +29,7 @@ class ScanScreen extends Component {
         });
         const saveduuid = this.state.uuid;
 
-        fetch('http://10.67.181.212:8080/v2/accounts/patients/register', {
+        fetch('http://10.67.218.204:8080/v2/accounts/patients/register', {
             method: 'POST',
             headers: {
                 'Authorization': `token ${this.state.token}`,
