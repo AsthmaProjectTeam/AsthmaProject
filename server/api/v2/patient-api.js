@@ -30,6 +30,17 @@ module.exports = app => {
                 //     if(err) res.status(401).send({err});
                 //     else {
                 //TODO:May be problem(can we use req.user to save() directly?)
+                // Patient.findById(req.user._id,(err,patient)=>{
+                //     if(err) res.status(401).send('Database Error');
+                //     else {
+                //         if(patient.result_set.pain_check===null){
+                //             patient.result_set.pain_check = [data];
+                //         }else{
+                //             patient.result_set.
+                //         }
+                //     }
+                // });
+
                 if(req.user.result_set.pain_check === null){
                     req.user.result_set.pain_check = [data];
                 } else {
@@ -73,7 +84,12 @@ module.exports = app => {
      * @return {object} Return profile object
      */
     app.get('/v2/patients/profile',patientAuth, (req, res)=>{
-        res.status(200).send(req.user);
+        Patient.findById(req.user._id,(err,patient)=>{
+            if(err) res.status(401).send('Database Error');
+            else {
+                res.status(200).send({patient});
+            }
+        });
     });
 
 

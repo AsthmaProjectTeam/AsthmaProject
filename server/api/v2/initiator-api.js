@@ -176,11 +176,16 @@ module.exports = app => {
                                 if(err) res.status(500).send('Internal Server Error');
                                 else{
                                     if(q){
-                                        patient.question_set.push(data.q_id);
-                                        patient.save(err=>{
-                                            if(err) res.status(500).send('Internal Server Error');
-                                            else res.status(200).send({patient});
-                                        })
+                                        if(patient.question_set.includes(data.q_id)){
+                                            res.status(400).send('duplicate question set');
+                                        }
+                                        else{
+                                            patient.question_set.push(data.q_id);
+                                            patient.save(err=>{
+                                                if(err) res.status(500).send('Internal Server Error');
+                                                else res.status(200).send({patient});
+                                            })
+                                        }
                                     }
                                     else res.status(400).send('Question set does not exist');
                                 }
