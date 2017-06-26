@@ -112,7 +112,7 @@ module.exports = app => {
                                                 if(err) res.status(500).send({err});
                                                 else{
                                                     const token = jwt.sign(patient, process.env.SECRET_KEY, {
-                                                        expiresIn: "12h",
+                                                        expiresIn: "365d",
                                                     });
                                                     res.status(200).send({token});
                                                 }
