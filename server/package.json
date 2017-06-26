@@ -19,6 +19,7 @@
     "jade": "~1.11.0",
     "joi": "^10.5.2",
     "jsonwebtoken": "^7.4.1",
+    "jsonwebtoken-refresh": "^5.7.0",
     "mongo-xlsx": "^1.0.12",
     "mongoose": "^4.10.5",
     "mongoose-auto-increment": "^5.0.1",

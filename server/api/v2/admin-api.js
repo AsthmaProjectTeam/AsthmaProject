@@ -6,7 +6,7 @@ let Initiator                   = require('../../models/initiator-model'),
     Joi                         = require('joi'),
     mongoose                    = require('mongoose'),
     filterPrivateInformation    = require('../../utils/filterPrivate'),
-    jwt                 = require('jsonwebtoken'),
+    jwt                 = require('jsonwebtoken-refresh'),
     Patient                     = require('../../models/patient-model'),
     QuestionSet                 = require('../../models/question-set-model'),
     uuid            = require('uuid'),
@@ -49,5 +49,11 @@ module.exports = app => {
            }
        })
     });
+
+    app.get('/v2/admin/refresh', (req,res)=>{
+        const originalDecoded = jwt.decode(req.headers.authorization.split(' ')[1], {complete: true});
+        const refreshed = jwt.refresh(originalDecoded, 3600, process.env.SECRET_KEY);
+        res.status(200).send({refreshed});
+    })
 
 };
