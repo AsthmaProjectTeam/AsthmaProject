@@ -11,25 +11,19 @@ let mongoose            = require('mongoose'),
 
 /***************** Patient Model *******************/
 let Result = new Schema({
-        _id: {type: Number, required:true},
-        value: {type: Number, required:true},
+        q_id: {type: Number, required:true},
+        value: {type: String, required:true},
     },
     { _id : false }
 );
 
 let ResultSet = new Schema({
-    title: {type:String, required:true},
+    app: {type:String, required:true},
     results:{type:[Result]}
 },
     { _id : false }
 );
 
-const PainCheck = new Schema({
-    context: {type:String, required:true},
-    pain:    {type:Number, required:true, min:0, max:10},
-},
-    { _id : false }
-);
 
 
 /**
@@ -58,7 +52,8 @@ let Patient = new Schema({
     "role":         { type: String, enum:['patient'], default:'patient'},
     //TODO: Result set can contain different key according to the context of the question
     //TODO: Should limit types of key for result_set
-    'result_set':   { pain_check:[PainCheck]},
+    //'result_set':   { pain_check:[PainCheck]},
+    'previous_answer': {type: [ResultSet]},
     'question_set': {type: [Number]},
 });
 

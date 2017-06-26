@@ -28,8 +28,8 @@ module.exports = app => {
 
 
     /***************** Patient upload results *******************/
-    app.post('/v1/patient/:id/result', (req, res)=>{
-       let re = [{_id: 11, value:1},{_id: 12, value:2}] //result should be this form
+    app.post('/v1/patient/results', (req, res)=>{
+       //let re = [{_id: 11, value:1},{_id: 12, value:2}]; //result should be this form
         const result_title = 'my first q set';
         Patient.findOne({username:'patient1'}, (err, patient)=>{
            if(err) res.status(401).send({err});

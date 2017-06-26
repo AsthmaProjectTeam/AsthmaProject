@@ -9,7 +9,8 @@ let Initiator           = require('../../models/initiator-model'),
     Patient             = require('../../models/patient-model'),
     tempAuth            = require('../../utils/temp-auth'),
     Question            = require('../../models/question-model'),
-    QuestionSet         = require('../../models/question-set-model');
+    QuestionSet         = require('../../models/question-set-model'),
+    generalAuth         = require('../../utils/general-auth');
 
 module.exports = app => {
     /**
@@ -56,7 +57,7 @@ module.exports = app => {
      * @param {req.query.id} Application this question below to
      * @return {200, {question }} Return created question
      */
-    app.get('/v2/questions/', initiatorAuth, (req, res)=>{
+    app.get('/v2/questions/', generalAuth, (req, res)=>{
         const id = req.query.id;
         if(id){
             Question.findById(id, (err, question)=>{
@@ -87,7 +88,7 @@ module.exports = app => {
         const schema = Joi.object().keys({
                 content: Joi.array().items(
                     Joi.object().keys({
-                        question:       Joi.number(),
+                        question:       Joi.number().required(),
                         end_question:   Joi.boolean().required(),
                         next_question: Joi.array().items(
                             Joi.object().keys({
@@ -96,7 +97,8 @@ module.exports = app => {
                                     option:   Joi.string(),
                                     value:    Joi.number(),
                                     interval: Joi.object().keys({
-                                        range: {type: Joi.array().items(Joi.number()).length(2)},
+                                        greater_than: {type: Joi.number().required()},
+                                        less_than: {type: Joi.number().required()},
                                         left_close: {type: Joi.boolean().required()},
                                         right_close: {type: Joi.boolean().required()},
                                     }),
@@ -108,9 +110,9 @@ module.exports = app => {
                                         value:        {type:Joi.number()},
                                         include_value:{type:Joi.boolean().required()},
                                     }),
-                                }).length(1),
+                                }).length(1).required(),
                             })
-                        ),
+                        ).required(),
                     })),
             }
         );
@@ -137,7 +139,7 @@ module.exports = app => {
      * @param {req.params.id} Array of question flow
      * @return {200, {username,token}} Return username and json web token
      */
-    app.get('/v2/question-set/:id', (req,res)=>{
+    app.get('/v2/question-set/:id', generalAuth,(req,res)=>{
        const id = req.params.id;
        QuestionSet.findById(id, (err, question_set)=>{
            if(err) res.status(500).send('Internal Database Error');
@@ -149,5 +151,11 @@ module.exports = app => {
            }
        })
     });
+
+
+
+
+
+
 
 };

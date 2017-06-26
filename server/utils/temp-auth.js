@@ -12,7 +12,7 @@ function tempAuth(req, res, next) {
     }
     catch (err){
         res.clearCookie('token');
-        res.status(401).send({err});
+        res.status(401).send('UnAuthorized User');
     }
 }
 

@@ -12,17 +12,18 @@ let NextQuestion = new Schema({
         'option':{type:String},
         'value':  {type: Number},
         'interval':{
-            range:{type:[Number]},
-            left_close:{type:Boolean,default:true},
-            right_close:{type:Boolean, default:true}
+            greater_than: {type:Number},
+            less_than: {type:Number},
+            left_close:{type:Boolean},
+            right_close:{type:Boolean}
         },
         'greater_than': {
             'value':{type:Number},
-            'include_value':{type:Boolean,default:true},
+            'include_value':{type:Boolean},
         },
         'less_than':{
             'value':{type:Number},
-            'include_value':{type:Boolean,default:true},
+            'include_value':{type:Boolean},
         }
     },
 },
