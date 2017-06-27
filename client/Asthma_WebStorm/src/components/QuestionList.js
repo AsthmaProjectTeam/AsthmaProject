@@ -12,92 +12,134 @@ const RadioItem = Radio.RadioItem;
 class QuestionList extends Component {
 
     onButtonPress(){
-        let { index } = this.props;
-        index++;
-        this.props.dispatch({
-            type: 'nextButtonClicked',
-            payload: {
-                index: index
+        for(let next of this.props.currentquestion.next_question){
+            if(next.prerequisite.option == this.props.checked_option){
+                for(let question of this.props.currentquestionset){
+                    if(question.question._id == next.question_id){
+                        this.props.dispatch({
+                            type: 'nextButtonClicked',
+                            payload: {
+                                currentquestion: question,
+                                checked_option: null
+                            }
+                        });
+                    }
+                }
+
             }
-        });
+        }
     }
 
-    onChange = (value) => {
+    onChange = (key) => {
         this.props.dispatch({
             type: 'optionSelected',
             payload: {
-                value: value
+                checked_option: key
             }
-        })
-    }
+        });
+    };
+
+    // fetchCurrentQuestion(q_id, dispatch){
+    //     fetch(`http://10.67.125.236:8080/v2/questions/?id=${q_id}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //             'Authorization': 'token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiaW5zZXJ0aW5nIjp0cnVlLCJnZXR0ZXJzIjp7InJlc3VsdF9zZXQiOnsicGFpbl9jaGVjayI6W119fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwic2NvcGUiOnsiX192IjowLCJfaWQiOjQ1LCJ1dWlkIjoiYjQ1MDY0NGEtOGJiMy00NDFkLWE4MDItODIwNTc0M2I1ZjY5IiwicXVlc3Rpb25fc2V0IjpbXSwicmVzdWx0X3NldCI6eyJwYWluX2NoZWNrIjpbXX0sInJvbGUiOiJwYXRpZW50IiwiY3JlYXRlZF9kYXRlIjoiMjAxNy0wNi0yNlQxNjoyMjowMy45MzdaIiwiaW5pdGlhdG9ycyI6WzBdfSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsidXVpZCI6InJlcXVpcmUifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7fSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6eyJ1dWlkIjp0cnVlfX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MiwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaW5pdGlhdG9ycyI6WzBdLCJjcmVhdGVkX2RhdGUiOiIyMDE3LTA2LTI2VDE2OjIyOjAzLjkzN1oiLCJyb2xlIjoicGF0aWVudCIsInJlc3VsdF9zZXQiOnsicGFpbl9jaGVjayI6W119LCJxdWVzdGlvbl9zZXQiOltdLCJ1dWlkIjoiYjQ1MDY0NGEtOGJiMy00NDFkLWE4MDItODIwNTc0M2I1ZjY5IiwiX2lkIjo0NSwiX192IjowfSwiaWF0IjoxNDk4NDk0MTI0LCJleHAiOjE0OTg1OTk2MTF9.eOtrctGp9h2FFSu2bwEininD9YRV8IFDKp7uRlDJTLI'
+    //         }
+    //     }).then(response => response.json())
+    //         .then(response => response.question)
+    //         .then(function (response) {
+    //             dispatch({
+    //                 type: 'displayCurrentQuestion',
+    //                 payload: {
+    //                     currentquestion: response
+    //                 }
+    //             });
+    //         })
+    //         .catch((error) => {
+    //             console.log('error:' + error.message);
+    //         });
+    // }
 
     render() {
+        //const dispatch = this.props.dispatch;
+        //this.props.q_id!=null&&this.props.currentquestion==null?this.fetchCurrentQuestion(this.props.q_id,dispatch):null;
         const { titleStyle } = styles;
-        const { value } = this.props;
+        let { checked_option } = this.props;
 
-        questionType = (type) => {
-            if(type === "option"){
-                return (
-                    <View>
-                        <List>
-                            {this.props.questions[this.props.index].options.map(i => (
-                                <RadioItem
-                                    key={i.option}
-                                    checked={value === i.option}
-                                    onChange={() => this.onChange(i.option)}
-                                >
-                                    {i.detail}
-                                </RadioItem>
-                            ))}
-                        </List>
-                    </View>
-                )
-            }
-
-            else if(type === "fillinblanks") {
-                return (
-                    <Input
-                        placeholder="put your answer here"
-                    />
-                );
-            }
-        };
-
-        ifSubmit = (questionId) => {
-            if( questionId === 17){
-                return(
-                    <View>
-                        <Button>This is the last question, click to submit.</Button>
-                    </View>
-                )
-            } else {
-                return(
-                    <View>
-                        <Button  onPress={this.onButtonPress.bind(this)}>Next</Button>
-                    </View>
-                )
-            }
-        }
-
-        return (
+        // questionType = (type) => {
+        //     if(type === "option"){
+        //         return (
+        //             <View>
+        //                 <List>
+        //                     {this.props.questions.currentquestionset[0].options.map(i => (
+        //                         <RadioItem
+        //                             key={i.key}
+        //                             checked={value === i.key}
+        //                             onChange={() => this.onChange(i.value)}
+        //                         >
+        //                             {i.value}
+        //                         </RadioItem>
+        //                     ))}
+        //                 </List>
+        //             </View>
+        //         )
+        //     }
+        //
+        //     else if(type === "fillinblanks") {
+        //         return (
+        //             <Input
+        //                 placeholder="put your answer here"
+        //             />
+        //         );
+        //     }
+        // };
+        //
+        // ifSubmit = (questionId) => {
+        //     if( questionId === 17){
+        //         return(
+        //             <View>
+        //                 <Button>This is the last question, click to submit.</Button>
+        //             </View>
+        //         )
+        //     } else {
+        //         return(
+        //             <View>
+        //                 <Button  onPress={this.onButtonPress.bind(this)}>Next</Button>
+        //             </View>
+        //         )
+        //     }
+        // };
+        console.log(this.props.currentquestion);
+        return(
             <View>
                 <Card>
                     <CardSection>
-                        <Text style={titleStyle}>
-                            {this.props.questions[this.props.index].content}
+                        <Text style={styles.titleStyle}>
+                            {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}
                         </Text>
                     </CardSection>
-
                     <CardSection>
-                        {questionType(this.props.questions[this.props.index].type)}
+                        <List>
+                            {this.props.currentquestion?this.props.currentquestion.question.options.map(i => {
+                                return <RadioItem
+                                    key={i.key}
+                                    checked={checked_option === i.key}
+                                    onChange={() => this.onChange(i.key)}
+                                >
+                                    {i.key}.  {i.value}
+                                </RadioItem>
+                                }):<Text>not available</Text>}
+                        </List>
                     </CardSection>
+                    <Button onPress={this.onButtonPress.bind(this)}>
+                        Next
+                    </Button>
                 </Card>
-
-                <View>
-                    {ifSubmit(this.props.questions[this.props.index]._id)}
-                </View>
             </View>
         );
+
     }
 }
 
@@ -147,7 +189,15 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-    return { questions: state.questions, index: state.questions.index };
+    return {
+        //questions: state.questions,
+        index: state.questions.index,
+        currentquestionset: state.questions.currentquestionset,
+        questionset: state.questions.questionset,
+        currentquestion: state.questions.currentquestion,
+        //q_id: state.questions.currentquestionset!=null?state.questions.currentquestionset[0].question:null,
+        checked_option : state.questions.checked_option,
+    };
 };
 
 export default connect(mapStateToProps)(QuestionList);
