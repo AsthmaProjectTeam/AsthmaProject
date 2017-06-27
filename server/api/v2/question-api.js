@@ -142,7 +142,7 @@ module.exports = app => {
     app.get('/v2/question-set/:id', generalAuth,(req,res)=>{
        const id = req.params.id;
        QuestionSet.findById(id)
-           .populate('question')
+           .populate('content.question')
            .exec((err, question_set)=>{
                if(err) res.status(500).send('Internal Database Error');
                else {

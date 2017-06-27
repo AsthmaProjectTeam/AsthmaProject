@@ -15,21 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="account-api.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/v2/account-api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin-api.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="admin-api.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/v2/admin-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
+            <state relative-caret-position="130">
+              <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
               <folding>
                 <element signature="e#0#46#0" expanded="false" />
               </folding>
@@ -37,41 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="initiator-auth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/initiator-auth.js">
+      <file leaf-file-name="question-model.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/question-model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="40" lean-forward="false" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="generate_qrcode.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/generate_qrcode.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="question-api.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api/v2/question-api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
+            <state relative-caret-position="360">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,21 +40,9 @@
       <file leaf-file-name="question-set-model.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/question-set-model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
+            <state relative-caret-position="-139">
               <caret line="10" column="51" lean-forward="false" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="general-auth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/general-auth.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="68" />
-              <folding>
-                <element signature="e#0#46#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -174,9 +122,9 @@
         <option value="$PROJECT_DIR$/api/v2/account-api.js" />
         <option value="$PROJECT_DIR$/utils/general-auth.js" />
         <option value="$PROJECT_DIR$/utils/initiator-auth.js" />
-        <option value="$PROJECT_DIR$/api/v2/admin-api.js" />
         <option value="$PROJECT_DIR$/models/question-set-model.js" />
         <option value="$PROJECT_DIR$/api/v2/question-api.js" />
+        <option value="$PROJECT_DIR$/api/v2/admin-api.js" />
       </list>
     </option>
   </component>
@@ -451,12 +399,12 @@
       <workItem from="1498074432968" duration="5489000" />
       <workItem from="1498246596489" duration="926000" />
       <workItem from="1498427661785" duration="9451000" />
-      <workItem from="1498592493406" duration="152000" />
+      <workItem from="1498592493406" duration="1263000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117076000" />
+    <option name="totallyTimeSpent" value="118187000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -732,13 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/question-model.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/patient-model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -816,29 +757,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/v2/admin-api.js">
+    <entry file="file://$PROJECT_DIR$/api/v2/question-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#46#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="371">
+          <caret line="154" column="0" lean-forward="true" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/question-model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/question-set-model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
+        <state relative-caret-position="-139">
           <caret line="10" column="51" lean-forward="false" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/v2/question-api.js">
+    <entry file="file://$PROJECT_DIR$/api/v2/admin-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="144" column="21" lean-forward="true" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="130">
+          <caret line="36" column="43" lean-forward="false" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#46#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

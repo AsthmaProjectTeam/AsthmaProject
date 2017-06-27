@@ -32,7 +32,15 @@ module.exports = app => {
     });
 
     app.get('/v2/admin/question-set', (req, res)=>{
-       QuestionSet.find({}, (err, question_set)=>{
+        if(req.query.id){
+            QuestionSet.findOne({_id:parseInt(req.query.id)} )
+                .populate('content.question')
+                .exec((err, question_set)=>{
+
+                    res.status(200).send({question_set});
+                });
+        }
+       else QuestionSet.find({}, (err, question_set)=>{
            res.status(200).send({question_set});
        })
     });
@@ -55,5 +63,7 @@ module.exports = app => {
         const refreshed = jwt.refresh(originalDecoded, 3600, process.env.SECRET_KEY);
         res.status(200).send({refreshed});
     })
+
+
 
 };
