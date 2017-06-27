@@ -141,15 +141,19 @@ module.exports = app => {
      */
     app.get('/v2/question-set/:id', generalAuth,(req,res)=>{
        const id = req.params.id;
-       QuestionSet.findById(id, (err, question_set)=>{
-           if(err) res.status(500).send('Internal Database Error');
-           else {
-               if(question_set){
-                   res.status(200).send({question_set});
+       QuestionSet.findById(id)
+           .populate('question')
+           .exec((err, question_set)=>{
+               if(err) res.status(500).send('Internal Database Error');
+               else {
+                   if(question_set){
+                       res.status(200).send({question_set});
+                   }
+                   else res.status(400).send('question set does not exist');
                }
-               else res.status(400).send('question set does not exist');
-           }
-       })
+           });
+
+
     });
 
 

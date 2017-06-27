@@ -3,7 +3,8 @@
  */
 let mongoose            = require('mongoose'),
     Schema              = mongoose.Schema,
-    autoIncrement = require('mongoose-auto-increment');
+    autoIncrement = require('mongoose-auto-increment'),
+    Question            = require('../models/question-model');
 
 
 let NextQuestion = new Schema({
