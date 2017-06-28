@@ -126,7 +126,7 @@ list what you wanna say
 #### Paitient
 | Method        | URL           			 | Description  |
 | ------------- |:-------------:			 | -----:|
-|POST|/v2/patients/pain-check/results|Upload patient's pain check result|
+|POST|/v2/patients/results|Upload patient's pain check result|
 |GET|/v2/patients/results| GET all results of a patient|
 |GET|/v2/patients/profile|GET a patient's profile via jwt|
 
@@ -531,7 +531,8 @@ curl --post --include 'https://localhost/v2/question-set/create'
 ```
 ##### Sample Request Data
 ```js
-{
+{ "app":"pain-check",
+  "title":"Pain Check",	
   "content":[
   	{
     	"question":1,
@@ -835,10 +836,9 @@ curl --post --include 'https://localhost/v2/patients/:uuid/results'
 ```js
 {
   "app":"pain_check",
-  "answer_set":[
-  	{"question_id":1, "answer":5}
-  ],
-  "timestamp":"2017-06-19T14:44:54+00:00"
+  "results":[
+  	{"q_id":1, "value":5}
+  ]
 }
 ```
 ##### Request Data Validation
