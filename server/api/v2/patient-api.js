@@ -79,7 +79,7 @@ module.exports = app => {
      * @return {object} Return profile object
      */
     app.get('/v2/patients/profile',patientAuth, (req, res)=>{
-        Patient.findById(req.user._id,(err,patient)=>{
+        Patient.findById(req.user._id).populate('question_set','title').exec((err,patient)=>{
             if(err) res.status(401).send('Database Error');
             else {
                 res.status(200).send({patient});

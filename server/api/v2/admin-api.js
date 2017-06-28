@@ -14,7 +14,7 @@ let Initiator                   = require('../../models/initiator-model'),
 module.exports = app => {
 
     app.get('/v2/admin/patients', (req, res)=>{
-        Patient.find({}, (err, patients)=>{
+        Patient.find({}).populate('question_set','title').exec( (err, patients)=>{
             res.status(200).send({patients});
         })
     });

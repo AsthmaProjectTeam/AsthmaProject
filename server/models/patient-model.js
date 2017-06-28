@@ -8,6 +8,7 @@
 let mongoose            = require('mongoose'),
     Schema              = mongoose.Schema,
     autoIncrement       = require('mongoose-auto-increment');
+   // QuestionSet         = require('../models/question-set-model');
 
 /***************** Patient Model *******************/
 let Result = new Schema({
@@ -55,7 +56,7 @@ let Patient = new Schema({
     //TODO: Should limit types of key for result_set
     //'result_set':   { pain_check:[PainCheck]},
     'result_set': {type: [ResultSet]},
-    'question_set': {type: [Number]},
+    'question_set': {type: [{type:Number, ref:'QuestionSet'} ]},
 });
 
 
