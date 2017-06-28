@@ -17,17 +17,17 @@ module.exports = app => {
      * @return {object} Return profile object
      */
     app.post('/v2/patients/question-set', patientAuth, (req, res)=>{
-        // const schema = Joi.object().keys({
-        //     app:        Joi.string().required(),
-        //     results:    Joi.array().items({
-        //         q_id:   Joi.number().required(),
-        //         value: Joi.any().required(),
-        //     }).min(1).required(),
-        // });
-        const schema =Joi.array().items({
+        const schema = Joi.object().keys({
+            app:        Joi.string().required(),
+            results:    Joi.array().items({
                 q_id:   Joi.number().required(),
                 value: Joi.any().required(),
-            }).min(1);
+            }).min(1).required(),
+        });
+        // const schema =Joi.array().items({
+        //         q_id:   Joi.number().required(),
+        //         value: Joi.any().required(),
+        //     }).min(1);
         Joi.validate(req.body, schema, (err, data) => {
             if (err) {
                 const message = err.details[0].message;

@@ -86,6 +86,7 @@ module.exports = app => {
     app.post('/v2/question-set/create', initiatorAuth, (req,res)=>{
         const initiator = req.user;
         const schema = Joi.object().keys({
+                app: Joi.string().required(),
                 content: Joi.array().items(
                     Joi.object().keys({
                         question:       Joi.number().required(),

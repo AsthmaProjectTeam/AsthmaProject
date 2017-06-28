@@ -17,12 +17,13 @@ let Result = new Schema({
     { _id : false }
 );
 
-// let ResultSet = new Schema({
-//     app: {type:String, required:true},
-//     results:{type:[Result]}
-// },
-//     { _id : false }
-// );
+let ResultSet = new Schema({
+    app: {type:String, required:true},
+    created_date:  { type: Date,       default:Date.now},
+    results:{type:[Result]}
+},
+    { _id : false }
+);
 
 
 
@@ -53,7 +54,7 @@ let Patient = new Schema({
     //TODO: Result set can contain different key according to the context of the question
     //TODO: Should limit types of key for result_set
     //'result_set':   { pain_check:[PainCheck]},
-    'previous_answer': {type: [Result]},
+    'previous_answer': {type: [ResultSet]},
     'question_set': {type: [Number]},
 });
 
