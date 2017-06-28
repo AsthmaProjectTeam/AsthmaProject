@@ -87,6 +87,7 @@ module.exports = app => {
         const initiator = req.user;
         const schema = Joi.object().keys({
                 app: Joi.string().required(),
+                title: Joi.string().required(),
                 content: Joi.array().items(
                     Joi.object().keys({
                         question:       Joi.number().required(),

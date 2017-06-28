@@ -43,6 +43,7 @@ let QuestionFlow = new Schema({
 
 let QuestionSet = new Schema({
     'author':          {type:Number, ref: 'Initiator', required:true},
+    "title": {type:String, required:true},
     'app':      {type:String, required:true},
     'content':         {type:[QuestionFlow]},
 });
