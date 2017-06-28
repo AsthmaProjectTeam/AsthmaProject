@@ -16,7 +16,7 @@ module.exports = app => {
      * @param {req.body.context} context of this pain level check
      * @return {object} Return profile object
      */
-    app.post('/v2/patients/question-set', patientAuth, (req, res)=>{
+    app.post('/v2/patients/results', patientAuth, (req, res)=>{
         const schema = Joi.object().keys({
             app:        Joi.string().required(),
             results:    Joi.array().items({
