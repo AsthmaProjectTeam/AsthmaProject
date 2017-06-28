@@ -54,7 +54,7 @@ let Patient = new Schema({
     //TODO: Result set can contain different key according to the context of the question
     //TODO: Should limit types of key for result_set
     //'result_set':   { pain_check:[PainCheck]},
-    'previous_answer': {type: [ResultSet]},
+    'result_set': {type: [ResultSet]},
     'question_set': {type: [Number]},
 });
 

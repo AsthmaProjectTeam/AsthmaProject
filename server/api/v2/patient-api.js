@@ -36,11 +36,11 @@ module.exports = app => {
                 Patient.findById(req.user._id, (err, patient)=>{
                    if(err) res.status(500).send('Internal Server Error');
                    else {
-                       patient.previous_answer.push(data);
+                       patient.result_set.push(data);
                        patient.save(err=>{
                            console.log(err);
                            if(err) res.status(500).send('Internal Server Error');
-                           else res.status(200).send({previous_answer:patient.previous_answer});
+                           else res.status(200).send({result_set:patient.result_set});
                        });
                    }
                 });
