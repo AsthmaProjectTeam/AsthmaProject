@@ -4,6 +4,7 @@ import QuestionList from './components/QuestionList';
 import ScanScreen from './components/ScanScreen';
 import WelcomePage from './components/WelcomePage';
 import EntrancePage from './components/EntrancePage';
+import SubmitPage from './components/SubmitPage';
 
 const RouterComponent = () => {
     return (
@@ -20,6 +21,10 @@ const RouterComponent = () => {
 
             <Scene key="main">
                 <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>
+            </Scene>
+
+            <Scene key="submit">
+                <Scene style={{ paddingTop: 65 }} key="submitPage" component={SubmitPage} title="Submit"/>
             </Scene>
         </Router>
     );

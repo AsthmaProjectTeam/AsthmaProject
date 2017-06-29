@@ -1,16 +1,20 @@
-// import Storage from 'react-native-storage';
 // import { AsyncStorage } from 'react-native';
-// import { Actions } from 'react-native-router-flux';
 //
-// let storage = new Storage({
-//     size: 1000,
-//     storageBackend: AsyncStorage,
-//     defaultExpires: null,
-//     enableCache: true,
-//     sync: setTimeout(() => {
-//                 console.log('I am here');
-//                 Actions.auth();
-//             }, 2800)
-// });
+// let storage = AsyncStorage.getItem('loginToken')
+//     .catch(function (error) {
+//         if(error.prototype.number == 401){
+//             fetch('http://10.67.125.236:8080/v2/admin/refresh', {
+//                 method: 'GET',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'Accept' : 'application/json'
+//                 }
+//             }).then(function (response) {
+//                 AsyncStorage.setItem("loginToken", response.token)
+//             }).catch((error) => {
+//                 console.error(error);
+//             });
+//         }
+//     });
 //
 // global.storage = storage;

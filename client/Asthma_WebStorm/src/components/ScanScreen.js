@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Linking, View, Text, AsyncStorage } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import { Actions } from 'react-native-router-flux';
 
 class ScanScreen extends Component {
 
@@ -29,7 +30,7 @@ class ScanScreen extends Component {
         });
         const saveduuid = this.state.uuid;
 
-        fetch('http://10.67.218.204:8080/v2/accounts/patients/register', {
+        fetch('http://192.168.100.7:8080/v2/accounts/patients/register', {
             method: 'POST',
             headers: {
                 'Authorization': `token ${this.state.token}`,
@@ -42,12 +43,15 @@ class ScanScreen extends Component {
             .then(function(response){
                 console.log('this is replied long term token: ' + response.token);
 
-                AsyncStorage.multiSet([["loginToken", response.token], ["uuid", saveduuid]])
-                    .then(
-                        () => {
-                            console.log("token and uuid are saved");
-                        }
-                    );
+                // AsyncStorage.multiSet([["loginToken", response.token], ["uuid", saveduuid]])
+                //     .then(
+                //         () => {
+                //             console.log("token and uuid are saved");
+                //         }
+                //     );
+                AsyncStorage.setItem("loginToken", response.token)
+                    .then(() => console.log("long term token is saved"))
+                    .then(Actions.welcome())
             }).catch((error) => {
                 console.error(error);
             });

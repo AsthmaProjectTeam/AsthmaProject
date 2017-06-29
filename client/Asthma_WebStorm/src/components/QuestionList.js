@@ -9,23 +9,78 @@ import { Input } from './common/Input';
 import { Actions } from 'react-native-router-flux';
 
 const RadioItem = Radio.RadioItem;
+let results = [];
 class QuestionList extends Component {
 
-    onButtonPress(){
-        for(let next of this.props.currentquestion.next_question){
-            if(next.prerequisite.option == this.props.checked_option){
-                for(let question of this.props.currentquestionset){
-                    if(question.question._id == next.question_id){
-                        this.props.dispatch({
-                            type: 'nextButtonClicked',
-                            payload: {
-                                currentquestion: question,
-                                checked_option: null
-                            }
-                        });
-                    }
+    onBackButtonPress(){
+        console.log(this.props.results);
+        if(this.props.results.length){ // problem: 这里写this.props.results为啥不行。。这样的话当results为null时会报错
+            console.log('s');
+            this.props.results.pop();
+            this.props.history.pop();
+            for(let question of this.props.currentquestionset){
+                if(question.question._id == this.props.history[this.props.history.length-1]){
+                    this.props.dispatch({
+                        type: 'backButtonClicked',
+                        payload: {
+                            results: this.props.results,
+                            currentquestion: question,
+                            checked_option: null,
+                            history: this.props.history
+                        }
+                    });
                 }
+            }
+        } else {
+            this.props.dispatch({
+                type: 'clearHistory',
+                payload: {
+                    results: null, //problem: 这里清空results就不应该能back了，但貌似没用，回到welcome页面又有了
 
+                    history: null
+                }
+            });
+            Actions.welcome();
+        }
+    }
+
+    onNextButtonPress(){
+        if(this.props.currentquestion.end_question){
+            results.push({
+                q_id: this.props.currentquestion.question._id,
+                value: this.props.checked_option
+            });
+            this.props.dispatch({
+                type: 'lastQuestionReached',
+                payload: {
+                    results: results
+                }
+            });
+            Actions.submit();
+        } else {
+            for(let next of this.props.currentquestion.next_question){
+                if(next.prerequisite.option == this.props.checked_option){
+                    results.push({
+                        q_id: this.props.currentquestion.question._id,
+                        value: this.props.checked_option
+                    });
+
+                    for(let question of this.props.currentquestionset){
+                        if(question.question._id == next.question_id){
+                            this.props.history.push(question.question._id);
+                            this.props.dispatch({
+                                type: 'nextButtonClicked',
+                                payload: {
+                                    results: results,
+                                    currentquestion: question,
+                                    checked_option: null,
+                                    history: this.props.history
+                                }
+                            });
+                        }
+                    }
+
+                }
             }
         }
     }
@@ -63,8 +118,8 @@ class QuestionList extends Component {
     // }
 
     render() {
-        //const dispatch = this.props.dispatch;
-        //this.props.q_id!=null&&this.props.currentquestion==null?this.fetchCurrentQuestion(this.props.q_id,dispatch):null;
+        console.log(this.props.history);
+
         const { titleStyle } = styles;
         let { checked_option } = this.props;
 
@@ -111,7 +166,6 @@ class QuestionList extends Component {
         //         )
         //     }
         // };
-        console.log(this.props.currentquestion);
         return(
             <View>
                 <Card>
@@ -133,9 +187,15 @@ class QuestionList extends Component {
                                 }):<Text>not available</Text>}
                         </List>
                     </CardSection>
-                    <Button onPress={this.onButtonPress.bind(this)}>
-                        Next
-                    </Button>
+                    <View>
+                        <Button onPress={this.onBackButtonPress.bind(this)}>
+                            Back
+                        </Button>
+                        <Button onPress={this.onNextButtonPress.bind(this)}>
+                            Next
+                        </Button>
+                    </View>
+
                 </Card>
             </View>
         );
@@ -190,13 +250,12 @@ const styles = {
 
 const mapStateToProps = state => {
     return {
-        //questions: state.questions,
-        index: state.questions.index,
         currentquestionset: state.questions.currentquestionset,
         questionset: state.questions.questionset,
         currentquestion: state.questions.currentquestion,
-        //q_id: state.questions.currentquestionset!=null?state.questions.currentquestionset[0].question:null,
         checked_option : state.questions.checked_option,
+        results: state.questions.results,
+        history:state.questions.history
     };
 };
 
