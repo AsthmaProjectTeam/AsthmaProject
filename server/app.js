@@ -57,8 +57,6 @@ require('./api/v2/initiator-api')(app);
 require('./api/v2/patient-api')(app);
 require('./api/v2/question-api')(app);
 require('./api/v2/admin-api')(app);
-require('./api/v2/demo-api')(app);
-
 /**********************************************************************************************************/
 // Give them the SPA base page
 app.get('*', (req, res) => {

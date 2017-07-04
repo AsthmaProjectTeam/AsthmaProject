@@ -1,4 +1,7 @@
 /**
+ * Created by tengzhongwei on 7/4/17.
+ */
+/**
  * Created by tengzhongwei on 5/24/17.
  */
 
@@ -8,7 +11,7 @@
 let mongoose            = require('mongoose'),
     Schema              = mongoose.Schema,
     autoIncrement       = require('mongoose-auto-increment');
-   // QuestionSet         = require('../models/question-set-model');
+// QuestionSet         = require('../models/question-set-model');
 
 /***************** Patient Model *******************/
 let Result = new Schema({
@@ -19,10 +22,10 @@ let Result = new Schema({
 );
 
 let ResultSet = new Schema({
-    app: {type:String, required:true},
-    created_date:  { type: Date,       default:Date.now},
-    results:{type:[Result]}
-},
+        app: {type:String, required:true},
+        created_date:  { type: Date,       default:Date.now},
+        results:{type:[Result]}
+    },
     { _id : false }
 );
 
@@ -44,7 +47,7 @@ let ResultSet = new Schema({
 let Patient = new Schema({
     'uuid':     {type: String},
     "initiators":[
-                    {type: Number, ref: 'Initiator' }
+        {type: Number, ref: 'Initiator' }
     ],
     "created_date": { type: Date,       default:Date.now},
     'first_name':   { type: String ,                     },
@@ -59,6 +62,6 @@ let Patient = new Schema({
 });
 
 
-Patient.plugin(autoIncrement.plugin, 'Patient');
+Patient.plugin(autoIncrement.plugin, 'FakePatient');
 
-module.exports = mongoose.model('Patient', Patient);
+module.exports = mongoose.model('FakePatient', Patient);

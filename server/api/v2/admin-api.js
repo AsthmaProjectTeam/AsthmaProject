@@ -13,11 +13,18 @@ let Initiator                   = require('../../models/initiator-model'),
     Question                    = require('../../models/question-model');
 module.exports = app => {
 
-    app.get('/v2/admin/patients', (req, res)=>{
-        Patient.find({}).populate('question_set','title').exec( (err, patients)=>{
-            res.status(200).send({patients});
-        })
-    });
+    app.get('/v2/admin/patients/', (req, res)=>{
+        if(req.query.id){
+            Patient.find({_id:parseInt(req.query.id)} ).populate('question_set','title').exec( (err, patients)=>{
+                res.status(200).send({patients});
+            })
+        }
+        else {
+            Patient.find({}).populate('question_set', 'title').exec((err, patients) => {
+                res.status(200).send({patients});
+            })
+        }
+        });
 
     app.get('/v2/admin/initiators', (req, res)=>{
         Initiator.find({}, (err, initiators)=>{
@@ -50,7 +57,7 @@ module.exports = app => {
        patient.save((err)=>{
            if(err) res.status(500).send('Internal Server Error');
            else {
-               const token = jwt.sign(patient, process.env.SECRET_KEY, {
+               const token = jwt.sign({id:patient._id, role:'patient'}, process.env.SECRET_KEY, {
                    expiresIn: "365d",
                });
                res.status(200).send({token});

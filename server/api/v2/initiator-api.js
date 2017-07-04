@@ -8,18 +8,19 @@ let Initiator                   = require('../../models/initiator-model'),
     mongoose                    = require('mongoose'),
     filterPrivateInformation    = require('../../utils/filterPrivate'),
     Patient                     = require('../../models/patient-model'),
-    QuestionSet                 = require('../../models/question-set-model');
+    QuestionSet                 = require('../../models/question-set-model'),
+    bulk_update                 = require('../../service/bulk-update'),
+    FakePatient                 = require('../../models/fake_patient');
 
-module.exports = app => {
+module.exports = async app => {
     /**
-     * Get a Initiator's profile by ID
+     * Get a Initiator's profile
      *
-     * @param {req.params.id} User id of initiator
      * @return {object} Return profile object
      */
-    app.get('/v2/initiator/profile', initiatorAuth, (req, res)=>{
-        Initiator.findOne({_id:req.user._id})
-            .populate('patients','_id username')
+    app.get('/v2/initiators/profile', initiatorAuth, (req, res)=>{
+        Initiator.findById(req.user.id)
+            .populate('patients','first_name last_name')
             .exec((err,initiator)=>{
                 if(err) res.status(500).send("Internal Database Error");
                 else {
@@ -30,16 +31,15 @@ module.exports = app => {
     });
 
     /**
-     * Update a Initiator Profile by ID
+     * Update a Initiator Profile
      *
-     * @param {req.params.id} User id of initiator
      * @param {req.body.first_name}
      * @param {req.body.last_name}
      * @param {req.body.email}
      * @param {req.body.phone}
      * @return {object} Return profile object
      */
-    app.patch('/v2/initiator/profile', initiatorAuth, (req, res)=>{
+    app.patch('/v2/initiators/profile', initiatorAuth, (req, res)=>{
         let schema = Joi.object().keys({
             first_name: Joi.string().regex(/^[a-zA-Z]+$/).required(),
             last_name:  Joi.string().regex(/^[a-zA-Z]+$/).required(),
@@ -51,7 +51,7 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Initiator.findByIdAndUpdate(req.user._id, {$set:data}, (err, initiator)=>{
+                Initiator.findByIdAndUpdate(req.user.id, {$set:data}, (err, initiator)=>{
                     if(err) {res.status(500).send({err})}
                     else{
                         if(initiator){
@@ -67,139 +67,81 @@ module.exports = app => {
     });
 
     /**
-     * Append/Add a patient to Initiator
+     * Append/Add patients to Initiator
      *
-     * @param {req.params.id} User id of initiator
-     * @param {req.body.uuid} uuid of a patient
+     * @param {req.body.patients_id} list of id of patients
      * @return {object} Return success
      */
-    app.patch('/v2/initiator/patients/add',initiatorAuth,(req, res)=>{
+    app.patch('/v2/initiators/patients/add',initiatorAuth,(req, res)=>{
         let schema = Joi.object().keys({
-            id: Joi.number().required(),
+            patients_id:Joi.array().items(Joi.number()).min(1).required(),
         });
         Joi.validate(req.body, schema, (err, data) =>{
             if (err) {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Patient.findOne({_id:data.id})
-                    .exec( (err,patient)=>{
-                        if(!err){
-                            if(patient){
-                                Initiator.findById(req.user._id, (err, initiator)=>{
-                                    if(!err){
-
-                                        if(!initiator.patients.includes(patient._id)){
-                                            initiator.patients.push(patient);
-                                        }
-                                        if(!patient.initiators.includes(initiator._id)){
-                                            patient.initiators.push(initiator);
-                                        }
-                                        patient.save();
-                                        initiator.save();
-                                        res.status(200).send("success");
-                                    }
-                                    else res.status(500).send({err})
-                                })
-                            }
-                            else res.status(400).send("patient doesn't exist")
-                        }
-                        else res.status(500).send({err})
-                    })
+                bulk_update.addPatient(data.patients_id, req,res);
             }
         })
-    }
-    );
-
-    /**
-     * Send a Notification to a user
-     *
-     */
-
-    /**
-     * Export patients result set to Excel
-     *
-     * @param {req.body.uuid} uuid of users whose results will be exported
-     * @param {req.body.context} Context of questions which will be exported
-     * @return {object} Return success
-     */
-    app.post('/v2/initiator/:id/patients/export', initiatorAuth,(req, res)=>{
-        if(req.params.id != req.user._id) res.status(403).send('You can not access this');
-        else {
-            let schema = Joi.object().keys({
-                uuid:Joi.array().items(
-                    Joi.string().guid({
-                        version: [
-                            'uuidv4',
-                            'uuidv5'
-                        ]})
-                ),
-                context: Joi.array().items(
-                    Joi.string()
-                ),
-            });
-            Joi.validate(req.body, schema, (err,data) => {
-                if (err) {
-                    const message = err.details[0].message;
-                    res.status(400).send({error: message});
-                } else {
-
-                }
-            });
-        }
     });
 
     /**
-     * Initiator append new questions set to a patient
+     * Initiator append list of questions set to list of patients
      *
      * @param {req.body.patient_id} id of patient
      * @param {req.body.q_id} id of question set
      * @return {object} Return success
      */
-    app.patch('/v2/initiator/patients/question-set', initiatorAuth, (req,res)=>{
+    app.patch('/v2/initiators/patients/question-set', initiatorAuth, (req,res)=>{
         let schema = Joi.object().keys({
-            patient_id: Joi.number(),
-            q_id      : Joi.number(),
+            patient_list: Joi.array().items(Joi.number()).required().min(1),
+            q_list      : Joi.array().items(Joi.number()).required().min(1),
         });
         Joi.validate(req.body, schema, (err, data)=>{
             if (err) {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                Patient.findById(data.patient_id, (err, patient)=>{
-                    if(err){
-                        res.status(500).send('Internal Server Error');
-                    }
-                    else {
-                        if(patient){
-                            QuestionSet.findById(data.q_id, (err, q)=>{
-                                if(err) res.status(500).send('Internal Server Error');
-                                else{
-                                    if(q){
-                                        if(patient.question_set.includes(data.q_id)){
-                                            res.status(400).send('duplicate question set');
-                                        }
-                                        else{
-                                            patient.question_set.push(data.q_id);
-                                            patient.save(err=>{
-                                                if(err) res.status(500).send('Internal Server Error');
-                                                else res.status(200).send({patient});
-                                            })
-                                        }
-                                    }
-                                    else res.status(400).send('Question set does not exist');
-                                }
-                            })
-
-                        }
-                        else res.status(400).send('Patient does not exist');
-                    }
-                })
+                bulk_update.addQuestionSet(req,res, data);
             }
         })
 
 
     });
 
+    /**
+     * Create a new patient in database
+     *
+     * @param {req.body.first_name}
+     * @param {req.body.last_name}
+     * @param {req.body.mrn}
+     * @param {req.body.date_of_birth}
+     * @return {200, {patient}} Return updated patient profile
+     */
+    app.post('/v2/initiators/patients/new', initiatorAuth, (req, res)=>{
+        let schema = Joi.object().keys({
+            first_name:         Joi.string().regex(/^[a-zA-Z]*$/).required(),
+            last_name:          Joi.string().regex(/^[a-zA-Z]*$/).required(),
+            mrn:                Joi.string().required(),
+            date_of_birth:      Joi.date().required(),
+        });
+        Joi.validate(req.body, schema, (err,data)=>{
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                let patient = new FakePatient(data);
 
+                patient.save(err=>{
+                    console.log(err);
+                    if(err) res.status(500).send('Error occurs when save data');
+                    else {
+                        res.status(200).send({patient});
+                    }
+                });
+
+            }
+        });
+    });
 };

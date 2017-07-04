@@ -23,7 +23,6 @@ module.exports = app => {
      * @return {200, {question }} Return created question
      */
     app.post('/v2/questions/create', initiatorAuth, (req, res)=>{
-       const initiator = req.user;
        const schema = Joi.object().keys({
            app:         Joi.string().required(),
            type:        Joi.string().required(),
@@ -39,14 +38,19 @@ module.exports = app => {
                const message = err.details[0].message;
                res.status(400).send({error: message});
            } else {
-               let question = Question(data);
-               question.author = initiator;
-               question.save( err=>{
-                 if(err) res.status(500).send('Internal Database Error');
-                 else {
-                     res.status(200).send({question});
-                 }
-               })
+               Initiator.findById(req.user.id, (err,initiator)=>{
+                   if(err) res.status(500).send('Error Occur when find initiator');
+                   let question = Question(data);
+                   question.author = initiator;
+                   question.save( err=>{
+                       if(err) res.status(500).send('Error Occur when save question');
+                       else {
+                           res.status(200).send({question});
+                       }
+                   })
+               });
+
+
            }
        })
     });
@@ -84,7 +88,6 @@ module.exports = app => {
      * @return {200, {username,token}} Return username and json web token
      */
     app.post('/v2/question-set/create', initiatorAuth, (req,res)=>{
-        const initiator = req.user;
         const schema = Joi.object().keys({
                 app: Joi.string().required(),
                 title: Joi.string().required(),
@@ -123,14 +126,21 @@ module.exports = app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                let question_set = QuestionSet(data);
-                question_set.author = initiator;
-                question_set.save( err=>{
-                    if(err) res.status(500).send('Internal Database Error');
+                Initiator.findById(req.user.id, (err,initiator)=> {
+                    if (err) res.status(500).send('Error Occur when find initiator');
                     else {
-                        res.status(200).send({question_set});
+                        let question_set = QuestionSet(data);
+                        question_set.author = initiator;
+                        question_set.save( err=>{
+                            if(err) res.status(500).send('Error Occur when save question set');
+                            else {
+                                res.status(200).send({question_set});
+                            }
+                        })
                     }
-                })
+                });
+
+
             }
         });
     });

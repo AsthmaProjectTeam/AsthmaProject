@@ -6,9 +6,8 @@ var assert = require('assert');
 function initiatorAuth(req, res, next) {
     try {
         let dec = jwt.verify(req.headers.authorization.split(' ')[1], process.env.SECRET_KEY);
-        assert(['nurse','doctor', 'admin'].includes( dec._doc.role)===true);
-        req.user = dec._doc;
-
+        assert(['nurse','doctor', 'admin'].includes( dec.role)===true);
+        req.user = dec;
         next();
     }
     catch (err){
