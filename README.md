@@ -453,7 +453,7 @@ curl --get --include 'https://localhost/v2/question-set/1'
 ------------------------------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
-#### GET /v2/initiator/profile
+#### GET /v2/initiators/profile
 Get a Initiator's profile by ID
 ##### Resource Information
 | 			     			| 		 			|
@@ -516,7 +516,7 @@ curl --post --include 'https://localhost/v2/initiator/:id/profile'
 | 403    					| User can't access target user's profile				|
 
 ------------------------------------------------------
-#### PATCH /v2/initiator/profile
+#### PATCH /v2/initiators/profile
 Update a Initiator Profile by ID
 ##### Resource Information
 | 			     			| 		 			|
