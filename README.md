@@ -50,6 +50,7 @@ list what you wanna say
 |PATCH|/v2/initiators/profile|Update a Initiator Profile|
 |PATCH|/v2/initiators/patients/add|Append/Add a list of patients to Initiator|
 |POST|/v2/initiators/patients/new|Create a new patient in database|
+|PATCH|/v2/initiators/patients/:id/profile|update profile of a patient|
 |PATCH|/v2/initiators/patients/question-set|Initiator append new questions set to a list of patients|
 
 #### Paitient
@@ -487,6 +488,37 @@ curl --get --include 'https://localhost/v2/initiator/:id/profile'
 ---------
 #### POST /v2/initiators/patients/new
 Create a new patient;
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/:id/profile'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "first_name":	"mike",
+  "last_name":	"L",
+  "mrn":		"123124124",
+  "date_of_birth":		"1990-01-01"
+}
+```
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+
+---------
+#### PATCH /v2/initiators/patients/:id/profile
+Update profile of a patient
 ##### Resource Information
 | 			     			| 		 			|
 | ------------- 			|:-------------:	|
