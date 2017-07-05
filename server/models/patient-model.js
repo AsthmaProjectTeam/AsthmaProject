@@ -43,9 +43,7 @@ let ResultSet = new Schema({
  */
 let Patient = new Schema({
     'uuid':     {type: String},
-    "initiators":[
-                    {type: Number, ref: 'Initiator' }
-    ],
+    "initiators":[{type: Number, ref: 'Initiator' }],
     "created_date": { type: Date,       default:Date.now},
     'first_name':   { type: String ,                     },
     'last_name':    { type: String,                   },

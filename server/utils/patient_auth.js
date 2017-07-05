@@ -11,11 +11,13 @@ function patientAuth(req, res, next) {
         next();
     }
     catch (err){
-        if(err.name==='TokenExpiredError'){
-            var originalDecoded = jwt.decode(req.headers.authorization.split(' ')[1], {complete: true});
-            var refreshed = jwt.refresh(originalDecoded, 3600, process.env.SECRET_KEY);
-        }
+
+        // if(err.name==='TokenExpiredError'){
+        //     var originalDecoded = jwt.decode(req.headers.authorization.split(' ')[1], {complete: true});
+        //     var refreshed = jwt.refresh(originalDecoded, 3600, process.env.SECRET_KEY);
+        // }
         res.status(401).send('UnAuthorized User');
+        //res.status(401).send('UnAuthorized User');
     }
 }
 

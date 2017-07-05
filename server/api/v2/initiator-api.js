@@ -9,8 +9,7 @@ let Initiator                   = require('../../models/initiator-model'),
     filterPrivateInformation    = require('../../utils/filterPrivate'),
     Patient                     = require('../../models/patient-model'),
     QuestionSet                 = require('../../models/question-set-model'),
-    bulk_update                 = require('../../service/bulk-update'),
-    FakePatient                 = require('../../models/fake_patient');
+    bulk_update                 = require('../../service/bulk-update');
 
 module.exports = async app => {
     /**
@@ -131,7 +130,7 @@ module.exports = async app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                let patient = new FakePatient(data);
+                let patient = new Patient(data);
 
                 patient.save(err=>{
                     console.log(err);

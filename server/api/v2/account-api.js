@@ -132,19 +132,21 @@ module.exports = app => {
                     if(err) res.status(500).send('Internal Error with Database');
                     else {
                         if(patient){
+                            console.log(patient);
                             Initiator.findById(initiator_id, (err, initiator)=>{
                                 if(err) res.status(500).send('Internal Error with Database');
                                 else{
                                     if(initiator){
                                         patient.uuid =  data.uuid;
                                         if(!patient.initiators.includes(initiator_id)){
-                                            patient.initiators.push(initiator);
+                                            patient.initiators.push(initiator._id);
                                         }
                                         if(!initiator.patients.includes(patient_id)){
-                                            initiator.patients.push(patient);
+                                            initiator.patients.push(patient._id);
                                         }
                                         patient.save((err)=>{
                                             if(err) res.status(500).send('Errors when save patient');
+
                                             else {
                                                 initiator.save((err)=>{
                                                     if(err) res.status(500).send('Patient saved but failed to save initiators');
@@ -157,6 +159,7 @@ module.exports = app => {
                                                 })
                                             }
                                         })
+
 
                                     }
                                     else res.status(400).send("Wrong Initiator ID");
