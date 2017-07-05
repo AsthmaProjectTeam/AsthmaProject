@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import Button from './common/Button';
 import { Actions } from 'react-native-router-flux';
+import { Button, Icon, Right } from 'native-base';
 
-let history = [];
 class WelcomePage extends Component {
 
     componentWillMount(){
         const dispatch = this.props.dispatch;
+        dispatch({
+            type: 'clearHistory',
+            payload: {
+                results: null,
+                history: []
+            }
+        });
         // AsyncStorage.getItem('loginToken')
         //     .then(
         //         (result) => {
-        fetch('http://192.168.100.7:8080/v2/patients/profile', {
+        fetch('http://127.0.0.1:8080/v2/patients/profile', {
             method: 'GET',
             headers: {
                 //'Authorization': `token ${result}`
-                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiaW5zZXJ0aW5nIjp0cnVlLCJnZXR0ZXJzIjp7fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsidXVpZCI6InJlcXVpcmUifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7fSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6eyJ1dWlkIjp0cnVlfX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MiwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaW5pdGlhdG9ycyI6WzJdLCJjcmVhdGVkX2RhdGUiOiIyMDE3LTA2LTI4VDIwOjM3OjM0LjcxNVoiLCJyb2xlIjoicGF0aWVudCIsInJlc3VsdF9zZXQiOltdLCJxdWVzdGlvbl9zZXQiOltdLCJ1dWlkIjoiYTdlODU1NDQtODhhZS00MDU4LTkxMjUtYTE0ZWU5NGQ5ODg3IiwiX2lkIjo1MiwiX192IjowfSwiaWF0IjoxNDk4NjgyMjU0LCJleHAiOjE1MzAyMTgyNTR9.nzjxWoVuCD5eWwYSffu693LGub4cDkq8DX_nolrxgKw',
+                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTQ5OTMxODc3OH0.yeMQQbcE9vNrq2ywT0oGHXM792uzdL1l1kTjTsoS694',
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         }).then(response => response.json())
             .then(response => response.patient.question_set)
@@ -35,16 +42,17 @@ class WelcomePage extends Component {
         // )
     }
 
-    onButtonPress(qset){
+    onButtonPress(qset_id){
         const dispatch = this.props.dispatch;
+        const history = this.props.history;
         // AsyncStorage.getItem('loginToken')
         //     .then(
         //         (result) => {
-        fetch(`http://192.168.100.7:8080/v2/question-set/${qset}`, {
+        fetch(`http://127.0.0.1:8080/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
                 //'Authorization': `token ${result}`
-                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiaW5zZXJ0aW5nIjp0cnVlLCJnZXR0ZXJzIjp7fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsidXVpZCI6InJlcXVpcmUifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7fSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6eyJ1dWlkIjp0cnVlfX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MiwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaW5pdGlhdG9ycyI6WzJdLCJjcmVhdGVkX2RhdGUiOiIyMDE3LTA2LTI4VDIwOjM3OjM0LjcxNVoiLCJyb2xlIjoicGF0aWVudCIsInJlc3VsdF9zZXQiOltdLCJxdWVzdGlvbl9zZXQiOltdLCJ1dWlkIjoiYTdlODU1NDQtODhhZS00MDU4LTkxMjUtYTE0ZWU5NGQ5ODg3IiwiX2lkIjo1MiwiX192IjowfSwiaWF0IjoxNDk4NjgyMjU0LCJleHAiOjE1MzAyMTgyNTR9.nzjxWoVuCD5eWwYSffu693LGub4cDkq8DX_nolrxgKw',
+                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTQ5OTMxODc3OH0.yeMQQbcE9vNrq2ywT0oGHXM792uzdL1l1kTjTsoS694',
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -59,7 +67,8 @@ class WelcomePage extends Component {
                         currentquestion: response[0],
                         app: response[0].question.app,
                         checked_option: null,
-                        history: history
+                        history: history,
+                        results:[],
                     }
                 });
             }).then(Actions.main())
@@ -71,23 +80,51 @@ class WelcomePage extends Component {
     }
 
     render(){
+        const { textStyle } = styles;
+
+        const listcolor = function get_random_color() {
+            let letters = 'BCDEF'.split('');
+            let color = '#';
+            for (let i=0; i<6; i++ ) {
+                color += letters[Math.floor(Math.random() * letters.length)];
+            }
+            return color;
+        };
+
         const set = this.props.questionset?this.props.questionset.map(qset => {
             return (
-                <View key={qset._id}>
-                    <Button onPress={() => this.onButtonPress(qset._id)}>
-                        {qset.title}
-                    </Button>
-                </View>
-            )
-            }):<Text>No question to answer</Text>;
+                <Button
+                    block
+                    key={qset._id}
+                    onPress={() => this.onButtonPress(qset._id)}
+                    style={{backgroundColor: listcolor(), flex:1, margin: 10}}
+                >
+                   <Text style={textStyle}>{qset.title}</Text>
+                   <Right>
+                       <Icon name="ios-arrow-dropright-circle" style={{color: '#515151'}}/>
+                   </Right>
+
+                </Button>
+            )}):<Text>No question to answer</Text>;
 
         return (
-            <View>
-            {set}
-            </View>
+            <ScrollView style={{flex: 1}}>
+                {set}
+            </ScrollView>
+
+
         )
     }
 }
+
+const styles = {
+    textStyle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        color: '#515151'
+    }
+};
 
 const mapStateToProps = state => {
     return {

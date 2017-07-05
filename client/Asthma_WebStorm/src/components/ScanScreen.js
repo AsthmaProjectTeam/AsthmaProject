@@ -30,7 +30,7 @@ class ScanScreen extends Component {
         });
         const saveduuid = this.state.uuid;
 
-        fetch('http://192.168.100.7:8080/v2/accounts/patients/register', {
+        fetch('http://http://127.0.0.1:8080/v2/accounts/patients/register', {
             method: 'POST',
             headers: {
                 'Authorization': `token ${this.state.token}`,

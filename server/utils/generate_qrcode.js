@@ -1,11 +1,11 @@
 /**
  * Created by tengzhongwei on 6/7/17.
  */
-var QRCode = require('qrcode')
+var QRCode = require('qrcode');
 
 const h = "<html>hello world</html>";
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhIiwicm9sZSI6InRlbXAiLCJpYXQiOjE0OTg2OTk5MDUsImV4cCI6MTQ5ODcwMzUwNX0.PJn20FnlsZHrVrpX6z4rg1P3xTRV4kNFSJ67p5_392U';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhIiwicm9sZSI6InRlbXAiLCJpYXQiOjE0OTg3NTA0MDksImV4cCI6MTQ5ODc1NDAwOX0.UBH4yw5lNR04DoJ66z1eVIe0zy3usVHzPnyWoo8UuA8';
 QRCode.toFile('filename.png',
    token
     ,
@@ -17,4 +17,4 @@ QRCode.toFile('filename.png',
 }, function (err) {
     if (err) throw err
     console.log('done')
-})
+});

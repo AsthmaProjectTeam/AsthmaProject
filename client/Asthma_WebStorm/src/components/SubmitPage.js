@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import Button from './common/Button';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { Button, Text } from 'native-base';
+import Dimensions from 'Dimensions';
 
 class SubmitPage extends Component {
 
     onButtonPress(){
         const dispatch = this.props.dispatch;
-        console.log(this.props.results);
-        fetch('http://192.168.100.7:8080/v2/patients/results', {
+        fetch('http://127.0.0.1:8080/v2/patients/results', {
             method: 'POST',
             headers: {
-                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiaW5zZXJ0aW5nIjp0cnVlLCJnZXR0ZXJzIjp7fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsidXVpZCI6InJlcXVpcmUifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7fSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6eyJ1dWlkIjp0cnVlfX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MiwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiaW5pdGlhdG9ycyI6WzJdLCJjcmVhdGVkX2RhdGUiOiIyMDE3LTA2LTI4VDIwOjM3OjM0LjcxNVoiLCJyb2xlIjoicGF0aWVudCIsInJlc3VsdF9zZXQiOltdLCJxdWVzdGlvbl9zZXQiOltdLCJ1dWlkIjoiYTdlODU1NDQtODhhZS00MDU4LTkxMjUtYTE0ZWU5NGQ5ODg3IiwiX2lkIjo1MiwiX192IjowfSwiaWF0IjoxNDk4NjgyMjU0LCJleHAiOjE1MzAyMTgyNTR9.nzjxWoVuCD5eWwYSffu693LGub4cDkq8DX_nolrxgKw',
+                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTQ5OTMxODc3OH0.yeMQQbcE9vNrq2ywT0oGHXM792uzdL1l1kTjTsoS694',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -40,9 +40,12 @@ class SubmitPage extends Component {
         return (
             <View>
                 <Button
+                    block
+                    info
                     onPress={this.onButtonPress.bind(this)}
+                    style={{width:Dimensions.get('window').width*0.9, alignSelf:'center', marginTop: 20}}
                 >
-                    Submit Form
+                    <Text>Submit Form</Text>
                 </Button>
             </View>
         );

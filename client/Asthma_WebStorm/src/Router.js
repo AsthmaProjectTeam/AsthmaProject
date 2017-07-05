@@ -9,12 +9,12 @@ import SubmitPage from './components/SubmitPage';
 const RouterComponent = () => {
     return (
         <Router>
-            <Scene key="entrance">
-                <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
-            </Scene>
-            <Scene key="auth">
-                <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
-            </Scene>
+            {/*<Scene key="entrance">*/}
+                {/*<Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>*/}
+            {/*</Scene>*/}
+            {/*<Scene key="auth">*/}
+                {/*<Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>*/}
+            {/*</Scene>*/}
             <Scene key="welcome" >
                 <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
             </Scene>
