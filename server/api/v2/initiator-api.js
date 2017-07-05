@@ -143,4 +143,41 @@ module.exports = async app => {
             }
         });
     });
+
+    /**
+     * Initiator update a patient profile.
+     */
+    app.patch('/v2/initiators/patients/:id/profile', initiatorAuth, (req,res)=>{
+        let schema = Joi.object().keys({
+            first_name:         Joi.string().regex(/^[a-zA-Z]*$/).required(),
+            last_name:          Joi.string().regex(/^[a-zA-Z]*$/).required(),
+            mrn:                Joi.string().required(),
+            date_of_birth:      Joi.date().required(),
+        });
+        Joi.validate(req.body, schema, (err,data)=>{
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                Patient.findById(req.params.id, (err, patient)=>{
+                   if(err)  res.status(500).send('Error occurs when query patient');
+                   else{
+                       if(patient){
+                           patient.first_name = data.first_name;
+                           patient.last_name = data.last_name;
+                           patient.mrn = data.mrn;
+                           patient.date_of_birth = data.date_of_birth;
+                           patient.save(err=>{
+                               if(err) res.status(500).send('Error occurs when save data');
+                               else res.status(200).send({patient});
+                           })
+                       }
+                       else  res.status(400).send('Patient does not exist');
+                   }
+                });
+            }
+        });
+    })
+
+
 };

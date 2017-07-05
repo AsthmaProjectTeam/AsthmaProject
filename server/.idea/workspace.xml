@@ -15,19 +15,39 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="account-api.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="account-api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/v2/account-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="139" column="66" lean-forward="false" selection-start-line="139" selection-start-column="66" selection-end-line="139" selection-end-column="66" />
+            <state relative-caret-position="360">
+              <caret line="115" column="70" lean-forward="false" selection-start-line="115" selection-start-column="70" selection-end-line="115" selection-end-column="70" />
               <folding>
                 <element signature="e#443#909#0" expanded="false" />
                 <element signature="e#964#2245#0" expanded="false" />
                 <element signature="e#2253#2481#0" expanded="false" />
                 <element signature="e#2541#3828#0" expanded="false" />
                 <element signature="e#3836#4009#0" expanded="false" />
+                <element signature="e#4097#4396#0" expanded="false" />
+                <element signature="e#4404#4615#0" expanded="false" />
+                <element signature="e#4686#7611#0" expanded="false" />
                 <element signature="e#7619#7863#0" expanded="false" />
                 <element signature="e#7868#7936#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="patient-api.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/v2/patient-api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="80" column="13" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="33" />
+              <folding>
+                <element signature="e#316#584#0" expanded="false" />
+                <element signature="e#647#1883#0" expanded="false" />
+                <element signature="e#1891#2142#0" expanded="false" />
+                <element signature="e#2204#2594#0" expanded="false" />
+                <element signature="e#2603#2706#0" expanded="false" />
+                <element signature="e#2767#3021#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -53,16 +73,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="initiator-api.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="initiator-api.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/v2/initiator-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="132" column="34" lean-forward="false" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
+            <state relative-caret-position="93">
+              <caret line="149" column="15" lean-forward="false" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="50" />
               <folding>
                 <element signature="e#1170#1401#0" expanded="false" />
                 <element signature="e#1469#2549#0" expanded="false" />
                 <element signature="e#2557#2714#0" expanded="false" />
-                <element signature="e#4052#4312#0" expanded="false" />
+                <element signature="e#2785#3223#0" expanded="false" />
+                <element signature="e#3231#3453#0" expanded="false" />
+                <element signature="e#3534#4044#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -145,8 +167,8 @@
         <option value="$PROJECT_DIR$/api/v2/patient-api.js" />
         <option value="$PROJECT_DIR$/utils/patient_auth.js" />
         <option value="$PROJECT_DIR$/models/patient-model.js" />
-        <option value="$PROJECT_DIR$/api/v2/initiator-api.js" />
         <option value="$PROJECT_DIR$/api/v2/account-api.js" />
+        <option value="$PROJECT_DIR$/api/v2/initiator-api.js" />
       </list>
     </option>
   </component>
@@ -449,12 +471,12 @@
       <workItem from="1498843105092" duration="605000" />
       <workItem from="1499111027006" duration="8748000" />
       <workItem from="1499119848292" duration="595000" />
-      <workItem from="1499120767496" duration="10399000" />
+      <workItem from="1499120767496" duration="11747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143724000" />
+    <option name="totallyTimeSpent" value="145072000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -467,6 +489,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14285715" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -475,7 +498,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44183674" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2857143" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2857143" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -796,18 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/v2/patient-api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="80" column="13" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="33" />
-          <folding>
-            <element signature="e#316#584#0" expanded="false" />
-            <element signature="e#1891#2142#0" expanded="false" />
-            <element signature="e#2603#2706#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/initiator-model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -824,31 +835,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/v2/initiator-api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="132" column="34" lean-forward="false" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
-          <folding>
-            <element signature="e#1170#1401#0" expanded="false" />
-            <element signature="e#1469#2549#0" expanded="false" />
-            <element signature="e#2557#2714#0" expanded="false" />
-            <element signature="e#4052#4312#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/v2/account-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="139" column="66" lean-forward="false" selection-start-line="139" selection-start-column="66" selection-end-line="139" selection-end-column="66" />
+        <state relative-caret-position="360">
+          <caret line="115" column="70" lean-forward="false" selection-start-line="115" selection-start-column="70" selection-end-line="115" selection-end-column="70" />
           <folding>
             <element signature="e#443#909#0" expanded="false" />
             <element signature="e#964#2245#0" expanded="false" />
             <element signature="e#2253#2481#0" expanded="false" />
             <element signature="e#2541#3828#0" expanded="false" />
             <element signature="e#3836#4009#0" expanded="false" />
+            <element signature="e#4097#4396#0" expanded="false" />
+            <element signature="e#4404#4615#0" expanded="false" />
+            <element signature="e#4686#7611#0" expanded="false" />
             <element signature="e#7619#7863#0" expanded="false" />
             <element signature="e#7868#7936#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/v2/patient-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="80" column="13" lean-forward="false" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="33" />
+          <folding>
+            <element signature="e#316#584#0" expanded="false" />
+            <element signature="e#647#1883#0" expanded="false" />
+            <element signature="e#1891#2142#0" expanded="false" />
+            <element signature="e#2204#2594#0" expanded="false" />
+            <element signature="e#2603#2706#0" expanded="false" />
+            <element signature="e#2767#3021#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/v2/initiator-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="149" column="15" lean-forward="false" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="50" />
+          <folding>
+            <element signature="e#1170#1401#0" expanded="false" />
+            <element signature="e#1469#2549#0" expanded="false" />
+            <element signature="e#2557#2714#0" expanded="false" />
+            <element signature="e#2785#3223#0" expanded="false" />
+            <element signature="e#3231#3453#0" expanded="false" />
+            <element signature="e#3534#4044#0" expanded="false" />
           </folding>
         </state>
       </provider>
