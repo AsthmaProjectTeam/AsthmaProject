@@ -5,7 +5,7 @@ var QRCode = require('qrcode');
 
 const h = "<html>hello world</html>";
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhIiwicm9sZSI6InRlbXAiLCJpYXQiOjE0OTg3NTA0MDksImV4cCI6MTQ5ODc1NDAwOX0.UBH4yw5lNR04DoJ66z1eVIe0zy3usVHzPnyWoo8UuA8';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbml0aWF0b3JfaWQiOjIsInJvbGUiOiJ0ZW1wIiwicGF0aWVudF9pZCI6IjcxIiwiaWF0IjoxNDk5Mzc5NzQ0LCJleHAiOjE0OTkzODMzNDR9.qQgAPMug5EWoTLW-fI0390qjJtU5apBB399H5mluYpI';
 QRCode.toFile('filename.png',
    token
     ,

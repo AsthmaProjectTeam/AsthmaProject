@@ -30,8 +30,8 @@ class ScanScreen extends Component {
         });
         const saveduuid = this.state.uuid;
 
-        fetch('http://http://127.0.0.1:8080/v2/accounts/patients/register', {
-            method: 'POST',
+        fetch('http://10.67.89.36:8080/v2/accounts/patients/register', {
+            method: 'PATCH',
             headers: {
                 'Authorization': `token ${this.state.token}`,
                 'Content-Type': 'application/json',
@@ -50,8 +50,10 @@ class ScanScreen extends Component {
                 //         }
                 //     );
                 AsyncStorage.setItem("loginToken", response.token)
-                    .then(() => console.log("long term token is saved"))
-                    .then(Actions.welcome())
+                    .then(() => {
+                        console.log("long term token is saved");
+                        Actions.welcome();
+                })
             }).catch((error) => {
                 console.error(error);
             });

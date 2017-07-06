@@ -1,18 +1,38 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, Text } from 'native-base';
 import Dimensions from 'Dimensions';
+import Toast from 'react-native-simple-toast';
 
+let savedToken = "";
 class SubmitPage extends Component {
+
+    async retrievetoken() {
+        try {
+            savedToken = await AsyncStorage.getItem('loginToken');
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    componentWillMount(){
+        this.retrievetoken();
+        // AsyncStorage.getItem('loginToken')
+        //     .then(function (result) {
+        //         savedToken = result.rawData;
+        //     })
+        //     .catch(error => console.log("error: " + error.message));
+    }
 
     onButtonPress(){
         const dispatch = this.props.dispatch;
-        fetch('http://127.0.0.1:8080/v2/patients/results', {
+        fetch('http://10.67.89.36:8080/v2/patients/results', {
             method: 'POST',
             headers: {
-                'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTQ5OTMxODc3OH0.yeMQQbcE9vNrq2ywT0oGHXM792uzdL1l1kTjTsoS694',
+                'Authorization': `token ${savedToken}`,
+                //'Authorization': 'token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTUzMDg5NDYwMH0.zP8ee0xwqurrJjQZIG3SohFNThvSnSUMo-LileJhiaA',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -21,7 +41,7 @@ class SubmitPage extends Component {
             })
         }).then(function (response) {
             if(response.status == 200){
-                console.log('successfully submited the form!');
+                Toast.show('Successfully Submit the Form!', Toast.SHORT);
             }
         }).then(
             dispatch({
@@ -30,7 +50,10 @@ class SubmitPage extends Component {
                     results: null,
                     history: null
                 }
-            })).then(Actions.welcome())
+            })).then(
+                setTimeout(() => {
+                    Actions.welcome();
+                }, 2800))
             .catch(error => {
                 console.log(error);
             });
@@ -56,7 +79,8 @@ const mapStateToProps = state => {
     return {
         app: state.questions.app,
         results: state.questions.results,
-        history: state.questions.history
+        history: state.questions.history,
+        showToast: state.questions.showToast
     }
 };
 
