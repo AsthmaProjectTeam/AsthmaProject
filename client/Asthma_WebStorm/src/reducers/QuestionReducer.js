@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     checked_option: null,
-    questionset: null,
+    questionset: [],
     currentquestionset:null,
     currentquestion: null,
     app: null,

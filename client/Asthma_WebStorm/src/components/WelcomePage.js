@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 
-let savedToken = "";
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkzNzk4NTUsImV4cCI6MTQ5OTQyMzA1NX0.ZInEbqCSd5mXbrOZI1QginGYZnehggBN4_DUgchSvSs';
 class WelcomePage extends Component {
 
     handleErrors(response) {
@@ -13,16 +13,6 @@ class WelcomePage extends Component {
             throw Error(response.statusText);
         }
         return response;
-    }
-
-    async retrievetoken() {
-        try {
-            savedToken = await AsyncStorage.getItem('loginToken');
-            console.log('AsyncStorage get Item to retrieve savedToken');
-            console.log(savedToken);
-        } catch (error) {
-            console.log(error)
-        }
     }
 
     componentWillMount(){
@@ -35,7 +25,6 @@ class WelcomePage extends Component {
             }
         });
 
-        //this.retrievetoken();
         AsyncStorage.getItem('loginToken',(err,savedToken)=>{
             if(err) console.log(err);
             else {
@@ -44,8 +33,8 @@ class WelcomePage extends Component {
                 fetch('http://10.67.89.36:8080/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        //'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkzNzgzOTgsImV4cCI6MTQ5OTQyMTU5OH0.UQRXgKKa4_08hlwi6GcOvaMOhuOfqUp311SGj-jxYaI',
-                        'Authorization': `token ${savedToken}`,
+                        'Authorization': `token ${hardcodeToken}`,
+                        //'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -64,12 +53,6 @@ class WelcomePage extends Component {
                 });
             }
         });
-        // AsyncStorage.getItem('loginToken')
-        //     .then(function (result) {
-        //         savedToken = result.rawData;
-        //     })
-        //     .catch(error => console.log("error: " + error.message));
-
     }
 
     onButtonPress(qset_id){
@@ -79,8 +62,8 @@ class WelcomePage extends Component {
         fetch(`http://10.67.89.36:8080/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${savedToken}`,
-                //'Authorization': 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkzNzgzOTgsImV4cCI6MTQ5OTQyMTU5OH0.UQRXgKKa4_08hlwi6GcOvaMOhuOfqUp311SGj-jxYaI',
+                'Authorization': `token ${hardcodeToken}`,
+                //'Authorization': `token ${savedToken}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -106,6 +89,7 @@ class WelcomePage extends Component {
     }
 
     render(){
+        console.log(this.props.questionset);
         const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
 
         const listcolor = function get_random_color() {
@@ -117,7 +101,7 @@ class WelcomePage extends Component {
             return color;
         };
 
-        const set = this.props.questionset?this.props.questionset.map(qset => {
+        const set = (this.props.questionset.length!=0)?this.props.questionset.map(qset => {
             return (
                 <Button
                     block
