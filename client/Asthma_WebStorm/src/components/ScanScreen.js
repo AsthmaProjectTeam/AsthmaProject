@@ -43,12 +43,6 @@ class ScanScreen extends Component {
             .then(function(response){
                 console.log('this is replied long term token: ' + response.token);
 
-                // AsyncStorage.multiSet([["loginToken", response.token], ["uuid", saveduuid]])
-                //     .then(
-                //         () => {
-                //             console.log("token and uuid are saved");
-                //         }
-                //     );
                 AsyncStorage.setItem("loginToken", response.token)
                     .then(() => {
                         console.log("long term token is saved");
