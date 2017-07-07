@@ -284,6 +284,52 @@ module.exports = async app => {
                 }
             }
         });
+    });
+
+    /**
+     * Initiator answer a patient's(under his patients list) question set
+     */
+    app.post('/v2/initiators/patients/:id/results', initiatorAuth, (req, res)=>{
+        const schema = Joi.object().keys({
+            app:        Joi.string().required(),
+            results:    Joi.array().items({
+                q_id:   Joi.number().required(),
+                value: Joi.any().required(),
+            }).min(1).required(),
+        });
+        Joi.validate(req.body, schema, (err, data) => {
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                const patient_id = parseInt(req.params.id);
+                Initiator.findById(req.user.id, (err, initiator)=> {
+                    if (err) res.status(500).send("Error Occurs When Query Initiator");
+                    else {
+                        if (initiator) {
+                            if (!initiator.patients.includes(patient_id)) {
+                                res.status(403).send("You can not access this patient");
+                            }
+                            else{
+                                Patient.findById(patient_id)
+                                    .exec( (err, patient)=>{
+                                        if(err)  res.status(500).send("Error Occurs When Query Patient");
+                                        else {
+                                            if(patient) {
+                                                patient.result_set.push(data);
+                                                patient.save(err=>{
+                                                    if(err) res.status(500).send('Error Occurs When save Data');
+                                                    else res.status(200).send({result_set:patient.result_set});
+                                                });
+                                            }
+                                            else res.status(400).send("Can not Find Target Patient");
+                                        }});
+                            }
+                        }
+                    }
+                });
+            }
+        });
     })
 
 };

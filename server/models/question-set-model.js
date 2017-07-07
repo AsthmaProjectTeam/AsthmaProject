@@ -46,6 +46,7 @@ let QuestionSet = new Schema({
     "title": {type:String, required:true},
     'app':      {type:String, required:true},
     'content':         {type:[QuestionFlow]},
+    //'private_question': {type:Boolean, default:false}
 });
 
 QuestionSet.plugin(autoIncrement.plugin, 'QuestionSet');

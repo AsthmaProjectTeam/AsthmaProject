@@ -20,6 +20,7 @@ let Result = new Schema({
 );
 
 let ResultSet = new Schema({
+    //answer_by: {type: Number, required:true},
     app: {type:String, required:true},
     created_date:  { type: Date,       default:Date.now},
     results:{type:[Result]}
