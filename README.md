@@ -55,6 +55,7 @@ list what you wanna say
 |PATCH|/v2/initiators/patients/question-set|Initiator append new questions set to a list of patients|
 |DELETE|/v2/initiators/patients/:id/question-set|delete target patient's(under initiator's patients list) question set.|
 |GET|/v2/initiators/patients/:id/profile|Get a patient's(under initiator's patients list) profile|
+|POST|/v2/initiators/patients/:id/results|Initiator answer a patient's(under his patients list) question set|
 
 #### Paitient
 | Method        | URL           			 | Description  |
@@ -754,6 +755,38 @@ curl --get --include 'https://localhost/v2/initiator/patients/question-set'
 | 401    					| User is not authenticated								|
 | 403    					| User can't access target user's profile				|
 ------------------------------------------------------
+#### POST /v2/initiators/patients/:id/results
+Initiator answer a patient's(under his patients list) question set
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/patients/:uuid/results'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "app":"pain_check",
+  "results":[
+  	{"q_id":1, "value":5}
+  ]
+}
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+
+-------------------
 ------------------------------------------------------
 #### POST /v2/patients/results
 Upload patient's result
@@ -778,11 +811,6 @@ curl --post --include 'https://localhost/v2/patients/:uuid/results'
   ]
 }
 ```
-##### Request Data Validation
-
-| 		Field 			| 		 	Description 						| Required	| 		 			
-| ------------- 		|:-------------:								|:----		|
-
 
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
@@ -791,7 +819,6 @@ curl --post --include 'https://localhost/v2/patients/:uuid/results'
 | 401    					| User is not authenticated								|
 | 403    					| User can't access target user's profile				|
 
-##### Sample Response Data
 
 --------------------------------------------
 #### GET /v2/patients/profile
