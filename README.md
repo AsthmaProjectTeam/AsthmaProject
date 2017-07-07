@@ -51,6 +51,7 @@ list what you wanna say
 |PATCH|/v2/initiators/patients/add|Append/Add a list of patients to Initiator|
 |POST|/v2/initiators/patients/new|Create a new patient in database|
 |PATCH|/v2/initiators/patients/:id/profile|update profile of a patient|
+|DELETE|/v2/initiators/patients/:id|delete target patient of initiator's patients list|
 |PATCH|/v2/initiators/patients/question-set|Initiator append new questions set to a list of patients|
 
 #### Paitient
