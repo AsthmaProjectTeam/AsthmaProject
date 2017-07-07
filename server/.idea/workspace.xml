@@ -15,57 +15,14 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="initiator-api.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/v2/initiator-api.js">
+      <file leaf-file-name="csv-api.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/v2/csv-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
-                <element signature="e#633#730#0" expanded="false" />
-                <element signature="e#796#1346#0" expanded="false" />
-                <element signature="e#1354#1585#0" expanded="false" />
-                <element signature="e#1653#2733#0" expanded="false" />
-                <element signature="e#2741#2898#0" expanded="false" />
-                <element signature="e#2969#3407#0" expanded="false" />
-                <element signature="e#3415#3637#0" expanded="false" />
-                <element signature="e#3718#4228#0" expanded="false" />
-                <element signature="e#4236#4496#0" expanded="false" />
-                <element signature="e#4568#5463#0" expanded="false" />
-                <element signature="e#5471#5525#0" expanded="false" />
-                <element signature="e#5605#7011#0" expanded="false" />
-                <element signature="e#5646#5925#0" expanded="false" />
-                <element signature="e#5979#7003#0" expanded="false" />
-                <element signature="e#7019#7083#0" expanded="false" />
-                <element signature="e#7157#7297#0" expanded="false" />
-                <element signature="e#7305#7350#0" expanded="false" />
-                <element signature="e#7424#8246#0" expanded="false" />
+                <element signature="e#0#45#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="patient-api.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/v2/patient-api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
-              <folding>
-                <element signature="e#316#584#0" expanded="false" />
-                <element signature="e#647#1883#0" expanded="false" />
-                <element signature="e#1891#2142#0" expanded="false" />
-                <element signature="e#2204#2594#0" expanded="false" />
-                <element signature="e#2603#2706#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="patient-model.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/patient-model.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -98,9 +55,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/api/v1/user.js" />
-        <option value="$PROJECT_DIR$/models/Flow.js" />
-        <option value="$PROJECT_DIR$/api/v1/question.js" />
         <option value="$PROJECT_DIR$/models/flow.js" />
         <option value="$PROJECT_DIR$/utils/search_flow.js" />
         <option value="$PROJECT_DIR$/base.pug" />
@@ -138,7 +92,6 @@
         <option value="$PROJECT_DIR$/api/v2/demo-api.js" />
         <option value="$PROJECT_DIR$/models/question-set-model.js" />
         <option value="$PROJECT_DIR$/utils/initiator-auth.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/api/v2/admin-api.js" />
         <option value="$PROJECT_DIR$/models/fake_patient.js" />
         <option value="$PROJECT_DIR$/api/v2/question-api.js" />
@@ -147,8 +100,12 @@
         <option value="$PROJECT_DIR$/export-page.html" />
         <option value="$PROJECT_DIR$/service/bulk-update.js" />
         <option value="$PROJECT_DIR$/api/v2/account-api.js" />
-        <option value="$PROJECT_DIR$/api/v2/initiator-api.js" />
         <option value="$PROJECT_DIR$/models/patient-model.js" />
+        <option value="$PROJECT_DIR$/api/v2/initiator-api.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/utils/refractor-patient-json.js" />
+        <option value="$PROJECT_DIR$/utils/csv-helper.js" />
+        <option value="$PROJECT_DIR$/api/v2/csv-api.js" />
       </list>
     </option>
   </component>
@@ -197,6 +154,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -275,9 +246,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="FullScreen" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/tengzhongwei/github/AsthmaProject/server/api/v2/patient-api.js" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.1.3" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -439,12 +410,12 @@
       <workItem from="1499119848292" duration="595000" />
       <workItem from="1499120767496" duration="12091000" />
       <workItem from="1499360619260" duration="1450000" />
-      <workItem from="1499444734678" duration="4360000" />
+      <workItem from="1499444734678" duration="9055000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151226000" />
+    <option name="totallyTimeSpent" value="155921000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -465,7 +436,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5132653" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25612244" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -490,27 +461,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/backup/question.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="27" lean-forward="true" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/v1/patient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="48" column="25" lean-forward="true" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/backup/flow.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -700,13 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="35" lean-forward="false" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -760,17 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/v2/question-api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding>
-            <element signature="e#1074#2213#0" expanded="false" />
-            <element signature="e#3256#6036#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/bulk-update.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -802,7 +734,7 @@
     <entry file="file://$PROJECT_DIR$/api/v2/patient-api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding>
             <element signature="e#316#584#0" expanded="false" />
             <element signature="e#647#1883#0" expanded="false" />
@@ -813,38 +745,82 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/v2/question-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding>
+            <element signature="e#1074#2213#0" expanded="false" />
+            <element signature="e#3256#6036#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/v2/initiator-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="217" column="0" lean-forward="false" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+        <state relative-caret-position="495">
+          <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="185" selection-end-column="7" />
           <folding>
-            <element signature="e#633#730#0" expanded="false" />
-            <element signature="e#796#1346#0" expanded="false" />
-            <element signature="e#1354#1585#0" expanded="false" />
-            <element signature="e#1653#2733#0" expanded="false" />
-            <element signature="e#2741#2898#0" expanded="false" />
-            <element signature="e#2969#3407#0" expanded="false" />
-            <element signature="e#3415#3637#0" expanded="false" />
-            <element signature="e#3718#4228#0" expanded="false" />
-            <element signature="e#4236#4496#0" expanded="false" />
-            <element signature="e#4568#5463#0" expanded="false" />
-            <element signature="e#5471#5525#0" expanded="false" />
-            <element signature="e#5605#7011#0" expanded="false" />
-            <element signature="e#5646#5925#0" expanded="false" />
-            <element signature="e#5979#7003#0" expanded="false" />
-            <element signature="e#7019#7083#0" expanded="false" />
-            <element signature="e#7157#7297#0" expanded="false" />
-            <element signature="e#7305#7350#0" expanded="false" />
-            <element signature="e#7424#8246#0" expanded="false" />
+            <element signature="e#682#779#0" expanded="false" />
+            <element signature="e#845#1395#0" expanded="false" />
+            <element signature="e#1403#1634#0" expanded="false" />
+            <element signature="e#1702#2782#0" expanded="false" />
+            <element signature="e#2790#2947#0" expanded="false" />
+            <element signature="e#3018#3456#0" expanded="false" />
+            <element signature="e#3464#3686#0" expanded="false" />
+            <element signature="e#3767#4277#0" expanded="false" />
+            <element signature="e#4285#4545#0" expanded="false" />
+            <element signature="e#4617#5512#0" expanded="false" />
+            <element signature="e#5520#5574#0" expanded="false" />
+            <element signature="e#5654#7060#0" expanded="false" />
+            <element signature="e#5695#5974#0" expanded="false" />
+            <element signature="e#6028#7052#0" expanded="false" />
+            <element signature="e#7187#8009#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="59" column="33" lean-forward="false" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/csv-helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/patient-model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="110">
+          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/v2/csv-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

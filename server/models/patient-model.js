@@ -7,7 +7,8 @@
 
 let mongoose            = require('mongoose'),
     Schema              = mongoose.Schema,
-    autoIncrement       = require('mongoose-auto-increment');
+    autoIncrement       = require('mongoose-auto-increment'),
+    mongooseToCsv       = require('mongoose-to-csv');
    // QuestionSet         = require('../models/question-set-model');
 
 /***************** Patient Model *******************/
@@ -58,5 +59,25 @@ let Patient = new Schema({
 
 
 Patient.plugin(autoIncrement.plugin, 'Patient');
+
+Patient.plugin(mongooseToCsv, {
+    headers:'id first_name last_name mrn result_set',
+    constraints: {
+        'first_name': 'first_name',
+        'last_name': 'last_name',
+        'id': 'id',
+        'mrn': 'mrn',
+        'result_set':'result_set'
+    },
+    // virtuals: {
+    //     'date': (doc) => doc.result_set.created_date,
+    //     'question_id': (doc) => doc.result_set.results.q_id,
+    //     'value': (doc) => doc.result_set.results.value,
+    // }
+
+
+
+});
+
 
 module.exports = mongoose.model('Patient', Patient);

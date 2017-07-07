@@ -9,7 +9,8 @@ let Initiator                   = require('../../models/initiator-model'),
     filterPrivateInformation    = require('../../utils/filterPrivate'),
     Patient                     = require('../../models/patient-model'),
     QuestionSet                 = require('../../models/question-set-model'),
-    bulk_update                 = require('../../service/bulk-update');
+    bulk_update                 = require('../../service/bulk-update'),
+    fs                          = require('fs');
 
 module.exports = async app => {
     /**
@@ -181,15 +182,6 @@ module.exports = async app => {
     });
 
     /**
-     * Initiator Export all patients profile to csv;
-     */
-    app.get('/v2/initiators/patients/export', initiatorAuth, (req, res)=>{
-       Patient.find({}, 'first_name last_name result_set', (err, patients)=>{
-           res.status(200).send({patients});
-       })
-    });
-
-    /**
      * Initiator remove a patient
      */
     app.delete('/v2/initiators/patients/:id', initiatorAuth, (req, res)=>{
@@ -214,6 +206,5 @@ module.exports = async app => {
           }
        });
     });
-
 
 };
