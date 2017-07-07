@@ -53,6 +53,8 @@ list what you wanna say
 |PATCH|/v2/initiators/patients/:id/profile|update profile of a patient|
 |DELETE|/v2/initiators/patients/:id|delete target patient of initiator's patients list|
 |PATCH|/v2/initiators/patients/question-set|Initiator append new questions set to a list of patients|
+|DELETE|/v2/initiators/patients/:id/question-set|delete target patient's(under initiator's patients list) question set.|
+|GET|/v2/initiators/patients/:id/profile|Get a patient's(under initiator's patients list) profile|
 
 #### Paitient
 | Method        | URL           			 | Description  |
@@ -689,6 +691,61 @@ Initiator delete target patient from his patients' list
 curl --post --include 'https://localhost/v2/initiator/patients/question-set'
 -H 'Accept: application/json'
 ```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+#### DELETE /v2/initiators/patients/:id/question-set
+Initiator delete target patient's question set. target patient must under this initiator's patients list.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/patients/question-set'
+-H 'Accept: application/json'
+```
+
+##### Sample Request Data
+```js
+{
+  "q_list":[1,2,3]
+}
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+------------------------------------------------------
+#### GET /v2/initiators/patients/:id/profile
+Initiator get target patient's detailed profile(including results). target patient must under this initiator's patients list.
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --get --include 'https://localhost/v2/initiator/patients/question-set'
+-H 'Accept: application/json'
+```
+
 
 ##### Error and status codes
 | Status Code	   			| 	Meaning	 											|
