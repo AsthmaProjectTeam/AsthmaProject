@@ -11,13 +11,13 @@ async function addPatient(id_list,req,res) {
             for(let id of id_list){
                 let patient = await Patient.findById(id);
                 if(patient){
+
                     if(!initiator.patients.includes(patient._id)){
                         initiator.patients.push(patient._id);
                     }
                     if(!patient.initiators.includes(initiator._id)){
                         patient.initiators.push(initiator._id);
                     }
-                    console.log(patient);
                     await patient.save();
                 }
             }

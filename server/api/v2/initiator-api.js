@@ -19,7 +19,8 @@ module.exports = async app => {
      */
     app.get('/v2/initiators/profile', initiatorAuth, (req, res)=>{
         Initiator.findById(req.user.id)
-            .populate('patients','first_name last_name')
+            //.populate('patients','first_name last_name date_of_birth mrn question_set')
+            .populate({path:'patients', populate:{path:'question_set', select:'title'}, select:'first_name last_name date_of_birth mrn question_set'})
             .exec((err,initiator)=>{
                 if(err) res.status(500).send("Internal Database Error");
                 else {
@@ -177,7 +178,42 @@ module.exports = async app => {
                 });
             }
         });
-    })
+    });
+
+    /**
+     * Initiator Export all patients profile to csv;
+     */
+    app.get('/v2/initiators/patients/export', initiatorAuth, (req, res)=>{
+       Patient.find({}, 'first_name last_name result_set', (err, patients)=>{
+           res.status(200).send({patients});
+       })
+    });
+
+    /**
+     * Initiator remove a patient
+     */
+    app.delete('/v2/initiators/patients/:id', initiatorAuth, (req, res)=>{
+       const patient_id = parseInt(req.params.id);
+       Initiator.findById(req.user.id,(err, initiator)=>{
+          if(err) res.status(500).send("Error Occurs When Query Initiator");
+          else {
+              if(initiator){
+                  let i=0;
+                  while(i<initiator.patients.length){
+                    if(initiator.patients[i]===patient_id){
+                        initiator.patients.splice(i,1);
+                    } else i++;
+                  }
+                  initiator.save(err=>{
+                      if(err) res.status(500).send("Error Occurs When Query Initiator");
+                      else res.status(200).send({profile:initiator});
+                  })
+
+              }
+              else res.status(400).send("Can not Find Target Initiator");
+          }
+       });
+    });
 
 
 };

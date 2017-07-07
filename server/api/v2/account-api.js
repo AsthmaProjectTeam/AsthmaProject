@@ -97,9 +97,9 @@ module.exports = app => {
      */
     app.get('/v2/accounts/patients/:id/register/temp-token', initiatorAuth, (req,res)=>{
        const temp_user = {
-           initiator_id :  req.user.id,
+           initiator_id :  req.user.id,  //this is number
            role:        "temp",
-           patient_id:  req.params.id,
+           patient_id:  req.params.id,  //this is string
        };
        const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
            expiresIn: '1h',
@@ -114,8 +114,8 @@ module.exports = app => {
      * @return {token} Return json web token
      */
     app.patch('/v2/accounts/patients/register', tempAuth, (req, res)=>{
-        const initiator_id      = req.user.initiator_id;
-        const patient_id       = req.user.patient_id;
+        const initiator_id      = parseInt(req.user.initiator_id);
+        const patient_id       = parseInt(req.user.patient_id);
         let schema = Joi.object().keys({
             uuid:Joi.string().guid({
                 version: [
@@ -132,7 +132,6 @@ module.exports = app => {
                     if(err) res.status(500).send('Internal Error with Database');
                     else {
                         if(patient){
-                            console.log(patient);
                             Initiator.findById(initiator_id, (err, initiator)=>{
                                 if(err) res.status(500).send('Internal Error with Database');
                                 else{
@@ -141,6 +140,8 @@ module.exports = app => {
                                         if(!patient.initiators.includes(initiator_id)){
                                             patient.initiators.push(initiator._id);
                                         }
+                                        console.log(patient_id);
+                                        console.log(initiator.patients);
                                         if(!initiator.patients.includes(patient_id)){
                                             initiator.patients.push(patient._id);
                                         }
