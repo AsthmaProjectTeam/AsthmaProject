@@ -78,6 +78,10 @@ list what you wanna say
 |GET|/v2/admin/questions|get all questions|
 |GET|/v2/admin/question-set/:id|get all question-set|
 
+#### CSV
+| Method        | URL           			 | Description  |
+| ------------- |:-------------:			 | -----:|
+|GET|/v2/csv/patients/results|export patients results to csv for downloading|
 
 
 ---
