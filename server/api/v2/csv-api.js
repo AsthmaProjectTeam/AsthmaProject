@@ -4,7 +4,6 @@
 const Patient = require('../../models/patient-model');
 const csvHelp = require('../../utils/csv-helper');
 const fs      = require('fs');
-const CSV    = require('csv');
 
 
 module.exports = app=> {

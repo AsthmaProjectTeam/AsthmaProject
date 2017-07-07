@@ -207,4 +207,83 @@ module.exports = async app => {
        });
     });
 
+    /**
+     * Initiator delete a patient's question set
+     */
+    app.delete('/v2/initiators/patients/:id/question-set', initiatorAuth, (req, res)=>{
+        const patient_id = parseInt(req.params.id);
+        let schema = Joi.object().keys({
+            q_list      : Joi.array().items(Joi.number()).required().min(1),
+        });
+        Joi.validate(req.body, schema, (err, data)=> {
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                Initiator.findById(req.user.id, (err, initiator)=>{
+                    if(err) res.status(500).send("Error Occurs When Query Initiator");
+                    else {
+                        if(initiator) {
+                            if(!initiator.patients.includes(patient_id)){
+                                res.status(403).send("You can not access this patient");
+                            }
+                            else {
+                                Patient.findById(patient_id, (err, patient)=>{
+                                    if(err)  res.status(500).send("Error Occurs When Query Patient");
+                                    else {
+                                        if(patient){
+                                            for(let q_id of data.q_list){
+                                                let index = patient.question_set.indexOf(q_id);
+                                                if(index !== -1){
+                                                    patient.question_set.splice(index,1);
+                                                }
+                                            }
+                                            patient.save(err=>{
+                                                if(err) res.status(500).send("Error Occurs When Save Data");
+                                                else res.status(200).send({patient});
+                                            })
+
+                                        }
+                                        else res.status(400).send("Can not Find Target Patient");
+                                    }
+                                });
+                            }
+                        }
+                        else res.status(400).send("Can not Find Target Initiator");
+                    }
+                })
+            }
+        });
+
+    });
+
+    /**
+     * Initiator get a patient's(under his patients list) detailed profile
+     */
+    app.get('/v2/initiators/patients/:id/profile', initiatorAuth, (req, res)=>{
+        const patient_id = parseInt(req.params.id);
+        Initiator.findById(req.user.id, (err, initiator)=> {
+            if (err) res.status(500).send("Error Occurs When Query Initiator");
+            else {
+                if (initiator) {
+                    if (!initiator.patients.includes(patient_id)) {
+                        res.status(403).send("You can not access this patient");
+                    }
+                    else{
+                         Patient.findById(patient_id)
+                                .populate('question_set','title')
+                                .exec( (err, patient)=>{
+                                    if(err)  res.status(500).send("Error Occurs When Query Patient");
+                                    else {
+                                        if(patient) {
+                                            res.status(200).send({profile:patient});
+                                        }
+                                        else res.status(400).send("Can not Find Target Patient");
+                                }});
+                    }
+                }
+            }
+        });
+    })
+
 };
