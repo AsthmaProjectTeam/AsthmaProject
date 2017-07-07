@@ -670,6 +670,28 @@ curl --post --include 'https://localhost/v2/initiator/patients/question-set'
 | 403    					| User can't access target user's profile				|
 ------------------------------------------------------
 ------------------------------------------------------
+#### DELETE /v2/initiators/patients/:id
+Initiator delete target patient from his patients' list
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES(Initiator)     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/patients/question-set'
+-H 'Accept: application/json'
+```
+
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+------------------------------------------------------
 ------------------------------------------------------
 #### POST /v2/patients/results
 Upload patient's result
