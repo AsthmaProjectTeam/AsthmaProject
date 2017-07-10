@@ -11,6 +11,8 @@ let path            = require('path'),
     uuid            = require('uuid'),
     cookieParser    = require('cookie-parser');
 
+
+
 let port = process.env.PORT ? process.env.PORT : 8080;
 let env = process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
 
@@ -22,6 +24,7 @@ process.env.SECRET_KEY = 'test222';
 
 // Setup our Express pipeline
 let app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 // Setup pipeline logging
 if (env !== 'test') app.use(logger('dev'));
 app.use(cookieParser());
@@ -60,12 +63,12 @@ require('./api/v2/admin-api')(app);
 require('./api/v2/csv-api')(app);
 /**********************************************************************************************************/
 // Give them the SPA base page
-app.get('*', (req, res) => {
-    res.render('base.pug', {});
-});
-// app.get('*', socketRoute.foo, function(req, res){
-//     res.sendFile(__dirname+'/socket-test.html');
+// app.get('*', (req, res) => {
+//     res.render('base.pug', {});
 // });
+app.get('*', function(req, res){
+    res.sendFile(__dirname+'/socket-test.html');
+});
 
 /**********************************************************************************************************/
 
