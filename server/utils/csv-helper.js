@@ -18,6 +18,8 @@ function refractorPatientJson(patient_list) {
                     cur.mrn = patient.mrn;
                     cur.date = result_set.created_date;
                     cur.question_id = result.q_id;
+                    cur.description = result.description;
+                    cur.key   = result.key;
                     cur.value = result.value;
                     cur.question_set_app = result_set.app;
                     csv.push(cur);

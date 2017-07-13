@@ -14,6 +14,7 @@ let mongoose            = require('mongoose'),
 /***************** Patient Model *******************/
 let Result = new Schema({
         q_id: {type: Number, required:true},
+        description:{type: String, required:true},
         key: {type: String, required:true},
         value: {type:String, required:true},
     },
