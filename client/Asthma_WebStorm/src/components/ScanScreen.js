@@ -30,7 +30,7 @@ class ScanScreen extends Component {
         });
         const saveduuid = this.state.uuid;
 
-        fetch('http://10.67.89.36:8080/v2/accounts/patients/register', {
+        fetch('http://10.66.29.91:8080/v2/accounts/patients/register', {
             method: 'PATCH',
             headers: {
                 'Authorization': `token ${this.state.token}`,

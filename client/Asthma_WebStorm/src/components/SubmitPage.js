@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage, ListView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, Text } from 'native-base';
 import Dimensions from 'Dimensions';
 import Toast from 'react-native-simple-toast';
 
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTAwMDEwMjM1fQ._lHRM0Cr5olVHM0MIeuXvgme42giDANfb86n_lEfgWM';
 let savedToken = "";
 class SubmitPage extends Component {
 
@@ -19,20 +20,24 @@ class SubmitPage extends Component {
 
     componentWillMount(){
         this.retrievetoken();
-        // AsyncStorage.getItem('loginToken')
-        //     .then(function (result) {
-        //         savedToken = result.rawData;
-        //     })
-        //     .catch(error => console.log("error: " + error.message));
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+        this.dataSource = ds.cloneWithRows(this.props.results);
     }
 
-    onButtonPress(){
+    cancelButtonClicked(){
+        Actions.pop();
+        Actions.welcome();
+    }
+
+    submitButtonClicked(){
         const dispatch = this.props.dispatch;
-        fetch('http://10.67.89.36:8080/v2/patients/results', {
+        fetch('http://127.0.0.1:8080/v2/patients/results', {
             method: 'POST',
             headers: {
-                'Authorization': `token ${savedToken}`,
-                //'Authorization': 'token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjcwIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkyNzU1NzgsImV4cCI6MTUzMDg5NDYwMH0.zP8ee0xwqurrJjQZIG3SohFNThvSnSUMo-LileJhiaA',
+                //'Authorization': `token ${savedToken}`,
+                'Authorization': `token ${hardcodeToken}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -40,18 +45,13 @@ class SubmitPage extends Component {
                 'results': this.props.results
             })
         }).then(function (response) {
+            console.log({response});
             if(response.status == 200){
                 Toast.show('Successfully Submit the Form!', Toast.SHORT);
             }
         }).then(
-            dispatch({
-                type: 'clearHistory',
-                payload: {
-                    results: null,
-                    history: null
-                }
-            })).then(
                 setTimeout(() => {
+                    Actions.pop();
                     Actions.welcome();
                 }, 2800))
             .catch(error => {
@@ -60,27 +60,72 @@ class SubmitPage extends Component {
     }
 
     render() {
+        const { messageBoxText,summaryStyle, buttonListStyle, buttonStyle } = styles;
         return (
             <View>
-                <Button
-                    block
-                    info
-                    onPress={this.onButtonPress.bind(this)}
-                    style={{width:Dimensions.get('window').width*0.9, alignSelf:'center', marginTop: 20}}
-                >
-                    <Text>Submit Form</Text>
-                </Button>
+                <ListView
+                    dataSource={this.dataSource}
+                    renderRow={(r) => {
+                        return(
+                            <View style={summaryStyle}>
+                                {/*<TouchableOpacity>*/}
+                                    <Text style={{marginBottom: 3}}>{r.description} </Text>
+                                    <Text style={{marginTop: 3, marginBottom: 3, color: '#9e9e9e'}}>{r.key}. {r.value} </Text>
+                                {/*</TouchableOpacity>*/}
+                            </View>
+                        )
+                    }}
+                />
+
+                <Text style={messageBoxText}>You have finished this question set, click button below to submit or cancel.</Text>
+
+                <View style={buttonListStyle}>
+                    <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
+                        <Text>Cancel</Text>
+                    </Button>
+                    <Button block info onPress={this.submitButtonClicked.bind(this)} style={buttonStyle}>
+                        <Text>Submit</Text>
+                    </Button>
+                </View>
             </View>
         );
     }
 }
+
+const styles = {
+    messageBoxText:{
+        width:Dimensions.get('window').width*0.9,
+        marginTop: 10,
+        marginBottom: 10,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:16
+    },
+    summaryStyle: {
+        width: Dimensions.get('window').width*0.9,
+        borderBottomWidth: 2,
+        borderBottomColor: '#dddadf',
+        alignSelf: 'center',
+        marginTop: 5
+    },
+    buttonListStyle: {
+        flexDirection: 'row',
+        padding: 5,
+        alignSelf: 'center'
+    },
+    buttonStyle: {
+        margin: 10,
+        width: Dimensions.get('window').width*0.45
+    },
+};
 
 const mapStateToProps = state => {
     return {
         app: state.questions.app,
         results: state.questions.results,
         history: state.questions.history,
-        showToast: state.questions.showToast
+        showToast: state.questions.showToast,
+        currentquestionset: state.questions.currentquestionset
     }
 };
 

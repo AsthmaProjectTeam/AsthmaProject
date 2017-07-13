@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, ListView, TouchableOpacity } from 'react-native';
+import { View, ListView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Button, Text, ListItem, Right, Radio} from 'native-base';
+import { Button, ListItem, Right, Radio, Text} from 'native-base';
 
 class QuestionList extends Component {
 
@@ -39,7 +39,9 @@ class QuestionList extends Component {
         if(this.props.currentquestion.end_question){
             this.props.results.push({
                 q_id: this.props.currentquestion.question._id,
-                value: this.props.checked_option
+                key: this.props.checked_option,
+                value: this.props.checked_option_value,
+                description: this.props.currentquestion.question.description
             });
             this.props.dispatch({
                 type: 'lastQuestionReached',
@@ -47,13 +49,16 @@ class QuestionList extends Component {
                     results: this.props.results
                 }
             });
+            Actions.pop();
             Actions.submit();
         } else {
             for(let next of this.props.currentquestion.next_question){
                 if(next.prerequisite.option == this.props.checked_option){
                     this.props.results.push({
                         q_id: this.props.currentquestion.question._id,
-                        value: this.props.checked_option
+                        key: this.props.checked_option,
+                        value: this.props.checked_option_value,
+                        description: this.props.currentquestion.question.description
                     });
 
                     for(let question of this.props.currentquestionset){
@@ -64,7 +69,6 @@ class QuestionList extends Component {
                                 payload: {
                                     results: this.props.results,
                                     currentquestion: question,
-                                    checked_option: null,
                                     history: this.props.history
                                 }
                             });
@@ -76,19 +80,22 @@ class QuestionList extends Component {
         }
     }
 
-    onChange = (key) => {
+    onChange = (key, value) => {
         this.props.dispatch({
             type: 'optionSelected',
             payload: {
-                checked_option: key
+                checked_option: key,
+                checked_option_value: value
             }
         });
     };
 
     render() {
         // this is a problem for now: seems this page renders multiple times when gets back
-        console.log(this.props.history);
+        //console.log(this.props.history);
         const { titleStyle, buttonStyle } = styles;
+        console.log(this.props.currentquestionset);
+        console.log(this.props.currentquestion);
 
         return(
             <View>
@@ -98,15 +105,31 @@ class QuestionList extends Component {
                     </Text>
                 </View>
 
+                {/*<View>*/}
+                    {/*{this.props.currentquestion?this.props.currentquestion.question.options.map(i => {*/}
+                            {/*return (*/}
+                                {/*<View key={i.key}>*/}
+                                    {/*<TouchableHighlight underlayColor='gray' style={{width: '90%'}} onPress={() => this.onChange(i.key, i.value)}>*/}
+                                        {/*<Text>{i.key}. {i.value}</Text>*/}
+                                    {/*</TouchableHighlight>*/}
+                                {/*</View>*/}
+                            {/*)*/}
+                        {/*}):<View>*/}
+                            {/*<Text>*/}
+                                {/*not available*/}
+                            {/*</Text>*/}
+                        {/*</View>}*/}
+                {/*</View>*/}
+
                 <View>
                     {this.props.currentquestion?this.props.currentquestion.question.options.map(i => {
                         return (
+
                             <ListItem key={i.key}>
-                                <Text style={{width: '90%'}} onPress={() => this.onChange(i.key)}>{i.key}. {i.value}</Text>
-                                <Right>
-                                    <Radio selected={this.props.checked_option == i.key}/>
-                                </Right>
+                                <Text style={{width: '90%'}} onPress={() => this.onChange(i.key, i.value)}>{i.key}. {i.value}</Text>
+                                <Radio radioSelectedColor="gray" radioColor="red" radioBtnSize="18" selected={this.props.checked_option == i.key}/>
                             </ListItem>
+
                         )
                         }):<ListItem>
                             <Text>
@@ -122,6 +145,7 @@ class QuestionList extends Component {
                     <Button success onPress={this.onBackButtonPress.bind(this)} style={buttonStyle}>
                         <Text>Back</Text>
                     </Button>
+
                     <Button warning onPress={this.onNextButtonPress.bind(this)} style={buttonStyle}>
                         <Text>Next</Text>
                     </Button>
@@ -151,6 +175,7 @@ const mapStateToProps = state => {
         questionset: state.questions.questionset,
         currentquestion: state.questions.currentquestion,
         checked_option : state.questions.checked_option,
+        checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
         history:state.questions.history
     };

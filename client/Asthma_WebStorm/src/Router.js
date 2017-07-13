@@ -9,14 +9,14 @@ import { Root } from 'native-base';
 
 const RouterComponent = () => {
     return (
-        <Router>
-            <Scene key="entrance">
-                <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
-            </Scene>
-            <Scene key="auth">
-                <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
-            </Scene>
-            <Scene key="welcome" >
+        <Router panHandlers={null}>
+            {/*<Scene key="entrance">*/}
+                {/*<Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>*/}
+            {/*</Scene>*/}
+            {/*<Scene key="auth">*/}
+                {/*<Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>*/}
+            {/*</Scene>*/}
+            <Scene direction="leftToRight" key="welcome">
                 <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
             </Scene>
 
@@ -25,7 +25,7 @@ const RouterComponent = () => {
             </Scene>
 
             <Scene key="submit">
-                <Scene style={{ paddingTop: 65 }} key="submitPage" component={SubmitPage} title="Submit"/>
+                <Scene style={{ paddingTop: 65 }} key="submitPage" component={SubmitPage} title="Summary"/>
             </Scene>
         </Router>
     );

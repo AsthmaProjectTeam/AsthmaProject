@@ -5,7 +5,8 @@ import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE0OTkzNzk4NTUsImV4cCI6MTQ5OTQyMzA1NX0.ZInEbqCSd5mXbrOZI1QginGYZnehggBN4_DUgchSvSs';
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTAwMDEwMjM1fQ._lHRM0Cr5olVHM0MIeuXvgme42giDANfb86n_lEfgWM';
+let savedTokenfromServer = "";
 class WelcomePage extends Component {
 
     handleErrors(response) {
@@ -15,7 +16,7 @@ class WelcomePage extends Component {
         return response;
     }
 
-    componentWillMount(){
+    componentDidMount(){
         const dispatch = this.props.dispatch;
         dispatch({
             type: 'clearHistory',
@@ -30,7 +31,8 @@ class WelcomePage extends Component {
             else {
                 console.log('I am ready to fetch, my savedToken is: ');
                 console.log(savedToken);
-                fetch('http://10.67.89.36:8080/v2/patients/profile', {
+                savedTokenfromServer = savedToken;
+                fetch('http://127.0.0.1:8080/v2/patients/profile', {
                     method: 'GET',
                     headers: {
                         'Authorization': `token ${hardcodeToken}`,
@@ -59,11 +61,11 @@ class WelcomePage extends Component {
         const dispatch = this.props.dispatch;
         const history = this.props.history;
 
-        fetch(`http://10.67.89.36:8080/v2/question-set/${qset_id}`, {
+        fetch(`http://127.0.0.1:8080/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedToken}`,
+                //'Authorization': `token ${savedTokenfromServer}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -77,7 +79,6 @@ class WelcomePage extends Component {
                         currentquestionset: response,
                         currentquestion: response[0],
                         app: response[0].question.app,
-                        checked_option: null,
                         history: history,
                         results:[],
                     }
@@ -89,7 +90,6 @@ class WelcomePage extends Component {
     }
 
     render(){
-        console.log(this.props.questionset);
         const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
 
         const listcolor = function get_random_color() {
@@ -180,6 +180,7 @@ const mapStateToProps = state => {
         app: state.questions.app,
         title: state.questions.title,
         checked_option: state.questions.checked_option,
+        checked_option_value: state.questions.checked_option_value,
         history: state.questions.history,
         spinning: state.questions.spinning
     };
