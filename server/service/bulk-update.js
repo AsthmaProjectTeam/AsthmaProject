@@ -55,13 +55,11 @@ async function newPatientViaCsv(req, res, data) {
     try {
         for(let patient of data){
             let mrn = patient.mrn;
-            console.log(patient);
             let p = await Patient.findOne({mrn:mrn});
             if(p===null) {
                 p = new Patient(patient);
                 await p.save();
             }
-            else console.log('duplicate');
         }
         res.status(200).send('suc');
     }

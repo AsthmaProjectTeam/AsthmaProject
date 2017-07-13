@@ -29,6 +29,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-to-csv": "^0.1.1",
     "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
     "pug": "^2.0.0-rc.1",
     "qrcode": "^0.8.2",
     "serve-favicon": "~2.4.2",

@@ -66,7 +66,7 @@ require('./api/v2/csv-api')(app);
 // app.get('*', (req, res) => {
 //     res.render('base.pug', {});
 // });
-app.get('*', function(req, res){
+app.get('/upload', function(req, res){
     res.sendFile(__dirname+'/socket-test.html');
 });
 

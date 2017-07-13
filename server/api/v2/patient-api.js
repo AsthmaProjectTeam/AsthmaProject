@@ -21,7 +21,8 @@ module.exports = app => {
             app:        Joi.string().required(),
             results:    Joi.array().items({
                 q_id:   Joi.number().required(),
-                value: Joi.any().required(),
+                key:    Joi.any().required(),
+                value:  Joi.any().required(),
             }).min(1).required(),
         });
         Joi.validate(req.body, schema, (err, data) => {
