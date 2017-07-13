@@ -23,6 +23,7 @@ module.exports = app => {
                 q_id:   Joi.number().required(),
                 key:    Joi.any().required(),
                 value:  Joi.any().required(),
+                description: Joi.any().required(),
             }).min(1).required(),
         });
         Joi.validate(req.body, schema, (err, data) => {
