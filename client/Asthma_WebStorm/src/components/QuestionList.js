@@ -49,7 +49,6 @@ class QuestionList extends Component {
                     results: this.props.results
                 }
             });
-            Actions.pop();
             Actions.submit();
         } else {
             for(let next of this.props.currentquestion.next_question){
@@ -94,8 +93,6 @@ class QuestionList extends Component {
         // this is a problem for now: seems this page renders multiple times when gets back
         //console.log(this.props.history);
         const { titleStyle, buttonStyle } = styles;
-        console.log(this.props.currentquestionset);
-        console.log(this.props.currentquestion);
 
         return(
             <View>

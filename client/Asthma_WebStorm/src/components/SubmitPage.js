@@ -6,7 +6,7 @@ import { Button, Text } from 'native-base';
 import Dimensions from 'Dimensions';
 import Toast from 'react-native-simple-toast';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTAwMDEwMjM1fQ._lHRM0Cr5olVHM0MIeuXvgme42giDANfb86n_lEfgWM';
+const hardcodeToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTMxNTc5NTg5fQ.zs_ilRGgwDt9V7DVN4jyVsYwUo0ZnJDwJ8hWlrGn_TQ';
 let savedToken = "";
 class SubmitPage extends Component {
 
@@ -33,7 +33,7 @@ class SubmitPage extends Component {
 
     submitButtonClicked(){
         const dispatch = this.props.dispatch;
-        fetch('http://127.0.0.1:8080/v2/patients/results', {
+        fetch('http://10.67.96.12:8080/v2/patients/results', {
             method: 'POST',
             headers: {
                 //'Authorization': `token ${savedToken}`,
@@ -44,7 +44,8 @@ class SubmitPage extends Component {
                 'app':this.props.app,
                 'results': this.props.results
             })
-        }).then(function (response) {
+        }).then(response => globalerrorhandling(response))
+            .then(function (response) {
             console.log({response});
             if(response.status == 200){
                 Toast.show('Successfully Submit the Form!', Toast.SHORT);

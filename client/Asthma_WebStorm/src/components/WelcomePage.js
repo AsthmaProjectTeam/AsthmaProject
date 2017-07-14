@@ -5,16 +5,9 @@ import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTAwMDEwMjM1fQ._lHRM0Cr5olVHM0MIeuXvgme42giDANfb86n_lEfgWM';
-let savedTokenfromServer = "";
+//const hardcodeToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTMxNTc5NTg5fQ.zs_ilRGgwDt9V7DVN4jyVsYwUo0ZnJDwJ8hWlrGn_TQ';
+let savedTokenfromPhone = "";
 class WelcomePage extends Component {
-
-    handleErrors(response) {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    }
 
     componentDidMount(){
         const dispatch = this.props.dispatch;
@@ -27,20 +20,38 @@ class WelcomePage extends Component {
         });
 
         AsyncStorage.getItem('loginToken',(err,savedToken)=>{
-            if(err) console.log(err);
+            if(err) {
+                console.log('err at getItem');
+                console.log(err);
+            }
             else {
-                console.log('I am ready to fetch, my savedToken is: ');
-                console.log(savedToken);
-                savedTokenfromServer = savedToken;
-                fetch('http://127.0.0.1:8080/v2/patients/profile', {
+                let savedTokenfinal = savedToken;
+                savedTokenfromPhone = savedToken;
+                // if(moment.unix(jwtDecode(savedTokenfinal).exp) < moment()){
+                //   fetch('http://127.0.0.1:8080/v2/admin/refresh', {
+                //       method: 'GET',
+                //       headers: {
+                //           'Authorization': `token ${savedTokenfinal}`,
+                //           'Content-Type': 'application/json',
+                //           'Accept': 'application/json'
+                //       }
+                //   }) .then(response => globalerrorhandling(response))
+                //       .then(function(response){
+                //       savedTokenfinal = response.json().token;
+                //       AsyncStorage.setItem('loginToken', savedTokenfinal);
+                //   })
+                // }
+
+                fetch('http://10.67.96.12:8080/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `token ${hardcodeToken}`,
-                        //'Authorization': `token ${savedToken}`,
+                        //'Authorization': `token ${hardcodeToken}`,
+                        'Authorization': `token ${savedTokenfinal}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
-                }).then(response => response.json())
+                }).then(response => globalerrorhandling(response))
+                    .then(response => response.json())
                     .then(response => response.patient.question_set)
                     .then(function (response) {
                         dispatch({
@@ -51,25 +62,42 @@ class WelcomePage extends Component {
                             }
                         });
                     }).catch((error) => {
-                    console.log('error:' + error.message);
+                    console.log(error);
                 });
             }
         });
     }
 
-    onButtonPress(qset_id){
+     onButtonPress(qset_id){
         const dispatch = this.props.dispatch;
         const history = this.props.history;
 
-        fetch(`http://127.0.0.1:8080/v2/question-set/${qset_id}`, {
+        // savedTokenfinal = savedTokenfromPhone;
+        // if(moment.unix(jwtDecode(savedTokenfromPhone).exp) < moment()){
+        //     fetch('http://127.0.0.1:8080/v2/admin/refresh', {
+        //         method: 'GET',
+        //         headers: {
+        //             'Authorization': `token ${savedTokenfromPhone}`,
+        //             'Content-Type': 'application/json',
+        //             'Accept': 'application/json'
+        //         }
+        //     }) .then(response => globalerrorhandling(response))
+        //         .then(function(response){
+        //             savedTokenfinal = response.json().token;
+        //             AsyncStorage.setItem('loginToken', savedTokenfinal);
+        //         })
+        // }
+
+        fetch(`http://10.67.96.12:8080/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromServer}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfinal}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
-        }).then(response => response.json())
+        }).then(response => globalerrorhandling(response))
+            .then(response => response.json())
             .then(response => response.question_set.content)
             .then(function (response) {
                 history.push(response[0].question._id);
@@ -83,7 +111,10 @@ class WelcomePage extends Component {
                         results:[],
                     }
                 });
-            }).then(Actions.main())
+            }).then(function(){
+                Actions.pop();
+                Actions.main()
+             })
             .catch((error) => {
             console.log('error:' + error.message);
         });

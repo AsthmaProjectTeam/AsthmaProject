@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Linking, View, Text, AsyncStorage } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { Actions } from 'react-native-router-flux';
+import Joi from 'react-native-joi';
 
 class ScanScreen extends Component {
 
@@ -15,6 +16,13 @@ class ScanScreen extends Component {
         };
     }
 
+    // handleErrors(response) {
+    //     if (!response.ok) {
+    //         throw Error(response.statusText);
+    //     }
+    //     return response;
+    // }
+
     genId(){
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             let r = Math.random() * 16 | 0,
@@ -24,33 +32,46 @@ class ScanScreen extends Component {
     }
 
     onSuccess(val) {
-        this.setState({
-            token:val.data,
-            uuid: this.genId()
+        let schema = Joi.object().keys({
+           token: Joi.string().required()
         });
-        const saveduuid = this.state.uuid;
+        Joi.validate(val.data, schema, function (err, value) {
+            if(err)
+                alert("Invalid QR code. Please check the form of your code.");
+            else {
+                this.setState({
+                    token:value.token,
+                    uuid: this.genId()
+                });
+                const saveduuid = this.state.uuid;
 
-        fetch('http://10.66.29.91:8080/v2/accounts/patients/register', {
-            method: 'PATCH',
-            headers: {
-                'Authorization': `token ${this.state.token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'uuid': saveduuid
-            })
-        }).then(response => response.json())
-            .then(function(response){
-                console.log('this is replied long term token: ' + response.token);
+                fetch('http://10.67.96.12:8080/v2/accounts/patients/register', {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `token ${this.state.token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'uuid': saveduuid
+                    })
+                }).then(response => globalerrorhandling(response))
+                    .then(response => response.json())
+                    .then(function(response){
+                        console.log('this is replied long term token: ' + response.token);
 
-                AsyncStorage.setItem("loginToken", response.token)
-                    .then(() => {
-                        console.log("long term token is saved");
-                        Actions.welcome();
-                })
-            }).catch((error) => {
-                console.error(error);
-            });
+                        AsyncStorage.setItem("loginToken", response.token)
+                            .then(() => {
+                                console.log("long term token is saved");
+                                Actions.welcome();
+                            })
+                            .catch(error => {
+                                console.log(error.message);
+                            })
+                    }).catch((error) => {
+                        console.log(error);
+                });
+            }
+        })
     }
 
     render(){

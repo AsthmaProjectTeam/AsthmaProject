@@ -20,11 +20,15 @@ class EntrancePage extends Component {
                     if (result === null) {
                         setTimeout(() => {
                             console.log('cannot find saved data, be ready to scan screen');
+                            console.log(result);
+                            Actions.pop();
                             Actions.auth();
                         }, 2800)
                     } else {
                         console.log("access to saved data");
+                        console.log(result);
                         setTimeout(() => {
+                            Actions.pop();
                             Actions.welcome();
                         }, 2800);
                     }
