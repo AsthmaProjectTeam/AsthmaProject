@@ -46,6 +46,7 @@ function uploadAndSaveCsv(req, res, next) {
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
     form.on('file', function(field, file) {
+        console.log(file.name);
         fs.rename(file.path, path.join(form.uploadDir, file.name));
     });
 

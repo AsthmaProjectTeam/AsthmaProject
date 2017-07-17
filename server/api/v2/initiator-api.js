@@ -132,8 +132,9 @@ module.exports = async app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                data.first_name = data.first_name.toLowerCase();
-                data.last_name  = data.last_name.toLowerCase();
+
+                data.first_name = data.first_name[0].toUpperCase()+data.first_name.slice(1).toLowerCase();
+                data.last_name  = data.last_name[0].toUpperCase()+data.last_name.slice(1).toLowerCase();
                 let patient = new Patient(data);
                 patient.save(err=>{
                     console.log(err);
@@ -338,17 +339,20 @@ module.exports = async app => {
      */
     app.post('/v2/initiators/patients/query', initiatorAuth, (req, res)=>{
         const schema = Joi.object().keys({
-            first_name: Joi.string(),
-            last_name:  Joi.string(),
-        }).min(1);
+            first_name: Joi.string().required().allow(''),
+            last_name:  Joi.string().required().allow(''),
+        });
 
         Joi.validate(req.body, schema, (err, data) => {
             if (err) {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
-                if(data.first_name && data.last_name){
-                    Patient.find({first_name:data.first_name,last_name:data.last_name},(err,patients)=>{
+                if(data.first_name==='' &&data.last_name==='') res.status(400).send({err:'You should provide at least one field'});
+                else {
+                    const first_name ='.*'+data.first_name+'.*';
+                    const last_name ='.*'+data.last_name+'.*';
+                    Patient.find({first_name:new RegExp(first_name, 'i'),last_name:new RegExp(last_name, 'i')},(err,patients)=>{
                         if(err){
                             res.status(500).send({err:"Error Occured when query patient"});
                         }
@@ -357,28 +361,9 @@ module.exports = async app => {
                         }
                     } )
                 }
-                else{
-                    if(data.first_name){
-                        Patient.find({first_name:data.first_name},(err,patients)=>{
-                            if(err){
-                                res.status(500).send({err:"Error Occured when query patient"});
-                            }
-                            else {
-                                res.status(200).send({patients});
-                            }
-                        } )
-                    }
-                    else {
-                        Patient.find({last_name:data.last_name},(err,patients)=>{
-                            if(err){
-                                res.status(500).send({err:"Error Occured when query patient"});
-                            }
-                            else {
-                                res.status(200).send({patients});
-                            }
-                        } )
-                    }
-                }
+
+
+
 
             }
         });

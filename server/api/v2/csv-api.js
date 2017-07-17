@@ -26,7 +26,7 @@ module.exports = app=> {
      * Upload patient information csv file and save them into database;
      */
     app.post('/v2/csv/patients/profile', csvHelp.uploadAndSaveCsv, (req, res)=>{
-        const csvFilePath = path.join(__dirname, '/../../uploads/patients.csv');
+        const csvFilePath = path.join(__dirname, '/../../uploads/pa.csv');
         let patients = [];
         csv()
             .fromFile(csvFilePath)
