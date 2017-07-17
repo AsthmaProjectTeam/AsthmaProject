@@ -56,6 +56,7 @@ list what you wanna say
 |DELETE|/v2/initiators/patients/:id/question-set|delete target patient's(under initiator's patients list) question set.|
 |GET|/v2/initiators/patients/:id/profile|Get a patient's(under initiator's patients list) profile|
 |POST|/v2/initiators/patients/:id/results|Initiator answer a patient's(under his patients list) question set|
+|POST|/v2/initiators/patients/query|Initiator query a patient via first name and last name|
 
 #### Paitient
 | Method        | URL           			 | Description  |
@@ -523,8 +524,38 @@ curl --post --include 'https://localhost/v2/initiator/:id/profile'
 | 400    					| Invalid request data format. Recheck validation again	|
 | 401    					| User is not authenticated								|
 | 403    					| User can't access target user's profile				|
-
 ---------
+---------
+#### POST /v2/initiators/patients/query
+Query a patient via first name and last name
+##### Resource Information
+| 			     			| 		 			|
+| ------------- 			|:-------------:	|
+| Response formats    		| JSON	 			|
+| Requires authentication?  | YES     			|
+| Rate limited? 			| / | 
+
+##### Sample Request
+```
+curl --post --include 'https://localhost/v2/initiator/:id/profile'
+-H 'Accept: application/json' -d {data.json}
+```
+##### Sample Request Data
+```js
+{
+  "first_name":	"mike",
+  "last_name":	"L",
+}
+```
+##### Error and status codes
+| Status Code	   			| 	Meaning	 											|
+| ------------- 			|:-------------:										|
+| 400    					| Invalid request data format. Recheck validation again	|
+| 401    					| User is not authenticated								|
+| 403    					| User can't access target user's profile				|
+---------
+
+
 #### PATCH /v2/initiators/patients/:id/profile
 Update profile of a patient
 ##### Resource Information
