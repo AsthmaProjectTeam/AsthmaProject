@@ -132,8 +132,9 @@ module.exports = async app => {
                 const message = err.details[0].message;
                 res.status(400).send({error: message});
             } else {
+                data.first_name = data.first_name.toLowerCase();
+                data.last_name  = data.last_name.toLowerCase();
                 let patient = new Patient(data);
-
                 patient.save(err=>{
                     console.log(err);
                     if(err) res.status(500).send('Error occurs when save data');
@@ -347,7 +348,7 @@ module.exports = async app => {
                 res.status(400).send({error: message});
             } else {
                 if(data.first_name && data.last_name){
-                    Patient.find({first_name:first_name,last_name:last_name},(err,patients)=>{
+                    Patient.find({first_name:data.first_name,last_name:data.last_name},(err,patients)=>{
                         if(err){
                             res.status(500).send({err:"Error Occured when query patient"});
                         }
@@ -358,7 +359,7 @@ module.exports = async app => {
                 }
                 else{
                     if(data.first_name){
-                        Patient.find({first_name:first_name},(err,patients)=>{
+                        Patient.find({first_name:data.first_name},(err,patients)=>{
                             if(err){
                                 res.status(500).send({err:"Error Occured when query patient"});
                             }
@@ -368,7 +369,7 @@ module.exports = async app => {
                         } )
                     }
                     else {
-                        Patient.find({last_name:last_name},(err,patients)=>{
+                        Patient.find({last_name:data.last_name},(err,patients)=>{
                             if(err){
                                 res.status(500).send({err:"Error Occured when query patient"});
                             }
