@@ -77,7 +77,7 @@ module.exports = app => {
                         if(user){
                             if(user.authenticate(req.body.password)){
                                 const token = jwt.sign({id:user._id, role:user.role}, process.env.SECRET_KEY, {
-                                    expiresIn:'10h'
+                                    expiresIn:'365d'
                                 });
                                 res.status(200).send({username:user.username, id:user._id, token});
                             }
@@ -93,7 +93,8 @@ module.exports = app => {
     /**
      * Initiator create a temp token for patient registration
      *
-     * @return {200, {token}} Return token for registration. token will expire in 30 seconds
+     * @retu
+     * rn {200, {token}} Return token for registration. token will expire in 30 seconds
      */
     app.get('/v2/accounts/patients/:id/register/temp-token', initiatorAuth, (req,res)=>{
        const temp_user = {

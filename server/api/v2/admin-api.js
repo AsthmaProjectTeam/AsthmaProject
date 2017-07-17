@@ -67,8 +67,15 @@ module.exports = app => {
 
     app.get('/v2/admin/refresh', (req,res)=>{
         const originalDecoded = jwt.decode(req.headers.authorization.split(' ')[1], {complete: true});
-        const refreshed = jwt.refresh(originalDecoded, '365d', process.env.SECRET_KEY);
-        res.status(200).send({refreshed});
+        if(originalDecoded){
+            const refreshed = jwt.refresh(originalDecoded, '365d', process.env.SECRET_KEY);
+            res.status(200).send({refreshed});
+        }
+        else {
+            res.status(401).send('Invalid jwt');
+        }
+
+
     })
 
 

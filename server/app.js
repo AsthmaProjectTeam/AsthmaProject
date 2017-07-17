@@ -36,6 +36,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('pug', require('pug').__express);
 app.set('views', __dirname);
 
+//
+function enableCORSMiddleware (req,res,next) {
+    // You could use * instead of the url below to allow any origin,
+    // but be careful, you're opening yourself up to all sorts of things!
+    res.setHeader('Access-Control-Allow-Origin',  "http://localhost:8000");
+    res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept');
+    next()
+}
+app.use(enableCORSMiddleware);
+
+
+
+
 
 // Connect to mongoBD
 let options = { promiseLibrary: require('bluebird') };
@@ -76,6 +90,8 @@ app.get('/upload', function(req, res){
 let server = app.listen(port, () => {
     console.log('Example app listening on ' + server.address().port);
 });
+
+
 
 //Setup Socket.io
 const io = require('socket.io')(server);

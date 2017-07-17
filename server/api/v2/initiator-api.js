@@ -332,4 +332,56 @@ module.exports = async app => {
         });
     })
 
+    /**
+     * Initiator query a patient
+     */
+    app.post('/v2/initiators/patients/query', initiatorAuth, (req, res)=>{
+        const schema = Joi.object().keys({
+            first_name: Joi.string(),
+            last_name:  Joi.string(),
+        }).min(1);
+
+        Joi.validate(req.body, schema, (err, data) => {
+            if (err) {
+                const message = err.details[0].message;
+                res.status(400).send({error: message});
+            } else {
+                if(data.first_name && data.last_name){
+                    Patient.find({first_name:first_name,last_name:last_name},(err,patients)=>{
+                        if(err){
+                            res.status(500).send({err:"Error Occured when query patient"});
+                        }
+                        else {
+                            res.status(200).send({patients});
+                        }
+                    } )
+                }
+                else{
+                    if(data.first_name){
+                        Patient.find({first_name:first_name},(err,patients)=>{
+                            if(err){
+                                res.status(500).send({err:"Error Occured when query patient"});
+                            }
+                            else {
+                                res.status(200).send({patients});
+                            }
+                        } )
+                    }
+                    else {
+                        Patient.find({last_name:last_name},(err,patients)=>{
+                            if(err){
+                                res.status(500).send({err:"Error Occured when query patient"});
+                            }
+                            else {
+                                res.status(200).send({patients});
+                            }
+                        } )
+                    }
+                }
+
+            }
+        });
+    })
+
+
 };
