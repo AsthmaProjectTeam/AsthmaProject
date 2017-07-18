@@ -44,7 +44,7 @@ module.exports = app => {
                     }
                     else {
                         const token = jwt.sign({id:initiator._id, role:initiator.role}, process.env.SECRET_KEY, {
-                            expiresIn:"10h"
+                            expiresIn:"365d"
                         });
                         res.status(200).send({username: initiator.username, token:token});
                     }
@@ -154,7 +154,7 @@ module.exports = app => {
                                                     if(err) res.status(500).send('Patient saved but failed to save initiators');
                                                     else {
                                                         const token = jwt.sign({id:patient_id,role:'patient'}, process.env.SECRET_KEY, {
-                                                            expiresIn: "12h",
+                                                            expiresIn: "365d",
                                                         });
                                                         res.status(200).send({token});
                                                     }
