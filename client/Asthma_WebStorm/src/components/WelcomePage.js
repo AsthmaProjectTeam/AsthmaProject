@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
+import { HOST } from '../CONST';
 
 //const hardcodeToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTMxNTc5NTg5fQ.zs_ilRGgwDt9V7DVN4jyVsYwUo0ZnJDwJ8hWlrGn_TQ';
 let savedTokenfromPhone = "";
@@ -25,7 +26,6 @@ class WelcomePage extends Component {
                 console.log(err);
             }
             else {
-                let savedTokenfinal = savedToken;
                 savedTokenfromPhone = savedToken;
                 // if(moment.unix(jwtDecode(savedTokenfinal).exp) < moment()){
                 //   fetch('http://127.0.0.1:8080/v2/admin/refresh', {
@@ -42,11 +42,11 @@ class WelcomePage extends Component {
                 //   })
                 // }
 
-                fetch('http://10.67.96.12:8080/v2/patients/profile', {
+                fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
                     headers: {
                         //'Authorization': `token ${hardcodeToken}`,
-                        'Authorization': `token ${savedTokenfinal}`,
+                        'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -88,11 +88,11 @@ class WelcomePage extends Component {
         //         })
         // }
 
-        fetch(`http://10.67.96.12:8080/v2/question-set/${qset_id}`, {
+        fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
                 //'Authorization': `token ${hardcodeToken}`,
-                'Authorization': `token ${savedTokenfinal}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }

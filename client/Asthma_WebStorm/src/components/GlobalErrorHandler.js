@@ -1,9 +1,7 @@
 let globalerrorhandling = function (res) {
-    console.log(res);
-    console.log(res.status);
     if(!res.ok){
         if(res.status == 401){
-            alert("Your login info is invalid, please make sure the QR Code is correct.");
+            //alert("Sorry, your login info is expired.");
             throw Error(res.statusText);
         } else if(res.status == 400){
             console.log('400 error');

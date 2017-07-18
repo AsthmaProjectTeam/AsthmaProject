@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 import RouterComponent from './Router';
-import GlobalErrorHander from './components/GlobalErrorHandler';
+import globalerrorhandling from './components/GlobalErrorHandler';
 
 class App extends Component {
 
