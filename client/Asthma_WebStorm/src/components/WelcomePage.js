@@ -27,20 +27,6 @@ class WelcomePage extends Component {
             }
             else {
                 savedTokenfromPhone = savedToken;
-                // if(moment.unix(jwtDecode(savedTokenfinal).exp) < moment()){
-                //   fetch('http://127.0.0.1:8080/v2/admin/refresh', {
-                //       method: 'GET',
-                //       headers: {
-                //           'Authorization': `token ${savedTokenfinal}`,
-                //           'Content-Type': 'application/json',
-                //           'Accept': 'application/json'
-                //       }
-                //   }) .then(response => globalerrorhandling(response))
-                //       .then(function(response){
-                //       savedTokenfinal = response.json().token;
-                //       AsyncStorage.setItem('loginToken', savedTokenfinal);
-                //   })
-                // }
 
                 fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
@@ -71,22 +57,6 @@ class WelcomePage extends Component {
      onButtonPress(qset_id){
         const dispatch = this.props.dispatch;
         const history = this.props.history;
-
-        // savedTokenfinal = savedTokenfromPhone;
-        // if(moment.unix(jwtDecode(savedTokenfromPhone).exp) < moment()){
-        //     fetch('http://127.0.0.1:8080/v2/admin/refresh', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Authorization': `token ${savedTokenfromPhone}`,
-        //             'Content-Type': 'application/json',
-        //             'Accept': 'application/json'
-        //         }
-        //     }) .then(response => globalerrorhandling(response))
-        //         .then(function(response){
-        //             savedTokenfinal = response.json().token;
-        //             AsyncStorage.setItem('loginToken', savedTokenfinal);
-        //         })
-        // }
 
         fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
@@ -161,8 +131,8 @@ class WelcomePage extends Component {
                     <ActivityIndicator animating={this.props.spinning}/>
                 </View>
                 {set}
+                <Button block danger onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}><Text>Log out</Text></Button>
             </ScrollView>
-
 
         )
     }

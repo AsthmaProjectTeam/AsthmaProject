@@ -18,13 +18,6 @@ class ScanScreen extends Component {
         };
     }
 
-    // handleErrors(response) {
-    //     if (!response.ok) {
-    //         throw Error(response.statusText);
-    //     }
-    //     return response;
-    // }
-
     genId(){
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             let r = Math.random() * 16 | 0,
@@ -35,14 +28,11 @@ class ScanScreen extends Component {
 
     call (err, value) {
     if(err){
-        console.log(err.message);
-        console.log(value.data);
         Alert.alert(
             'Error',
             'Invalid QR Code.',
             [
                 {text: 'OK', onPress: () => {
-                    console.log('OK Pressed');
                     RNExitApp.exitApp();
                 }},
             ],
@@ -50,8 +40,6 @@ class ScanScreen extends Component {
         )
     }
     else {
-        console.log('this is else - which means there is no error with read in data');
-        console.log(value);
         this.setState({
             token:value.token,
             uuid: this.genId()
@@ -70,11 +58,8 @@ class ScanScreen extends Component {
         }).then(response => globalerrorhandling(response))
             .then(response => response.json())
             .then(function(response){
-                console.log('this is replied long term token: ' + response.token);
-
                 AsyncStorage.setItem("loginToken", response.token)
                     .then(() => {
-                        console.log("long term token is saved");
                         Actions.pop();
                         Actions.welcome();
                     })
@@ -82,28 +67,40 @@ class ScanScreen extends Component {
                         console.log(error.message);
                     })
             }).catch((error) => {
-            Actions.pop();
-            Actions.auth();
-            console.log(error);
+                console.log(error);
         });
     }
 }
+
     onSuccess(val) {
-        // const setState = this.setState;
-        // const uuid = this.genId();
-        // let state = this.state;
         let schema = Joi.object().keys({
            token: Joi.string().required()
         });
 
-        Joi.validate(val.data, schema, this.call.bind(this) )
+        try{
+            const parsedData = JSON.parse(val.data);
+            Joi.validate(parsedData, schema, this.call.bind(this));
+        } catch(error){
+            console.log('this is error');
+            console.log(error);
+            Alert.alert(
+                'Error',
+                'Invalid QR Code.',
+                [
+                    {text: 'OK', onPress: () => {
+                        Actions.pop();
+                        Actions.dummy();
+                    }},
+                ],
+                { cancelable: false }
+            )
+        }
     }
 
     render(){
 
         return(
             <View>
-                {/*<Text style={ [{color:"red"},{fontSize:16}] }>{this.state.uuid}</Text>*/}
                 <QRCodeScanner onRead={this.onSuccess.bind(this)}/>
             </View>
 

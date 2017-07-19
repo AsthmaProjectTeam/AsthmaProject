@@ -5,13 +5,16 @@ import ScanScreen from './components/ScanScreen';
 import WelcomePage from './components/WelcomePage';
 import EntrancePage from './components/EntrancePage';
 import SubmitPage from './components/SubmitPage';
-import { Actions } from 'react-native-router-flux';
+import DummyPage from './components/DummyPage';
 
 const RouterComponent = () => {
     return (
         <Router panHandlers={null}>
             <Scene key="entrance">
                 <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
+            </Scene>
+            <Scene key="dummy">
+                <Scene style={{ paddingTop: 65 }} key="dummyPage" component={DummyPage} title="Scan QR Code"/>
             </Scene>
             <Scene key="auth">
                 <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
