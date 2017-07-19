@@ -130,7 +130,7 @@ class QuestionList extends Component {
                         )
                         }):<ListItem>
                             <Text>
-                                not available
+                                Not available.
                             </Text>
                             <Right>
                                 <Radio selected={false}/>
