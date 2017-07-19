@@ -120,7 +120,7 @@ class WelcomePage extends Component {
                 <View style={messageContent}>
                     <View style={messageBox}>
                         <View>
-                            <Text style={messageBoxText}>You have no questions to answer</Text>
+                            <Text style={messageBoxText}>You have no assigned Question Sets.</Text>
                         </View>
                     </View>
                 </View>;

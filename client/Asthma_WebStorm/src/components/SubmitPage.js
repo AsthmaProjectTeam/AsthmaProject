@@ -49,7 +49,7 @@ class SubmitPage extends Component {
             .then(function (response) {
             console.log({response});
             if(response.status == 200){
-                Toast.show('Successfully Submit the Form!', Toast.SHORT);
+                Toast.show('Answers successfully submitted!', Toast.SHORT);
             }
         }).then(
                 setTimeout(() => {
@@ -79,7 +79,7 @@ class SubmitPage extends Component {
                     }}
                 />
 
-                <Text style={messageBoxText}>You have finished this question set, click button below to submit or cancel.</Text>
+                <Text style={messageBoxText}>You have finished this question set, click below to submit or cancel.</Text>
 
                 <View style={buttonListStyle}>
                     <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
