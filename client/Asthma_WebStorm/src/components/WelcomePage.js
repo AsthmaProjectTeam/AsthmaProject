@@ -131,7 +131,7 @@ class WelcomePage extends Component {
                     <ActivityIndicator animating={this.props.spinning}/>
                 </View>
                 {set}
-                <Button block danger onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}><Text>Log out</Text></Button>
+                {/*<Button block danger onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}><Text>Log out</Text></Button>*/}
             </ScrollView>
 
         )
