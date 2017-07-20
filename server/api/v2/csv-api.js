@@ -34,9 +34,10 @@ module.exports = app=> {
         if(mrn) query.mrn = mrn;
         if(first_name) query.first_name= first_name;
         if(last_name) query.last_name=last_name;
-        query['result_set.created_date'] = {};
+        if(req.query.start_date ||req.query.end_date)  query['result_set.created_date'] = {};
         if(req.query.start_date) query['result_set.created_date']['$gte'] = new Date(req.query.start_date);
         if(req.query.end_date) query['result_set.created_date']['$lt'] = new Date(req.query.end_date);
+
         Patient.find(query,(err,patients)=>{
             if(err) res.status(500).send('Error occurs when searching patients');
             let csv = csvHelp.refractorPatientJson(patients);
