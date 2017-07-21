@@ -98,7 +98,7 @@ class QuestionList extends Component {
             <View>
                 <View>
                     <Text style={titleStyle}>
-                        {this.props.currentquestion?(this.props.currentquestion.question._id+1) + ". " + this.props.currentquestion.question.description:"no question"}
+                        {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}
                     </Text>
                 </View>
 

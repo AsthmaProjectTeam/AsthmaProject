@@ -28,16 +28,19 @@ class ScanScreen extends Component {
 
     call (err, value) {
     if(err){
-        Alert.alert(
-            'Error',
-            'Invalid QR Code.',
-            [
-                {text: 'OK', onPress: () => {
-                    RNExitApp.exitApp();
-                }},
-            ],
-            { cancelable: false }
-        )
+        console.log('I come from call function');
+        Actions.pop();
+        Actions.dummy();
+        // Alert.alert(
+        //     'Error',
+        //     'Invalid QR Code.',
+        //     [
+        //         {text: 'OK', onPress: () => {
+        //             RNExitApp.exitApp();
+        //         }},
+        //     ],
+        //     { cancelable: false }
+        // )
     }
     else {
         this.setState({
@@ -81,19 +84,21 @@ class ScanScreen extends Component {
             const parsedData = JSON.parse(val.data);
             Joi.validate(parsedData, schema, this.call.bind(this));
         } catch(error){
-            console.log('this is error');
+            console.log('I am JSON parse error');
             console.log(error);
-            Alert.alert(
-                'Error',
-                'Invalid QR Code.',
-                [
-                    {text: 'OK', onPress: () => {
-                        Actions.pop();
-                        Actions.dummy();
-                    }},
-                ],
-                { cancelable: false }
-            )
+            Actions.pop();
+            Actions.dummy();
+            // Alert.alert(
+            //     'Error',
+            //     'Invalid QR Code.',
+            //     [
+            //         {text: 'OK', onPress: () => {
+            //             Actions.pop();
+            //             Actions.dummy();
+            //         }},
+            //     ],
+            //     { cancelable: false }
+            // )
         }
     }
 
