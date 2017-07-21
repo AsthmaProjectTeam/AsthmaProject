@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, AsyncStorage, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, AsyncStorage, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
@@ -9,6 +9,13 @@ import { HOST } from '../CONST';
 //const hardcodeToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTMxNTc5NTg5fQ.zs_ilRGgwDt9V7DVN4jyVsYwUo0ZnJDwJ8hWlrGn_TQ';
 let savedTokenfromPhone = "";
 class WelcomePage extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            refreshing: false
+        };
+    }
 
     componentDidMount(){
         const dispatch = this.props.dispatch;
@@ -90,6 +97,43 @@ class WelcomePage extends Component {
         });
     }
 
+    _onRefresh(){
+        this.setState({refreshing: true});
+        const dispatch = this.props.dispatch;
+        //const setState = this.setState;
+
+        fetch(HOST+'/v2/patients/profile', {
+            method: 'GET',
+            headers: {
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(response => globalerrorhandling(response))
+            .then(response => response.json())
+            .then(response => response.patient.question_set)
+            .then(function (response) {
+                dispatch({
+                    type: 'getAllQuestionSets',
+                    payload: {
+                        questionset: response,
+                        spinning: false
+                    }
+                });
+            })
+            .then(() => {
+                setTimeout(() => {
+                    this.setState({
+                        refreshing: false,
+                    });
+                }, 1000);
+            })
+            .catch((error) => {
+            console.log(error);
+        });
+    }
+
     render(){
         const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
 
@@ -126,12 +170,22 @@ class WelcomePage extends Component {
                 </View>;
 
         return (
-            <ScrollView style={{flex: 1}}>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh.bind(this)}
+                    />
+                }
+                style={{flex: 1}}
+            >
                 <View style={spinnerStyle}>
                     <ActivityIndicator animating={this.props.spinning}/>
                 </View>
                 {set}
-                {/*<Button block danger onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}><Text>Log out</Text></Button>*/}
+                <TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>
+                    <Text>log out</Text>
+                </TouchableOpacity>
             </ScrollView>
 
         )
