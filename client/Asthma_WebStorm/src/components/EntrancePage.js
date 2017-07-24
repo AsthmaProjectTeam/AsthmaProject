@@ -17,11 +17,11 @@ class EntrancePage extends Component {
         AsyncStorage.getItem('loginToken')
             .then(
                 function (result) {
-                    if (result === null) {
+                    if (result === 1) {
                         setTimeout(() => {
                             Actions.pop();
                             Actions.auth();
-                        }, 2800)
+                        }, 5000)
                     } else {
                         setTimeout(() => {
                             Actions.pop();

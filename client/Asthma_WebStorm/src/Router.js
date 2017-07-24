@@ -6,6 +6,8 @@ import WelcomePage from './components/WelcomePage';
 import EntrancePage from './components/EntrancePage';
 import SubmitPage from './components/SubmitPage';
 import DummyPage from './components/DummyPage';
+import ActivityLevelPage from './components/ActivityLevelPage';
+import PainLevelPage from './components/PainLevelPage';
 
 const RouterComponent = () => {
     return (
@@ -22,7 +24,12 @@ const RouterComponent = () => {
             <Scene direction="leftToRight" key="welcome">
                 <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
             </Scene>
-
+            <Scene key="activity">
+                <Scene style={{ paddingTop: 65 }} key="activityLevel" component={ActivityLevelPage} title="Activity Level"/>
+            </Scene>
+            <Scene key="pain">
+                <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>
+            </Scene>
             <Scene key="main">
                 <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>
             </Scene>

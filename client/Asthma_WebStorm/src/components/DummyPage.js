@@ -12,17 +12,10 @@ class DummyPage extends Component {
     }
 
     render(){
-        const { imageStyle, messageContent, messageBox, messageBoxText } = styles;
+        const { imageStyle } = styles;
         return(
             <View>
-                <View style={messageContent}>
-                    <View style={messageBox}>
-                        <View>
-                            <Text style={messageBoxText}>Sorry your login info is invalid. Please scan a valid QR code to login.</Text>
-                        </View>
-                    </View>
-                </View>
-                <Image style={imageStyle} source={require('../img/error.png')} />
+                <Image style={imageStyle} source={require('../img/error.jpeg')} />
             </View>
         )
     }
@@ -32,24 +25,6 @@ const styles = {
     imageStyle: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').width
-    },
-    messageContent:{
-        alignItems:'center'
-    },
-    messageBox:{
-        backgroundColor:'#519acb',
-        width:Dimensions.get('window').width,
-        height: Dimensions.get('window').height*0.1,
-        paddingTop:10,
-        paddingBottom:20,
-        paddingLeft:20,
-        paddingRight:20,
-    },
-    messageBoxText:{
-        fontWeight:'bold',
-        color:'#eee',
-        textAlign:'center',
-        fontSize:16
     }
 };
 
