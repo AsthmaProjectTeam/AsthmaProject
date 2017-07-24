@@ -7,7 +7,7 @@ import Dimensions from 'Dimensions';
 import Toast from 'react-native-simple-toast';
 import { HOST } from '../CONST';
 
-//const hardcodeToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAzLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTQ5OTk2NzAzNSwiZXhwIjoxNTMxNTc5NTg5fQ.zs_ilRGgwDt9V7DVN4jyVsYwUo0ZnJDwJ8hWlrGn_TQ';
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
 let savedToken = "";
 class SubmitPage extends Component {
 
@@ -37,8 +37,8 @@ class SubmitPage extends Component {
         fetch(HOST+'/v2/patients/results', {
             method: 'POST',
             headers: {
-                'Authorization': `token ${savedToken}`,
-                //'Authorization': `token ${hardcodeToken}`,
+                //'Authorization': `token ${savedToken}`,
+                'Authorization': `token ${hardcodeToken}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -62,6 +62,7 @@ class SubmitPage extends Component {
     }
 
     render() {
+        console.log(this.props.results);
         const { messageBoxText,summaryStyle, buttonListStyle, buttonStyle } = styles;
         return (
             <View>
@@ -72,7 +73,7 @@ class SubmitPage extends Component {
                             <View style={summaryStyle}>
                                 {/*<TouchableOpacity>*/}
                                     <Text style={{marginBottom: 3}}>{r.description} </Text>
-                                    <Text style={{marginTop: 3, marginBottom: 3, color: '#9e9e9e'}}>{r.key}. {r.value} </Text>
+                                    <Text style={{marginTop: 3, marginBottom: 3, color: '#9e9e9e'}}>{r.value} </Text>
                                 {/*</TouchableOpacity>*/}
                             </View>
                         )

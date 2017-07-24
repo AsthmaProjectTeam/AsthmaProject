@@ -12,9 +12,15 @@ import { Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 class PainLevelPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { pain: 0 }
+
+    componentWillMount(){
+        this.props.dispatch({
+            type: 'optionSelected',
+            payload: {
+                checked_option: "0",
+                checked_option_value: "0"
+            }
+        });
     }
 
     getVal(val){
@@ -27,28 +33,47 @@ class PainLevelPage extends Component {
         });
     }
 
-    onBackButtonPress(){
-        this.props.results.pop();
-        this.props.history.pop();
+    onCancelButtonPress(){
+        this.props.dispatch({
+            type: 'clearHistory',
+            payload: {
+                results: [],
+                history: [],
+                checked_option: null
+            }
+        });
+        Actions.pop();
+        Actions.welcome();
+    }
+
+    onNextButtonPress(){
+        this.props.results.push({
+            q_id: this.props.currentquestion.question._id,
+            key: this.props.checked_option,
+            value: this.props.checked_option_value,
+            description: this.props.currentquestion.question.description
+        });
 
         for(let question of this.props.currentquestionset){
-            if(question.question._id == this.props.history[this.props.history.length-1]){
+            if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+                this.props.history.push(question.question._id);
                 this.props.dispatch({
-                    type: 'backButtonClicked',
+                    type: 'nextButtonClicked',
                     payload: {
-                        results: this.props.results,
                         currentquestion: question,
-                        history: this.props.history,
+                        results: this.props.results,
+                        history: this.props.history
                     }
                 });
             }
         }
 
         Actions.pop();
-        Actions.activity();
+        Actions.location();
     }
 
     render() {
+        console.log(this.props.checked_option);
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
         return (
             <View style={containerStyle}>
@@ -59,22 +84,22 @@ class PainLevelPage extends Component {
                     step={1}
                     minimumValue={0}
                     maximumValue={10}
-                    value={this.state.pain}
-                    onValueChange={val => this.setState({ pain: val })}
-                    onSlidingComplete={ val => this.getVal(val)}
+                    value={parseInt(this.props.checked_option_value)}
+                    onValueChange={val => this.getVal(val.toString())}
+                    onSlidingComplete={ val => this.getVal(val.toString())}
                 />
                 <Text style={welcomeStyle}>
-                    {this.state.pain}
+                    {parseInt(this.props.checked_option_value)}
                 </Text>
                 <Text style={instructionStyle}>
                     Please select your current pain level.
                 </Text>
                 <View style={{flexDirection: 'row', flex: 1, marginTop: 20}}>
-                    <Button success style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
-                        <Text style={textStyle}>Back</Text>
+                    <Button danger style={bottomButtonStyle} onPress={this.onCancelButtonPress.bind(this)}>
+                        <Text style={textStyle}>Cancel</Text>
                     </Button>
 
-                    <Button warning style={bottomButtonStyle}>
+                    <Button warning style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>

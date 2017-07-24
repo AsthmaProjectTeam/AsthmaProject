@@ -23,7 +23,8 @@ class WelcomePage extends Component {
             type: 'clearHistory',
             payload: {
                 results: [],
-                history: []
+                history: [],
+                checked_option:null
             }
         });
 
@@ -89,8 +90,8 @@ class WelcomePage extends Component {
                     }
                 });
             }).then(function(){
-                Actions.pop();
-                Actions.activity();
+                //Actions.pop();
+                Actions.pain();
                 // Actions.main()
              })
             .catch((error) => {

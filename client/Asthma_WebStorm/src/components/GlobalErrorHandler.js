@@ -26,7 +26,7 @@ let globalerrorhandling = function (res) {
             console.log('400 error');
             throw Error(res.statusText);
         } else if(res.status == 500){
-            console.log('500 error');
+            alert("Operation failed. Please make sure your submitted answer is valide.");
             throw Error(res.statusText);
         } else {
             console.log('i do not know what error this is');

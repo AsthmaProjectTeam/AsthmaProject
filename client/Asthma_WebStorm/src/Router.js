@@ -8,6 +8,8 @@ import SubmitPage from './components/SubmitPage';
 import DummyPage from './components/DummyPage';
 import ActivityLevelPage from './components/ActivityLevelPage';
 import PainLevelPage from './components/PainLevelPage';
+import PainLocationPage from './components/PainLocationPage';
+import MedicationPage from './components/MedicationPage';
 
 const RouterComponent = () => {
     return (
@@ -24,11 +26,17 @@ const RouterComponent = () => {
             <Scene direction="leftToRight" key="welcome">
                 <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
             </Scene>
+            <Scene key="pain">
+                <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>
+            </Scene>
+            <Scene key="location">
+                <Scene style={{ paddingTop: 65 }} key="painLocation" component={PainLocationPage} title="Locate your pain"/>
+            </Scene>
             <Scene key="activity">
                 <Scene style={{ paddingTop: 65 }} key="activityLevel" component={ActivityLevelPage} title="Activity Level"/>
             </Scene>
-            <Scene key="pain">
-                <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>
+            <Scene key="medication">
+                <Scene style={{ paddingTop: 65 }} key="medicationPage" component={MedicationPage} title="Medication"/>
             </Scene>
             <Scene key="main">
                 <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>

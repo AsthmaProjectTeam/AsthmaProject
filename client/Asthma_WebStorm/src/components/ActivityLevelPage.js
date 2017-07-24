@@ -16,42 +16,44 @@ class ActivityLevelPage extends Component {
         });
     }
 
-    onCancelButtonPress(){
-        this.props.dispatch({
-            type: 'clearHistory',
-            payload: {
-                results: [],
-                history: []
+    onBackButtonPress(){
+        this.props.results.pop();
+        this.props.history.pop();
+
+        for(let question of this.props.currentquestionset){
+            if(question.question._id == this.props.history[this.props.history.length-1]){
+                this.props.dispatch({
+                    type: 'backButtonClicked',
+                    payload: {
+                        results: this.props.results,
+                        currentquestion: question,
+                        history: this.props.history,
+                    }
+                });
             }
-        });
+        }
+
         Actions.pop();
-        Actions.welcome();
+        Actions.location();
     }
 
     onNextButtonPress(){
-            this.props.results.push({
-                q_id: this.props.currentquestion.question._id,
-                key: this.props.checked_option,
-                value: this.props.checked_option_value,
-                description: this.props.currentquestion.question.description
-            });
+        this.props.results.push({
+            q_id: this.props.currentquestion.question._id,
+            key: this.props.checked_option,
+            value: this.props.checked_option_value,
+            description: this.props.currentquestion.question.description
+        });
 
-            for(let question of this.props.currentquestionset){
-                if(question.question._id == this.props.currentquestion.next_question[0].question_id){
-                    this.props.history.push(question.question._id);
-                    this.props.dispatch({
-                        type: 'nextButtonClicked',
-                        payload: {
-                            currentquestion: question,
-                            results: this.props.results,
-                            history: this.props.history
-                        }
-                    });
-                }
+        this.props.dispatch({
+            type: 'lastQuestionReached',
+            payload: {
+                results: this.props.results
             }
+        });
 
-            Actions.pop();
-            Actions.pain();
+        Actions.pop();
+        Actions.medication();
     }
 
     render(){
@@ -102,8 +104,8 @@ class ActivityLevelPage extends Component {
                 <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.props.checked_option}</Text>
 
                 <View style={{flexDirection: 'row', marginTop: 20}}>
-                    <Button danger style={bottomButtonStyle} onPress={this.onCancelButtonPress.bind(this)}>
-                        <Text style={textStyle}>Cancel</Text>
+                    <Button success style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
+                        <Text style={textStyle}>Back</Text>
                     </Button>
 
                     <Button warning style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
