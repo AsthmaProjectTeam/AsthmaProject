@@ -67,6 +67,8 @@ class PainLocationPage extends Component {
     }
 
     onBackButtonPress(){
+        console.log('1');
+        console.log(performance.now());
         this.props.results.pop();
         this.props.history.pop();
 
@@ -85,37 +87,47 @@ class PainLocationPage extends Component {
 
         Actions.pop();
         Actions.pain();
+        console.log('2');
+        console.log(performance.now());
     }
 
     onNextButtonPress(){
-        this.props.results.push({
-            q_id: this.props.currentquestion.question._id,
-            key: this.props.checked_option,
-            value: this.props.checked_option_value,
-            description: this.props.currentquestion.question.description
-        });
+        // if(this.props.checked_option == null){
+        //     this.props.dispatch({
+        //         type: 'optionBlankError',
+        //         payload: {
+        //             error: 'Please make a selection.'
+        //         }
+        //     })
+        // }else{
+            this.props.results.push({
+                q_id: this.props.currentquestion.question._id,
+                key: this.props.checked_option,
+                value: this.props.checked_option_value,
+                description: this.props.currentquestion.question.description
+            });
 
-        for(let question of this.props.currentquestionset){
-            if(question.question._id == this.props.currentquestion.next_question[0].question_id){
-                this.props.history.push(question.question._id);
-                this.props.dispatch({
-                    type: 'nextButtonClicked',
-                    payload: {
-                        currentquestion: question,
-                        results: this.props.results,
-                        history: this.props.history
-                    }
-                });
+            for(let question of this.props.currentquestionset){
+                if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+                    this.props.history.push(question.question._id);
+                    this.props.dispatch({
+                        type: 'nextButtonClicked',
+                        payload: {
+                            currentquestion: question,
+                            results: this.props.results,
+                            history: this.props.history
+                        }
+                    });
+                }
             }
-        }
 
-        Actions.pop();
-        Actions.activity();
+            //Actions.pop();
+            Actions.activity();
+        // }
     }
 
     render() {
-        console.log('rerendered');
-        const { containerStyle, headButtonStyle, upperButtonStyle, bottomButtonStyle, middleButtonStyle, switchTextStyle, buttonStyle, textStyle, buttonRowStyle } = styles;
+        const { containerStyle, headButtonStyle, upperButtonStyle, bottomButtonStyle, middleButtonStyle, switchTextStyle, buttonStyle, textStyle, buttonRowStyle, errorStyle } = styles;
         const frontOrback = this.state.switchValue?
             <Image style={containerStyle} source={require('../img/bodymap_front.png')}>
                 <Switch onValueChange = {() => this.toggleSwtich(!this.state.switchValue)} value = {this.state.switchValue}/>
@@ -152,6 +164,7 @@ class PainLocationPage extends Component {
                         formHorizontal={true}
                     />
                 </View>
+                <Text style={errorStyle}>{this.props.error}</Text>
             </Image>:
             <Image style={containerStyle} source={require('../img/bodymap_back.png')}>
                 <Switch onValueChange = {() => this.toggleSwtich(!this.state.switchValue)} value = {this.state.switchValue}/>
@@ -188,6 +201,7 @@ class PainLocationPage extends Component {
                         formHorizontal={true}
                     />
                 </View>
+                <Text style={errorStyle}>{this.props.error}</Text>
             </Image>;
 
             return (
@@ -215,7 +229,7 @@ const styles = {
         resizeMode: 'stretch',
         position: 'absolute',
         width: '100%',
-        height: '80%',
+        height: '85%',
     },
     headButtonStyle: {
         position: 'absolute',
@@ -225,7 +239,7 @@ const styles = {
     upperButtonStyle: {
         position: 'absolute',
         alignSelf: 'center',
-        marginTop: Dimensions.get('window').height/3.5,
+        marginTop: Dimensions.get('window').height/3.5+10,
         justifyContent: 'space-between'
     },
     middleButtonStyle:{
@@ -253,6 +267,12 @@ const styles = {
         flexDirection: 'row',
         flex: 1,
         marginTop: Dimensions.get('window').height*0.8
+    },
+    errorStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red',
+        marginTop: Dimensions.get('window').height*0.62
     }
 
 };
@@ -265,7 +285,8 @@ const mapStateToProps = state => {
         checked_option : state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
-        history:state.questions.history
+        history:state.questions.history,
+        error: state.questions.error
     };
 };
 

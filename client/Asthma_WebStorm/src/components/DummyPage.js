@@ -6,7 +6,7 @@ import Dimensions from 'Dimensions';
 class DummyPage extends Component {
     componentWillMount(){
         setTimeout(() => {
-            Actions.pop();
+            //Actions.pop();
             Actions.auth();
         }, 2500);
     }

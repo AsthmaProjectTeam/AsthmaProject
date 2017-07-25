@@ -28,7 +28,7 @@ class SubmitPage extends Component {
     }
 
     cancelButtonClicked(){
-        Actions.pop();
+        //Actions.pop();
         Actions.welcome();
     }
 
@@ -62,7 +62,6 @@ class SubmitPage extends Component {
     }
 
     render() {
-        console.log(this.props.results);
         const { messageBoxText,summaryStyle, buttonListStyle, buttonStyle } = styles;
         return (
             <View>

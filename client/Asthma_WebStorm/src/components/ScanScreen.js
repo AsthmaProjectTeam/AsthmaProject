@@ -29,7 +29,7 @@ class ScanScreen extends Component {
     call (err, value) {
     if(err){
         console.log('I come from call function');
-        Actions.pop();
+        //Actions.pop();
         Actions.dummy();
         // Alert.alert(
         //     'Error',
@@ -86,7 +86,7 @@ class ScanScreen extends Component {
         } catch(error){
             console.log('I am JSON parse error');
             console.log(error);
-            Actions.pop();
+            //Actions.pop();
             Actions.dummy();
             // Alert.alert(
             //     'Error',

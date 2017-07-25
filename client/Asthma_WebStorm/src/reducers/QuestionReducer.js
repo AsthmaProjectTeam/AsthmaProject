@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     title:null,
     results:[],
     history:[],
-    spinning: true
+    spinning: true,
+    error:null
 };
 
 export default (state=INITIAL_STATE, action) => {
@@ -25,16 +26,18 @@ export default (state=INITIAL_STATE, action) => {
                 checked_option_value: null,
                 history: action.payload.history,
                 results: action.payload.results,
+                error: null
             };
         case 'displayCurrentQuestion':
-            return { ...state, currentquestion:action.payload.currentquestion };
+            return { ...state, currentquestion:action.payload.currentquestion, error: null };
         case 'nextButtonClicked':
             return { ...state,
                 results:action.payload.results,
                 currentquestion:action.payload.currentquestion,
                 checked_option:null,
                 checked_option_value: null,
-                history:action.payload.history
+                history:action.payload.history,
+                error: null
             };
         case 'backButtonClicked':
             return { ...state,
@@ -42,22 +45,38 @@ export default (state=INITIAL_STATE, action) => {
                 checked_option: null,
                 checked_option_value: null,
                 history: action.payload.history,
-                currentquestion: action.payload.currentquestion
+                currentquestion: action.payload.currentquestion,
+                error: null
+            };
+        case 'medicationBackButtonClicked':
+            return { ...state,
+                results:action.payload.results,
+                checked_option: null,
+                checked_option_value: null,
+                error: null
             };
         case 'lastQuestionReached':
-            return { ...state, results:action.payload.results };
+            return { ...state, results:action.payload.results, error: null };
         case 'clearHistory':
             return { ...state,
                 results: action.payload.results,
                 history:action.payload.history,
                 checked_option: null,
                 checked_option_value: null,
+                error: null
             };
         case 'optionSelected' :
             return { ...state,
                 checked_option:action.payload.checked_option,
-                checked_option_value: action.payload.checked_option_value
+                checked_option_value: action.payload.checked_option_value,
+                error: null
             };
+        case 'optionBlankError':
+            return { ...state, error:action.payload.error };
+        case 'clearError':
+            return { ...state, error: null };
+        case 'unclickForgot':
+            return { ...state, checked_option: null, checked_option_value: null, error: null };
         default:
             return state;
     }

@@ -19,12 +19,12 @@ class EntrancePage extends Component {
                 function (result) {
                     if (result === 1) {
                         setTimeout(() => {
-                            Actions.pop();
+                            //Actions.pop();
                             Actions.auth();
                         }, 5000)
                     } else {
                         setTimeout(() => {
-                            Actions.pop();
+                            //Actions.pop();
                             Actions.welcome();
                         }, 2800);
                     }

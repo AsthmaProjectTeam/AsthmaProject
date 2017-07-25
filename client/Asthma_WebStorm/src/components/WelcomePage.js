@@ -90,7 +90,7 @@ class WelcomePage extends Component {
                     }
                 });
             }).then(function(){
-                //Actions.pop();
+                Actions.pop();
                 Actions.pain();
                 // Actions.main()
              })

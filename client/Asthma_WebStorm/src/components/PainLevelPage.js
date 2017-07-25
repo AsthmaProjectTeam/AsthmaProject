@@ -73,7 +73,8 @@ class PainLevelPage extends Component {
     }
 
     render() {
-        console.log(this.props.checked_option);
+        console.log('3');
+        console.log(performance.now());
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
         return (
             <View style={containerStyle}>

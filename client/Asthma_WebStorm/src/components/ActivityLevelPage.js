@@ -33,31 +33,39 @@ class ActivityLevelPage extends Component {
             }
         }
 
-        Actions.pop();
+        //Actions.pop();
         Actions.location();
     }
 
-    onNextButtonPress(){
-        this.props.results.push({
-            q_id: this.props.currentquestion.question._id,
-            key: this.props.checked_option,
-            value: this.props.checked_option_value,
-            description: this.props.currentquestion.question.description
-        });
+    onNextButtonPress() {
+        if (this.props.checked_option == null) {
+            this.props.dispatch({
+                type: 'optionBlankError',
+                payload: {
+                    error: 'Please make a selection.'
+                }
+            })
+        } else {
+            this.props.results.push({
+                q_id: this.props.currentquestion.question._id,
+                key: this.props.checked_option,
+                value: this.props.checked_option_value,
+                description: this.props.currentquestion.question.description
+            });
 
-        this.props.dispatch({
-            type: 'lastQuestionReached',
-            payload: {
-                results: this.props.results
-            }
-        });
+            this.props.dispatch({
+                type: 'medicationBackButtonClicked',
+                payload: {
+                    results: this.props.results
+                }
+            });
 
-        Actions.pop();
-        Actions.medication();
+            //Actions.pop();
+            Actions.medication();
+        }
     }
-
     render(){
-        const { buttonStyle, titleStyle, optionStyle, bottomButtonStyle, textStyle } = styles;
+        const { buttonStyle, titleStyle, optionStyle, bottomButtonStyle, textStyle, errorStyle } = styles;
         const optionArray = this.props.currentquestion.question.options;
         return(
             <ScrollView>
@@ -102,7 +110,9 @@ class ActivityLevelPage extends Component {
                     <Text>D. {optionArray[3].value}</Text>
                 </View>
                 <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.props.checked_option}</Text>
-
+                <Text style={errorStyle}>
+                    {this.props.error}
+                </Text>
                 <View style={{flexDirection: 'row', marginTop: 20}}>
                     <Button success style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
@@ -148,6 +158,12 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'space-between',
         width: Dimensions.get('window').width*0.8
+    },
+    errorStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red',
+        marginTop: 10
     }
 };
 
@@ -159,7 +175,8 @@ const mapStateToProps = state => {
         checked_option : state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
-        history:state.questions.history
+        history:state.questions.history,
+        error: state.questions.error
     };
 };
 
