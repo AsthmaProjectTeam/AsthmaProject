@@ -14,23 +14,15 @@ import { Actions } from 'react-native-router-flux';
 class PainLevelPage extends Component {
 
     componentWillMount(){
-        this.props.dispatch({
-            type: 'optionSelected',
-            payload: {
-                checked_option: "0",
-                checked_option_value: "0"
-            }
-        });
+        this.state = {level: 0};
+    }
+
+    componentWillReceiveProps(){
+        this.state = {level: 0};
     }
 
     getVal(val){
-        this.props.dispatch({
-            type: 'optionSelected',
-            payload: {
-                checked_option: val,
-                checked_option_value: val
-            }
-        });
+        this.setState({level:val});
     }
 
     onCancelButtonPress(){
@@ -49,8 +41,8 @@ class PainLevelPage extends Component {
     onNextButtonPress(){
         this.props.results.push({
             q_id: this.props.currentquestion.question._id,
-            key: this.props.checked_option,
-            value: this.props.checked_option_value,
+            key: this.state.level.toString(),
+            value: this.state.level.toString(),
             description: this.props.currentquestion.question.description
         });
 
@@ -73,8 +65,6 @@ class PainLevelPage extends Component {
     }
 
     render() {
-        console.log('3');
-        console.log(performance.now());
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
         return (
             <View style={containerStyle}>
@@ -85,12 +75,12 @@ class PainLevelPage extends Component {
                     step={1}
                     minimumValue={0}
                     maximumValue={10}
-                    value={parseInt(this.props.checked_option_value)}
-                    onValueChange={val => this.getVal(val.toString())}
-                    onSlidingComplete={ val => this.getVal(val.toString())}
+                    value={this.state.level}
+                    //onValueChange={val => this.getVal.bind(this,val)}
+                    onSlidingComplete={ val => this.getVal(val)}
                 />
                 <Text style={welcomeStyle}>
-                    {parseInt(this.props.checked_option_value)}
+                    {parseInt(this.state.level)}
                 </Text>
                 <Text style={instructionStyle}>
                     Please select your current pain level.

@@ -6,23 +6,31 @@ import { Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 class ActivityLevelPage extends Component {
+    componentWillMount(){
+        this.state = {
+            key: null,
+            value: null,
+            error: null
+        };
+    }
+
+
+
     onClick(key, value){
-        this.props.dispatch({
-            type: 'optionSelected',
-            payload: {
-                checked_option: key,
-                checked_option_value: value
-            }
+        this.setState({
+            key:key,
+            value:value,
+            error: null
         });
     }
 
-    onBackButtonPress(){
+    async onBackButtonPress(){
         this.props.results.pop();
         this.props.history.pop();
 
         for(let question of this.props.currentquestionset){
             if(question.question._id == this.props.history[this.props.history.length-1]){
-                this.props.dispatch({
+                await this.props.dispatch({
                     type: 'backButtonClicked',
                     payload: {
                         results: this.props.results,
@@ -30,37 +38,26 @@ class ActivityLevelPage extends Component {
                         history: this.props.history,
                     }
                 });
+                break;
             }
         }
 
-        //Actions.pop();
+        Actions.pop();
         Actions.location();
     }
 
     onNextButtonPress() {
-        if (this.props.checked_option == null) {
-            this.props.dispatch({
-                type: 'optionBlankError',
-                payload: {
-                    error: 'Please make a selection.'
-                }
-            })
+        if (this.state.key == null) {
+            this.setState({error: "Please make a selection."});
         } else {
             this.props.results.push({
                 q_id: this.props.currentquestion.question._id,
-                key: this.props.checked_option,
-                value: this.props.checked_option_value,
+                key: this.state.key,
+                value: this.state.value,
                 description: this.props.currentquestion.question.description
             });
 
-            this.props.dispatch({
-                type: 'medicationBackButtonClicked',
-                payload: {
-                    results: this.props.results
-                }
-            });
-
-            //Actions.pop();
+            Actions.pop();
             Actions.medication();
         }
     }
@@ -109,9 +106,9 @@ class ActivityLevelPage extends Component {
                     <Text>C. {optionArray[2].value}</Text>
                     <Text>D. {optionArray[3].value}</Text>
                 </View>
-                <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.props.checked_option}</Text>
+                <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.state.key}</Text>
                 <Text style={errorStyle}>
-                    {this.props.error}
+                    {this.state.error}
                 </Text>
                 <View style={{flexDirection: 'row', marginTop: 20}}>
                     <Button success style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
@@ -175,8 +172,7 @@ const mapStateToProps = state => {
         checked_option : state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
-        history:state.questions.history,
-        error: state.questions.error
+        history:state.questions.history
     };
 };
 

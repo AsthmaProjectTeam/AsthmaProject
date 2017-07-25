@@ -13,73 +13,48 @@ class MedicationPage extends Component {
         this.state = {
             date:null,
             checked: false,
-            pickerIsDisabled: false
+            pickerIsDisabled: false,
+            error: null
         }
     }
 
     checkBoxClicked(check){
-        this.props.dispatch({
-            type: 'clearError'
-        });
-
-
-        if(check){
-            this.props.dispatch({
-                type: 'optionSelected',
-                payload: {
-                    checked_option: 'I forgot',
-                    checked_option_value: 'I forgot'
-                }
-            });
-        }else{
-            this.props.dispatch({
-                type: 'unclickForgot'
-            })
-        }
-
         this.setState({
-            checked: check
+            error: null
         });
+
         if(check){
             this.setState({
+                checked: check,
+                date: 'I forgot',
                 pickerIsDisabled: true
             })
         }else{
             this.setState({
-                pickerIsDisabled: false
+                checked: check,
+                error: null,
+                pickerIsDisabled: false,
+                date: null
             })
         }
-
     }
 
     onBackButtonPress(){
         this.props.results.pop();
 
-        this.props.dispatch({
-            type: 'medicationBackButtonClicked',
-            payload: {
-                results: this.props.results
-            }
-        });
-
-        //Actions.pop();
+        Actions.pop();
         Actions.activity();
     }
 
     onNextButtonPress() {
-        if (this.props.checked_option == null) {
-            this.props.dispatch({
-                type: 'optionBlankError',
-                payload: {
-                    error: 'Please select a date or check the checkbox above.'
-                }
-            })
+        if(this.state.date == null){
+            this.setState({...this.state, error: 'Please select a date.'});
         } else {
             if (this.state.checked) {
                 this.props.results.push({
                     q_id: 12,
                     key: "time",
-                    value: "I forgot",
+                    value: this.state.date,
                     description: "When did you take your medication last time"
                 });
             } else {
@@ -90,33 +65,16 @@ class MedicationPage extends Component {
                     description: "When did you take your medication last time"
                 });
             }
-            this.props.dispatch({
-                type: 'medicationBackButtonClicked',
-                payload: {
-                    results: this.props.results
-                }
-            });
 
-            //Actions.pop();
+            Actions.pop();
             Actions.submit();
         }
     }
 
     onDateChange(date){
         this.setState({
-            date: date
-        });
-
-        this.props.dispatch({
-            type: 'clearError'
-        });
-
-        this.props.dispatch({
-            type: 'optionSelected',
-            payload: {
-                checked_option: date,
-                checked_option_value: date
-            }
+            date: date,
+            error: null
         });
     }
 
@@ -180,7 +138,7 @@ class MedicationPage extends Component {
                     onIconPress={() => this.checkBoxClicked(!this.state.checked)}
                 />
                 <Text style={errorStyle}>
-                    {this.props.error}
+                    {this.state.error}
                 </Text>
                 <View style={buttonRowStyle}>
                     <Button style={buttonStyle} success onPress={this.onBackButtonPress.bind(this)}>
@@ -227,7 +185,6 @@ const styles = {
 const mapStateToProps = state => {
     return {
         results: state.questions.results,
-        error: state.questions.error,
         checked_option: state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value
     };

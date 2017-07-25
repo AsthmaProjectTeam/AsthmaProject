@@ -48,7 +48,9 @@ class PainLocationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            switchValue: true
+            switchValue: true,
+            checked: null,
+            error: null
         }
     }
 
@@ -57,24 +59,16 @@ class PainLocationPage extends Component {
     }
 
     locatePain(value){
-        this.props.dispatch({
-            type: 'optionSelected',
-            payload: {
-                checked_option: value,
-                checked_option_value: value
-            }
-        });
+        this.setState({...this.state, checked:value, error:null});
     }
 
-    onBackButtonPress(){
-        console.log('1');
-        console.log(performance.now());
+    async onBackButtonPress(){
         this.props.results.pop();
         this.props.history.pop();
 
         for(let question of this.props.currentquestionset){
             if(question.question._id == this.props.history[this.props.history.length-1]){
-                this.props.dispatch({
+                await this.props.dispatch({
                     type: 'backButtonClicked',
                     payload: {
                         results: this.props.results,
@@ -82,35 +76,29 @@ class PainLocationPage extends Component {
                         history: this.props.history,
                     }
                 });
+                break;
             }
         }
 
         Actions.pop();
         Actions.pain();
-        console.log('2');
-        console.log(performance.now());
     }
 
-    onNextButtonPress(){
-        // if(this.props.checked_option == null){
-        //     this.props.dispatch({
-        //         type: 'optionBlankError',
-        //         payload: {
-        //             error: 'Please make a selection.'
-        //         }
-        //     })
-        // }else{
+    async onNextButtonPress(){
+        if(this.state.checked == null){
+            this.setState({...this.state, error: 'Please make a selection.'});
+        }else{
             this.props.results.push({
                 q_id: this.props.currentquestion.question._id,
-                key: this.props.checked_option,
-                value: this.props.checked_option_value,
+                key: this.state.checked,
+                value: this.state.checked,
                 description: this.props.currentquestion.question.description
             });
 
             for(let question of this.props.currentquestionset){
                 if(question.question._id == this.props.currentquestion.next_question[0].question_id){
                     this.props.history.push(question.question._id);
-                    this.props.dispatch({
+                    await this.props.dispatch({
                         type: 'nextButtonClicked',
                         payload: {
                             currentquestion: question,
@@ -118,12 +106,12 @@ class PainLocationPage extends Component {
                             history: this.props.history
                         }
                     });
+                    Actions.pop();
+                    Actions.activity();
+                    break;
                 }
             }
-
-            //Actions.pop();
-            Actions.activity();
-        // }
+         }
     }
 
     render() {
@@ -164,7 +152,7 @@ class PainLocationPage extends Component {
                         formHorizontal={true}
                     />
                 </View>
-                <Text style={errorStyle}>{this.props.error}</Text>
+                <Text style={errorStyle}>{this.state.error}</Text>
             </Image>:
             <Image style={containerStyle} source={require('../img/bodymap_back.png')}>
                 <Switch onValueChange = {() => this.toggleSwtich(!this.state.switchValue)} value = {this.state.switchValue}/>
@@ -201,7 +189,7 @@ class PainLocationPage extends Component {
                         formHorizontal={true}
                     />
                 </View>
-                <Text style={errorStyle}>{this.props.error}</Text>
+                <Text style={errorStyle}>{this.state.error}</Text>
             </Image>;
 
             return (
@@ -285,8 +273,7 @@ const mapStateToProps = state => {
         checked_option : state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
-        history:state.questions.history,
-        error: state.questions.error
+        history:state.questions.history
     };
 };
 

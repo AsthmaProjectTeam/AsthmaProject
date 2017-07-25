@@ -28,7 +28,7 @@ class SubmitPage extends Component {
     }
 
     cancelButtonClicked(){
-        //Actions.pop();
+        Actions.pop();
         Actions.welcome();
     }
 
