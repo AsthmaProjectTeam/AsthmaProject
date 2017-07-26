@@ -135,6 +135,7 @@ module.exports = app => {
                         question_set.save( err=>{
                             if(err) res.status(500).send('Error Occur when save question set');
                             else {
+                                question_set.author = null;
                                 res.status(200).send({question_set});
                             }
                         })

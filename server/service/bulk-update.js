@@ -55,17 +55,23 @@ async function newPatientViaCsv(req, res, data) {
     try {
         for(let patient of data){
             let mrn = patient.mrn;
-            let p = await Patient.findOne({mrn:mrn});
-            if(p===null) {
-                patient.first_name = patient.first_name[0].toUpperCase()+patient.first_name.slice(1).toLowerCase();
-                patient.last_name  = patient.last_name[0].toUpperCase()+patient.last_name.slice(1).toLowerCase();
-                p = new Patient(patient);
-                await p.save();
+            if(patient.last_name && patient.first_name && patient.mrn && patient.date){
+                let p = await Patient.findOne({mrn:mrn});
+                if(p===null) {
+
+                    patient.first_name = patient.first_name[0].toUpperCase()+patient.first_name.slice(1).toLowerCase();
+                    patient.last_name  = patient.last_name[0].toUpperCase()+patient.last_name.slice(1).toLowerCase();
+                    patient.question_set = [16];
+                    p = new Patient(patient);
+                    await p.save();
+                }
             }
+
         }
         res.status(200).send('suc');
     }
     catch (err){
+
         res.status(500).send('err')
     }
 

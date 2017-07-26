@@ -5,6 +5,7 @@ const json2csv = require('json2csv');
 const path     = require('path');
 const formidable      = require('formidable');
 const fs              = require('fs');
+const uuid            = require('uuid');
 
 function refractorPatientJson(patient_list) {
     let csv = [];
@@ -46,8 +47,10 @@ function uploadAndSaveCsv(req, res, next) {
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
     form.on('file', function(field, file) {
-        console.log(file.name);
-        fs.rename(file.path, path.join(form.uploadDir, file.name));
+        const temp_name = uuid.v4();
+        //fs.rename(file.path, path.join(form.uploadDir, file.name));
+        fs.rename(file.path, path.join(form.uploadDir, 'patients_'+temp_name+'.csv'));
+        req.file_name = 'patients_'+temp_name+'.csv';
     });
 
     // log any errors that occur
