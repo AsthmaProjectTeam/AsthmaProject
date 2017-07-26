@@ -102,22 +102,6 @@ class QuestionList extends Component {
                     </Text>
                 </View>
 
-                {/*<View>*/}
-                    {/*{this.props.currentquestion?this.props.currentquestion.question.options.map(i => {*/}
-                            {/*return (*/}
-                                {/*<View key={i.key}>*/}
-                                    {/*<TouchableHighlight underlayColor='gray' style={{width: '90%'}} onPress={() => this.onChange(i.key, i.value)}>*/}
-                                        {/*<Text>{i.key}. {i.value}</Text>*/}
-                                    {/*</TouchableHighlight>*/}
-                                {/*</View>*/}
-                            {/*)*/}
-                        {/*}):<View>*/}
-                            {/*<Text>*/}
-                                {/*not available*/}
-                            {/*</Text>*/}
-                        {/*</View>}*/}
-                {/*</View>*/}
-
                 <View>
                     {this.props.currentquestion?this.props.currentquestion.question.options.map(i => {
                         return (

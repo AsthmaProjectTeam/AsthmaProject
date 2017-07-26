@@ -9,18 +9,6 @@ let globalerrorhandling = function (res) {
             AsyncStorage.removeItem('loginToken');
             Actions.pop();
             Actions.dummy();
-            // Alert.alert(
-            //     'Error',
-            //     'Sorry your login info is expired. Please ask for your doctor a new QR code to register your phone.',
-            //     [
-            //         {text: 'OK', onPress: () => {
-            //             AsyncStorage.removeItem('loginToken');
-            //             Actions.pop();
-            //             Actions.dummy();
-            //         }},
-            //     ],
-            //     { cancelable: false }
-            // );
             throw Error(res.statusText);
         } else if(res.status == 400){
             console.log('400 error');

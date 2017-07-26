@@ -29,18 +29,8 @@ class ScanScreen extends Component {
     call (err, value) {
     if(err){
         console.log('I come from call function');
-        //Actions.pop();
+        Actions.pop();
         Actions.dummy();
-        // Alert.alert(
-        //     'Error',
-        //     'Invalid QR Code.',
-        //     [
-        //         {text: 'OK', onPress: () => {
-        //             RNExitApp.exitApp();
-        //         }},
-        //     ],
-        //     { cancelable: false }
-        // )
     }
     else {
         this.setState({
@@ -86,19 +76,8 @@ class ScanScreen extends Component {
         } catch(error){
             console.log('I am JSON parse error');
             console.log(error);
-            //Actions.pop();
+            Actions.pop();
             Actions.dummy();
-            // Alert.alert(
-            //     'Error',
-            //     'Invalid QR Code.',
-            //     [
-            //         {text: 'OK', onPress: () => {
-            //             Actions.pop();
-            //             Actions.dummy();
-            //         }},
-            //     ],
-            //     { cancelable: false }
-            // )
         }
     }
 
