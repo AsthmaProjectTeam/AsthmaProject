@@ -3,6 +3,7 @@ package com.asthma_webstorm;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.instabug.reactlibrary.RNInstabugReactnativePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -25,6 +26,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNInstabugReactnativePackage.Builder("YOUR_ANDROID_APPLICATION_TOKEN",MainApplication.this)
+.setInvocationEvent("shake")
+.setPrimaryColor("#1D82DC")
+.setFloatingEdge("left")
+.setFloatingButtonOffsetFromTop(250)
+.build(),
             new VectorIconsPackage(),
             new RCTCameraPackage()
       );
