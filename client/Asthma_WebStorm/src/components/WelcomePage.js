@@ -6,8 +6,9 @@ import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 import { HOST } from '../CONST';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
+//const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
 let savedTokenfromPhone = "";
+
 class WelcomePage extends Component {
 
     constructor(props){
@@ -39,8 +40,8 @@ class WelcomePage extends Component {
                 fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `token ${hardcodeToken}`,
-                        //'Authorization': `token ${savedToken}`,
+                        //'Authorization': `token ${hardcodeToken}`,
+                        'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -69,8 +70,8 @@ class WelcomePage extends Component {
         fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -107,8 +108,8 @@ class WelcomePage extends Component {
         fetch(HOST+'/v2/patients/profile', {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
@@ -137,7 +138,7 @@ class WelcomePage extends Component {
     }
 
     render(){
-        const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
+        const { colorBarStyle, textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
 
         const listcolor = function get_random_color() {
             let letters = 'BCDEF'.split('');
@@ -172,23 +173,37 @@ class WelcomePage extends Component {
                 </View>;
 
         return (
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this._onRefresh.bind(this)}
-                    />
-                }
-                style={{flex: 1}}
-            >
-                <View style={spinnerStyle}>
-                    <ActivityIndicator animating={this.props.spinning}/>
+            <View style={{flex:1}}>
+                <Text style={{ ...textStyle,
+                               color: 'dodgerblue',
+                               marginTop: 10,
+                               fontWeight: '500',
+                               marginRight: 8,
+                               marginLeft: 8}}>
+                    Welcome! Please tap on a questionnaire below to begin.
+                </Text>
+
+                <View style={colorBarStyle}>
                 </View>
-                {set}
-                {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
-                    {/*<Text>log out</Text>*/}
-                {/*</TouchableOpacity>*/}
-            </ScrollView>
+
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh.bind(this)}
+                        />
+                    }
+                    style={{flex: 1}}
+                >
+                    <View style={spinnerStyle}>
+                        <ActivityIndicator animating={this.props.spinning}/>
+                    </View>
+                    {set}
+                    {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
+                        {/*<Text>log out</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                </ScrollView>
+            </View>
 
         )
     }
@@ -199,6 +214,7 @@ const styles = {
         fontSize: 18,
         fontWeight: 'bold',
         alignSelf: 'center',
+        textAlign: 'center',
         color: '#515151'
     },
     messageContent:{
@@ -219,6 +235,13 @@ const styles = {
         color:'#eee',
         textAlign:'center',
         fontSize:16
+    },
+    colorBarStyle: {
+        marginTop: 4,
+        height: Dimensions.get('window').height*0.002,
+        width: Dimensions.get('window').width*0.93,
+        backgroundColor: 'dodgerblue',
+        alignSelf: 'center'
     },
     spinnerStyle: {
         flex: 1,

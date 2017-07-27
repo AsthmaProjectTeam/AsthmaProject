@@ -24,7 +24,7 @@ const RouterComponent = () => {
                 <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
             </Scene>
             <Scene direction="leftToRight" key="welcome">
-                <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Welcome"/>
+                <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Home"/>
             </Scene>
             <Scene key="pain">
                 <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>

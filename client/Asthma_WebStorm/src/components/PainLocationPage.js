@@ -11,19 +11,19 @@ const radio_props_head = [
 ];
 
 const radio_props_back_head = [
-    {label: 'Backhead', value: 'Backhead' }
+    {label: 'Back of Head', value: 'Back of Head' }
 ];
 
 const radio_props_upper = [
-    {label: 'Upper Left', value: 'Upper Left' },
+    {label: 'Left Shoulder', value: 'Left Shoulder' },
     {label: 'Chest', value: 'Chest' },
-    {label: 'Upper Right', value: 'Upper Right' }
+    {label: 'Right Shoulder', value: 'Right Shoulder' }
 ];
 
 const radio_props_back_upper = [
-    {label: 'Back Upper Left', value: 'Back Upper Left' },
+    {label: 'Back - Upper Left', value: 'Back - Upper Left' },
     {label: 'Back', value: 'Back' },
-    {label: 'Back Upper Right', value: 'Back Upper Right' }
+    {label: 'Back - Upper Right', value: 'Back - Upper Right' }
 ];
 
 const radio_props_middle = [
@@ -31,7 +31,7 @@ const radio_props_middle = [
 ];
 
 const radio_props_back_middle = [
-    {label: 'Waist', value: 'Waist' }
+    {label: 'Lower Back', value: 'Lower Back' }
 ];
 
 const radio_props_bottom = [
@@ -40,8 +40,8 @@ const radio_props_bottom = [
 ];
 
 const radio_props_back_bottom = [
-    {label: 'Back Left Leg', value: 'Back Left Leg' },
-    {label: 'Back Right Leg', value: 'Back Right Leg' }
+    {label: 'Back  of Left Leg', value: 'Back of Left Leg' },
+    {label: 'Back of Right Leg', value: 'Back of Right Leg' }
 ];
 
 class PainLocationPage extends Component {
