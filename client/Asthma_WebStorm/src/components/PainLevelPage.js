@@ -90,7 +90,7 @@ class PainLevelPage extends Component {
                         <Text style={textStyle}>Cancel</Text>
                     </Button>
 
-                    <Button warning style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
+                    <Button success style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>

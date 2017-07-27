@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, AsyncStorage, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
+import { Image, Text, View, AsyncStorage, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 import { HOST } from '../CONST';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
+//const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
 let savedTokenfromPhone = "";
 class WelcomePage extends Component {
 
@@ -39,8 +39,8 @@ class WelcomePage extends Component {
                 fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `token ${hardcodeToken}`,
-                        //'Authorization': `token ${savedToken}`,
+                        //'Authorization': `token ${hardcodeToken}`,
+                        'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -69,8 +69,8 @@ class WelcomePage extends Component {
         fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -107,8 +107,8 @@ class WelcomePage extends Component {
         fetch(HOST+'/v2/patients/profile', {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
@@ -172,24 +172,26 @@ class WelcomePage extends Component {
                 </View>;
 
         return (
-            <ScrollView
-                refreshControl={
+            <View style={{flex:1}}>
+                <ScrollView
+                    refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this._onRefresh.bind(this)}
                     />
                 }
-                style={{flex: 1}}
-            >
-                <View style={spinnerStyle}>
-                    <ActivityIndicator animating={this.props.spinning}/>
-                </View>
-                {set}
-                {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
+                    style={{height:Dimensions.get('window').height*0.3}}
+                >
+                    <View style={spinnerStyle}>
+                        <ActivityIndicator animating={this.props.spinning}/>
+                    </View>
+                    {set}
+                    {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
                     {/*<Text>log out</Text>*/}
-                {/*</TouchableOpacity>*/}
-            </ScrollView>
-
+                    {/*</TouchableOpacity>*/}
+                </ScrollView>
+                <Image style={{width: '100%', height:Dimensions.get('window').height*0.6, alignSelf:'center'}} source={require('../img/welcomebg.png')}/>
+            </View>
         )
     }
 }

@@ -111,11 +111,11 @@ class ActivityLevelPage extends Component {
                     {this.state.error}
                 </Text>
                 <View style={{flexDirection: 'row', marginTop: 20}}>
-                    <Button success style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
+                    <Button warning style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
 
-                    <Button warning style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
+                    <Button success style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>

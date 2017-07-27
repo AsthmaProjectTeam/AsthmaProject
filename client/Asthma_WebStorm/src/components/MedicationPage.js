@@ -141,12 +141,12 @@ class MedicationPage extends Component {
                     {this.state.error}
                 </Text>
                 <View style={buttonRowStyle}>
-                    <Button style={buttonStyle} success onPress={this.onBackButtonPress.bind(this)}>
+                    <Button style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
 
-                    <Button style={buttonStyle} danger onPress={this.onNextButtonPress.bind(this)}>
-                        <Text style={textStyle}>Summary</Text>
+                    <Button style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
+                        <Text style={textStyle}>Review</Text>
                     </Button>
                 </View>
             </View>

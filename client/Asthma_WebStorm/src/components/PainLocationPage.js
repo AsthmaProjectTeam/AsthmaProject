@@ -196,11 +196,11 @@ class PainLocationPage extends Component {
                 <View style={{flex: 1, flexDirection: 'column'}}>
                     {frontOrback}
                     <View style={buttonRowStyle}>
-                        <Button style={buttonStyle} success onPress={this.onBackButtonPress.bind(this)}>
+                        <Button style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
                             <Text style={textStyle}>Back</Text>
                         </Button>
 
-                        <Button style={buttonStyle} warning onPress={this.onNextButtonPress.bind(this)}>
+                        <Button style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
                             <Text style={textStyle}>Next</Text>
                         </Button>
                     </View>

@@ -123,11 +123,11 @@ class QuestionList extends Component {
                 </View>
 
                 <View style={{flexDirection: 'row', flex: 1}}>
-                    <Button success onPress={this.onBackButtonPress.bind(this)} style={buttonStyle}>
+                    <Button warning onPress={this.onBackButtonPress.bind(this)} style={buttonStyle}>
                         <Text>Back</Text>
                     </Button>
 
-                    <Button warning onPress={this.onNextButtonPress.bind(this)} style={buttonStyle}>
+                    <Button success onPress={this.onNextButtonPress.bind(this)} style={buttonStyle}>
                         <Text>Next</Text>
                     </Button>
                 </View>
