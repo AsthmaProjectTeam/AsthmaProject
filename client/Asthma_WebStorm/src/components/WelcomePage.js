@@ -8,6 +8,7 @@ import { HOST } from '../CONST';
 
 //const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
 let savedTokenfromPhone = "";
+
 class WelcomePage extends Component {
 
     constructor(props){
@@ -137,7 +138,7 @@ class WelcomePage extends Component {
     }
 
     render(){
-        const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
+        const { colorBarStyle, textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
 
         const listcolor = function get_random_color() {
             let letters = 'BCDEF'.split('');
@@ -185,13 +186,26 @@ class WelcomePage extends Component {
                     <View style={spinnerStyle}>
                         <ActivityIndicator animating={this.props.spinning}/>
                     </View>
+
+                    <Text style={{ ...textStyle,
+                               color: 'dodgerblue',
+                               marginTop: 10,
+                               fontWeight: '500',
+                               marginRight: 8,
+                               marginLeft: 8}}>
+                        Welcome! Please tap on a questionnaire below to begin.
+                    </Text>
+
+                    <View style={colorBarStyle}>
+                    </View>
                     {set}
                     {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
-                    {/*<Text>log out</Text>*/}
+                        {/*<Text>log out</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </ScrollView>
                 <Image style={{width: '100%', height:Dimensions.get('window').height*0.6, alignSelf:'center'}} source={require('../img/welcomebg.png')}/>
             </View>
+
         )
     }
 }
@@ -201,6 +215,7 @@ const styles = {
         fontSize: 18,
         fontWeight: 'bold',
         alignSelf: 'center',
+        textAlign: 'center',
         color: '#515151'
     },
     messageContent:{
@@ -221,6 +236,13 @@ const styles = {
         color:'#eee',
         textAlign:'center',
         fontSize:16
+    },
+    colorBarStyle: {
+        marginTop: 4,
+        height: Dimensions.get('window').height*0.002,
+        width: Dimensions.get('window').width*0.93,
+        backgroundColor: 'dodgerblue',
+        alignSelf: 'center'
     },
     spinnerStyle: {
         flex: 1,
