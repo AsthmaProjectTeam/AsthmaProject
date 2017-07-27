@@ -138,7 +138,7 @@ class WelcomePage extends Component {
     }
 
     render(){
-        const { colorBarStyle, textStyle, messageContent, messageBox, messageBoxText, spinnerStyle } = styles;
+        const { colorBarStyle, textStyle, messageContent, messageBox, messageBoxText, spinnerStyle, copyrightStyle } = styles;
 
         const listcolor = function get_random_color() {
             let letters = 'BCDEF'.split('');
@@ -155,7 +155,7 @@ class WelcomePage extends Component {
                     block
                     key={qset._id}
                     onPress={() => this.onButtonPress(qset._id)}
-                    style={{backgroundColor: listcolor(), flex:1, margin: 10}}
+                    style={{backgroundColor: listcolor(), flex:1, margin: 10, marginTop: 5}}
                 >
                    <Text style={textStyle}>{qset.title}</Text>
                    <Right>
@@ -173,7 +173,7 @@ class WelcomePage extends Component {
                 </View>;
 
         return (
-            <View style={{flex:1}}>
+            <View>
                 <ScrollView
                     refreshControl={
                     <RefreshControl
@@ -181,7 +181,7 @@ class WelcomePage extends Component {
                         onRefresh={this._onRefresh.bind(this)}
                     />
                 }
-                    style={{height:Dimensions.get('window').height*0.3}}
+                    style={{height:Dimensions.get('window').height*0.4}}
                 >
                     <View style={spinnerStyle}>
                         <ActivityIndicator animating={this.props.spinning}/>
@@ -203,7 +203,8 @@ class WelcomePage extends Component {
                         {/*<Text>log out</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </ScrollView>
-                <Image style={{width: '100%', height:Dimensions.get('window').height*0.6, alignSelf:'center'}} source={require('../img/welcomebg.png')}/>
+                <Image style={{width: '60%', height:Dimensions.get('window').height*0.4, marginTop: 15, alignSelf:'center'}} source={require('../img/welcomebg.png')}/>
+                <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
             </View>
 
         )
@@ -219,17 +220,17 @@ const styles = {
         color: '#515151'
     },
     messageContent:{
-        marginTop: Dimensions.get('window').height*0.1,
+        marginTop: 10,
         alignItems:'center'
     },
     messageBox:{
         backgroundColor:'#777',
-        width:300,
+        width:Dimensions.get('window').width*0.93,
         paddingTop:10,
         paddingBottom:20,
         paddingLeft:20,
         paddingRight:20,
-        borderRadius:10
+        borderRadius:5
     },
     messageBoxText:{
         fontWeight:'bold',
@@ -250,6 +251,12 @@ const styles = {
         alignItems: 'center',
         marginBottom: 0,
         marginTop: 5
+    },
+    copyrightStyle: {
+        alignSelf: 'center',
+        fontSize: 13,
+        color: '#777',
+        marginTop: 20
     }
 };
 

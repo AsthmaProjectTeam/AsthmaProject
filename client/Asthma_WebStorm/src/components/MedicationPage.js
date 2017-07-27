@@ -126,7 +126,7 @@ class MedicationPage extends Component {
 
         return (
             <View>
-                <Text style={titleStyle}>Q. When did you take your medication last time?</Text>
+                <Text style={titleStyle}>Q. When did you last take your medication?</Text>
                 <Image style={{width: '70%', height: '40%', alignSelf:'center'}} source={require('../img/thinking.png')}/>
                 <View style={{alignItems: 'center', marginTop:40 }}>
                     {picker}
@@ -160,7 +160,8 @@ const styles = {
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'left',
-        padding: 15
+        padding: 15,
+        alignSelf: 'center'
     },
     buttonStyle: {
         flex: 0.4,
