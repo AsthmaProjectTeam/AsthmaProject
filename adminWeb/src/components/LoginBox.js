@@ -2,6 +2,7 @@
  * Created by tengzhongwei on 7/13/17.
  */
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { connect } from 'dva';
 import styles from '../styles/components/LoginBox.less';
 const FormItem = Form.Item;
 
@@ -10,7 +11,7 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.dispatch({type:"admin/login", payload:values})
       }
     });
   };
@@ -19,7 +20,7 @@ class NormalLoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
         <FormItem>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
@@ -32,20 +33,17 @@ class NormalLoginForm extends React.Component {
             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
-        <FormItem>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )}
+
+
           <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
             Log in
           </Button>
-        </FormItem>
+
       </Form>
     );
   }
 }
 
-export default Form.create()(NormalLoginForm);
+let form = Form.create()(NormalLoginForm);
+
+export default connect()(form);

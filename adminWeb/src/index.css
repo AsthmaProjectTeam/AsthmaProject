@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaina");
+@import url("https://fonts.googleapis.com/css?family=Lemonada");
+@import url("https://fonts.googleapis.com/css?family=Oswald");
 
 html, body, :global(#root) {
   height: 100%;
+
 }
 

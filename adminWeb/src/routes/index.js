@@ -4,10 +4,26 @@
 
 import LoginPage from './LoginPage';
 import IndexPage from './IndexPage';
-import UploadPage from './UploadPage'
+import UploadPage from './UploadPage';
+import ExportPage from './ExportPage';
+import ExpiredPage from './ExpiredPage';
+import PatientListPage from './PatientListPage';
+import PatientProfilePage from './PatientProfilePage';
+import AppendPatientsPage from './AppendPatientsPage';
+import QRCodePage from './QRCodePage';
+
+
 export default {
     LoginPage,
     IndexPage,
-    UploadPage
+    UploadPage,
+    ExportPage,
+    ExpiredPage,
+    PatientListPage,
+    PatientProfilePage,
+    AppendPatientsPage,
+    QRCodePage,
+
+
 }
 
