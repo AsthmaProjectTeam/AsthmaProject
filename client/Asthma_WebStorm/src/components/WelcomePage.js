@@ -6,7 +6,7 @@ import { Button, Icon, Right } from 'native-base';
 import Dimensions from 'Dimensions';
 import { HOST } from '../CONST';
 
-//const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMDg0MTM3NywiZXhwIjoxNTMyMzc3Mzc3fQ.05Yyyi9McrjfPVOF75IIRJI3ZYS1oTwPDxo05S5JONs';
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM2LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMTUxNTc2NSwiZXhwIjoxNTMzMDUxNzY1fQ.i9AjBKKjgGnqzjkDUvNJGwnwiSG3bHzZRF2r_omWut0';
 let savedTokenfromPhone = "";
 
 class WelcomePage extends Component {
@@ -40,8 +40,8 @@ class WelcomePage extends Component {
                 fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        //'Authorization': `token ${hardcodeToken}`,
-                        'Authorization': `token ${savedToken}`,
+                        'Authorization': `token ${hardcodeToken}`,
+                        //'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -70,8 +70,8 @@ class WelcomePage extends Component {
         fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                //'Authorization': `token ${hardcodeToken}`,
-                'Authorization': `token ${savedTokenfromPhone}`,
+                'Authorization': `token ${hardcodeToken}`,
+                //'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -108,8 +108,8 @@ class WelcomePage extends Component {
         fetch(HOST+'/v2/patients/profile', {
             method: 'GET',
             headers: {
-                //'Authorization': `token ${hardcodeToken}`,
-                'Authorization': `token ${savedTokenfromPhone}`,
+                'Authorization': `token ${hardcodeToken}`,
+                //'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }

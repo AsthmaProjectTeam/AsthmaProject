@@ -17,7 +17,7 @@ class EntrancePage extends Component {
         AsyncStorage.getItem('loginToken')
             .then(
                 function (result) {
-                    if (result === null) { //change back to null
+                    if (result === 1) { //change back to null
                         setTimeout(() => {
                             Actions.pop();
                             Actions.auth();

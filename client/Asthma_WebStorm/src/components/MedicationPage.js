@@ -127,16 +127,17 @@ class MedicationPage extends Component {
         return (
             <View>
                 <Text style={titleStyle}>Q. When did you last take your medication?</Text>
-                <Image style={{width: '70%', height: '40%', alignSelf:'center'}} source={require('../img/thinking.png')}/>
-                <View style={{alignItems: 'center', marginTop:40 }}>
-                    {picker}
-                </View>
-                <CheckBox
-                    center
-                    title='I forgot.'
-                    checked={this.state.checked}
-                    onIconPress={() => this.checkBoxClicked(!this.state.checked)}
-                />
+                {/*<Image style={{width: '70%', height: '40%', alignSelf:'center'}} source={require('../img/thinking.png')}/>*/}
+                {/*<View style={{alignItems: 'center', marginTop:40 }}>*/}
+                    {/*{picker}*/}
+                {/*</View>*/}
+                {/*<CheckBox*/}
+                    {/*center*/}
+                    {/*title='I forgot.'*/}
+                    {/*checked={this.state.checked}*/}
+                    {/*onIconPress={() => this.checkBoxClicked(!this.state.checked)}*/}
+                {/*/>*/}
+
                 <Text style={errorStyle}>
                     {this.state.error}
                 </Text>
