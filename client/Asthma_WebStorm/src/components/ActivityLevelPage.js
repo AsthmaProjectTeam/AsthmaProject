@@ -62,50 +62,67 @@ class ActivityLevelPage extends Component {
         }
     }
     render(){
-        const { buttonStyle, titleStyle, optionStyle, bottomButtonStyle, textStyle, errorStyle } = styles;
+        const { scrollViewContainerStyle,
+                activityButtonStyle,
+                titleStyle,
+                optionStyle,
+                bottomButtonStyle,
+                textStyle,
+                errorStyle,
+                insets,
+                imageStyle } = styles;
         const optionArray = this.props.currentquestion.question.options;
+
         return(
-            <ScrollView>
+            <View>
                 <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
-                <View style={optionStyle}>
-                    <TouchableOpacity style={buttonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
+
+                <ScrollView horizontal
+                            decelerationRate={0}
+                            centerContent
+                            directionalLockEnabled
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            overScrollMode="never"
+                            style={scrollViewContainerStyle}
+                            //contentInset={insets}
+                            //scrollIndicatorInsets={insets}
+                            snapToAlignment="start"
+                            snapToInterval={Dimensions.get('window').width*0.84}
+                            //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
+                >
+                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.07}} />
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
                         <Image
-                            style={buttonStyle}
+                            style={imageStyle}
                             source={require('../img/sleeping.jpg')}
                         />
+                        <Text>A.{optionArray[0].value}</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={buttonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
                         <Image
-                            style={buttonStyle}
+                            style={imageStyle}
                             source={require('../img/walking.jpg')}
                         />
+                        <Text>B.{optionArray[1].value}</Text>
                     </TouchableOpacity>
-                </View>
-                <View style={optionStyle}>
-                    <Text>A.{optionArray[0].value}</Text>
-                    <Text>B.{optionArray[1].value}</Text>
-                </View>
-
-                <View style={optionStyle}>
-                    <TouchableOpacity style={buttonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
                         <Image
-                            style={buttonStyle}
+                            style={imageStyle}
                             source={require('../img/running.jpg')}
                         />
+                        <Text>C. {optionArray[2].value}</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={buttonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
                         <Image
-                            style={buttonStyle}
+                            style={imageStyle}
                             source={require('../img/exercising.jpg')}
                         />
+                        <Text>D. {optionArray[3].value}</Text>
                     </TouchableOpacity>
-                </View>
-                <View style={optionStyle}>
-                    <Text>C. {optionArray[2].value}</Text>
-                    <Text>D. {optionArray[3].value}</Text>
-                </View>
+                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.07}} />
+                </ScrollView>
+
                 <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.state.key}</Text>
                 <Text style={errorStyle}>
                     {this.state.error}
@@ -119,7 +136,7 @@ class ActivityLevelPage extends Component {
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>
-            </ScrollView>
+            </View>
         )
     }
 }
@@ -131,22 +148,29 @@ const styles = {
         textAlign: 'left',
         padding: 15
     },
-
-    buttonStyle: {
-        width: Dimensions.get('window').width/3,
-        height: Dimensions.get('window').width/3
+    activityButtonStyle: {
+        width: Dimensions.get('window').width*0.8,
+        height: Dimensions.get('window').width*0.7,
+        alignSelf: 'center',
+        alignItems: 'center',
+        marginLeft: Dimensions.get('window').width*0.02,
+        marginRight: Dimensions.get('window').width*0.02,
+        //borderColor: '#696969',
+        //borderRadius: 3,
+        //borderWidth: 1
     },
-
+    imageStyle: {
+        width: Dimensions.get('window').width*0.6,
+        height: Dimensions.get('window').width*0.6
+    },
     bottomButtonStyle: {
         flex: 0.3,
         margin: 5
     },
-
     textStyle: {
       color: 'white',
       fontSize: 16
     },
-
     optionStyle: {
         margin: 10,
         alignSelf: 'center',
@@ -161,6 +185,19 @@ const styles = {
         alignSelf: 'center',
         color: 'red',
         marginTop: 10
+    },
+    scrollViewContainerStyle: {
+        //borderColor: '#1e90ff',
+        //borderWidth: 2,
+        alignSelf: 'center',
+        width: Dimensions.get('window').width*0.98,
+        height: Dimensions.get('window').height*0.4
+    },
+    insets: {
+        top: Dimensions.get('window').height*0.02,
+        left: Dimensions.get('window').width*0.02,
+        bottom: Dimensions.get('window').width*0.02,
+        right: Dimensions.get('window').width*0.02
     }
 };
 
