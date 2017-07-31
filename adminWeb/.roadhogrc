@@ -1,5 +1,6 @@
 {
   "entry": "src/index.js",
+  "outputPath": "./output",
   "env": {
     "development": {
       "extraBabelPlugins": [
@@ -10,7 +11,8 @@
     },
     "production": {
       "extraBabelPlugins": [
-        "transform-runtime"
+        "transform-runtime",
+        ["import", { "libraryName": "antd", "style": "css" }]
       ]
     }
   }
