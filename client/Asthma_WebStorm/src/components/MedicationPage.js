@@ -1,142 +1,93 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import { CheckBox } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
+import Dimensions from 'Dimensions';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 class MedicationPage extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            date:null,
-            checked: false,
-            pickerIsDisabled: false,
+            checkedOption: null,
+            checkedValue: null,
             error: null
         }
     }
 
-    checkBoxClicked(check){
+    onSelect(key, value){
         this.setState({
-            error: null
+            ...this.state,
+            checkedOption:key,
+            checkedValue:value,
+            error:null
         });
-
-        if(check){
-            this.setState({
-                checked: check,
-                date: 'I forgot',
-                pickerIsDisabled: true
-            })
-        }else{
-            this.setState({
-                checked: check,
-                error: null,
-                pickerIsDisabled: false,
-                date: null
-            })
-        }
     }
 
-    onBackButtonPress(){
+    async onBackButtonPress(){
         this.props.results.pop();
+        this.props.history.pop();
+
+        for(let question of this.props.currentquestionset){
+            if(question.question._id == this.props.history[this.props.history.length-1]){
+                await this.props.dispatch({
+                    type: 'backButtonClicked',
+                    payload: {
+                        results: this.props.results,
+                        currentquestion: question,
+                        history: this.props.history,
+                    }
+                });
+                break;
+            }
+        }
 
         Actions.pop();
         Actions.activity();
     }
 
     onNextButtonPress() {
-        if(this.state.date == null){
-            this.setState({...this.state, error: 'Please select a date.'});
+        if(this.state.checkedOption == null){
+            this.setState({...this.state, error: 'Please select a time.'});
         } else {
-            if (this.state.checked) {
-                this.props.results.push({
-                    q_id: 12,
-                    key: "time",
-                    value: this.state.date,
-                    description: "When did you take your medication last time"
-                });
-            } else {
-                this.props.results.push({
-                    q_id: 12,
-                    key: "time",
-                    value: this.state.date,
-                    description: "When did you take your medication last time"
-                });
-            }
+            this.props.results.push({
+                q_id: this.props.currentquestion.question._id,
+                key: this.state.checkedOption,
+                value: this.state.checkedValue,
+                description: this.props.currentquestion.question.description
+            });
 
             Actions.pop();
             Actions.submit();
         }
     }
 
-    onDateChange(date){
-        this.setState({
-            date: date,
-            error: null
-        });
-    }
 
     render(){
         const { titleStyle, buttonStyle, buttonRowStyle, textStyle, errorStyle } = styles;
 
-        const picker = (!this.state.pickerIsDisabled)?
-            <DatePicker
-                disabled={false}
-                style={{width: 300}}
-                date={this.state.date}
-                mode="datetime"
-                placeholder="select date"
-                format="YYYY-MM-DD HH:mm"
-                minDate="2017-01-01 08:15"
-                maxDate="2026-06-01 08:15"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                          dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                          },
-                          dateInput: {
-                            marginLeft: 36
-                          }
-                        }}
-                onDateChange={(date) => this.onDateChange(date)}
-            />:
-            <DatePicker
-                disabled={true}
-                style={{width: 300}}
-                date={"0000-00-00 00:00"}
-                mode="datetime"
-                customStyles={{
-                          dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                          },
-                          dateInput: {
-                            marginLeft: 36
-                          }
-                        }}
-            />;
-
         return (
             <View>
-                <Text style={titleStyle}>Q. When did you last take your medication?</Text>
-                {/*<Image style={{width: '70%', height: '40%', alignSelf:'center'}} source={require('../img/thinking.png')}/>*/}
-                {/*<View style={{alignItems: 'center', marginTop:40 }}>*/}
-                    {/*{picker}*/}
-                {/*</View>*/}
-                {/*<CheckBox*/}
-                    {/*center*/}
-                    {/*title='I forgot.'*/}
-                    {/*checked={this.state.checked}*/}
-                    {/*onIconPress={() => this.checkBoxClicked(!this.state.checked)}*/}
-                {/*/>*/}
+                <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+
+                {this.props.currentquestion.question.options.map((option) => {
+                    return (
+                        <CheckBox
+                            center
+                            checked={this.state.checkedOption == option.key}
+                            onIconPress={() => this.onSelect(option.key, option.value)}
+                            key={option.key}
+                            title={option.value}
+                            checkedIcon='dot-circle-o'
+                            uncheckedIcon='circle-o'
+                        />
+                    )
+                })}
+
 
                 <Text style={errorStyle}>
                     {this.state.error}
@@ -188,7 +139,11 @@ const mapStateToProps = state => {
     return {
         results: state.questions.results,
         checked_option: state.questions.checked_option,
-        checked_option_value: state.questions.checked_option_value
+        checked_option_value: state.questions.checked_option_value,
+        currentquestionset: state.questions.currentquestionset,
+        questionset: state.questions.questionset,
+        currentquestion: state.questions.currentquestion,
+        history:state.questions.history
     };
 };
 

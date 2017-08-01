@@ -76,7 +76,6 @@ class PainLevelPage extends Component {
                     minimumValue={0}
                     maximumValue={10}
                     value={this.state.level}
-                    //onValueChange={val => this.getVal.bind(this,val)}
                     onSlidingComplete={ val => this.getVal(val)}
                 />
                 <Text style={welcomeStyle}>
@@ -123,8 +122,8 @@ const styles = {
         marginBottom: 5,
     },
     imageStyle: {
-        width: Dimensions.get('window').width*0.95,
-        height: 200
+        width: Dimensions.get('window').width*0.82,
+        height: Dimensions.get('window').height*0.3
     },
     textStyle: {
         color: 'white',
