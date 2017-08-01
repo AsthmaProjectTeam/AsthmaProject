@@ -46,7 +46,7 @@ class ActivityLevelPage extends Component {
         Actions.location();
     }
 
-    onNextButtonPress() {
+    async onNextButtonPress() {
         if (this.state.key == null) {
             this.setState({error: "Please make a selection."});
         } else {
@@ -57,8 +57,22 @@ class ActivityLevelPage extends Component {
                 description: this.props.currentquestion.question.description
             });
 
-            Actions.pop();
-            Actions.medication();
+            for(let question of this.props.currentquestionset){
+                if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+                    this.props.history.push(question.question._id);
+                    await this.props.dispatch({
+                        type: 'nextButtonClicked',
+                        payload: {
+                            currentquestion: question,
+                            results: this.props.results,
+                            history: this.props.history
+                        }
+                    });
+                    Actions.pop();
+                    Actions.medication();
+                    break;
+                }
+            }
         }
     }
     render(){
