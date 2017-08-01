@@ -4,6 +4,7 @@ import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 class ActivityLevelPage extends Component {
     componentWillMount(){
@@ -65,69 +66,100 @@ class ActivityLevelPage extends Component {
         const { scrollViewContainerStyle,
                 activityButtonStyle,
                 titleStyle,
-                optionStyle,
+                optionTextStyle,
                 bottomButtonStyle,
                 textStyle,
                 errorStyle,
-                insets,
-                imageStyle } = styles;
+                answerTextStyle,
+                imageStyle,
+                colorBarStyle,
+                instructionContainerStyle } = styles;
         const optionArray = this.props.currentquestion.question.options;
 
         return(
-            <View>
-                <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+            <View style={{ backgroundColor: '#f5fffa' }}>
+                <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+                <View style={colorBarStyle}></View>
+
+                <View style={instructionContainerStyle}>
+                    <Text style={{ fontSize: 15 }}>Swipe and tap to make selection.</Text>
+                    <View style={{ flexDirection: 'row',
+                                   justifyContent: 'center',
+                                   alignItems: 'center',
+                                   alignSelf: 'center' }}>
+                        <Icon name="chevron-left" size={30} color="black" />
+                        <Icon name="pointer" size={30} color="black" />
+                        <Icon name="chevron-right" size={30} color="black" />
+                    </View>
+                </View>
 
                 <ScrollView horizontal
                             decelerationRate={0}
                             centerContent
                             directionalLockEnabled
-                            showsHorizontalScrollIndicator={false}
+                            showsHorizontalScrollIndicator//={false}
                             showsVerticalScrollIndicator={false}
                             overScrollMode="never"
                             style={scrollViewContainerStyle}
-                            //contentInset={insets}
-                            //scrollIndicatorInsets={insets}
                             snapToAlignment="start"
                             snapToInterval={Dimensions.get('window').width*0.84}
                             //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
                 >
-                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.07}} />
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
+                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('F',optionArray[5].value)}>
+                        <Image
+                            style={imageStyle}
+                            source={require('../img/exercising.jpg')}
+                        />
+                        <Text style={optionTextStyle}>{optionArray[5].value}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity focusedOpacity={1} style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
                         <Image
                             style={imageStyle}
                             source={require('../img/sleeping.jpg')}
                         />
-                        <Text>A.{optionArray[0].value}</Text>
+                        <Text style={optionTextStyle}>{optionArray[0].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
                         <Image
                             style={imageStyle}
                             source={require('../img/walking.jpg')}
                         />
-                        <Text>B.{optionArray[1].value}</Text>
+                        <Text style={optionTextStyle}>{optionArray[1].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
                         <Image
                             style={imageStyle}
                             source={require('../img/running.jpg')}
                         />
-                        <Text>C. {optionArray[2].value}</Text>
+                        <Text style={optionTextStyle}>{optionArray[2].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
                         <Image
                             style={imageStyle}
                             source={require('../img/exercising.jpg')}
                         />
-                        <Text>D. {optionArray[3].value}</Text>
+                        <Text style={optionTextStyle}>{optionArray[3].value}</Text>
                     </TouchableOpacity>
-                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.07}} />
+                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('E',optionArray[4].value)}>
+                        <Image
+                            style={imageStyle}
+                            source={require('../img/exercising.jpg')}
+                        />
+                        <Text style={optionTextStyle}>{optionArray[4].value}</Text>
+                    </TouchableOpacity>
+                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
                 </ScrollView>
 
-                <Text style={{marginTop: 20, alignSelf: 'center', fontSize: 16}}>Answer: {this.state.key}</Text>
-                <Text style={errorStyle}>
-                    {this.state.error}
-                </Text>
-                <View style={{flexDirection: 'row', marginTop: 20}}>
+                <View style={{ width: Dimensions.get('window').width,
+                               height: Dimensions.get('window').height*0.15 }}>
+                    <Text style={{marginTop:10, alignSelf:'center', fontSize:16 }}>Your Answer:</Text>
+                    <Text style={answerTextStyle}> {this.state.value}</Text>
+                    <Text style={errorStyle}> {this.state.error}</Text>
+                </View>
+                <View style={{ width: Dimensions.get('window').width,
+                               height: Dimensions.get('window').height*0.13,
+                               flexDirection: 'row' }}>
                     <Button warning style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
@@ -145,23 +177,27 @@ const styles = {
     titleStyle: {
         fontSize: 18,
         fontWeight: 'bold',
-        textAlign: 'left',
-        padding: 15
+        textAlign: 'center',
+        marginTop: Dimensions.get('window').height*0.01,
     },
     activityButtonStyle: {
         width: Dimensions.get('window').width*0.8,
         height: Dimensions.get('window').width*0.7,
         alignSelf: 'center',
         alignItems: 'center',
+        backgroundColor: 'white',
         marginLeft: Dimensions.get('window').width*0.02,
         marginRight: Dimensions.get('window').width*0.02,
-        //borderColor: '#696969',
-        //borderRadius: 3,
-        //borderWidth: 1
+        borderColor: '#6495ed',
+        borderRadius: 4,
+        borderWidth: 2,
+        shadowColor: '#6495ed',
+        shadowOpacity: 5
     },
     imageStyle: {
-        width: Dimensions.get('window').width*0.6,
-        height: Dimensions.get('window').width*0.6
+        width: Dimensions.get('window').width*0.57,
+        height: Dimensions.get('window').width*0.57,
+        marginTop: Dimensions.get('window').width*0.03
     },
     bottomButtonStyle: {
         flex: 0.3,
@@ -187,17 +223,38 @@ const styles = {
         marginTop: 10
     },
     scrollViewContainerStyle: {
-        //borderColor: '#1e90ff',
-        //borderWidth: 2,
+        //backgroundColor: '#87ceeb',
         alignSelf: 'center',
-        width: Dimensions.get('window').width*0.98,
-        height: Dimensions.get('window').height*0.4
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height*0.45,
+        //borderColor: 'black',
+        //borderWidth: 2
     },
-    insets: {
-        top: Dimensions.get('window').height*0.02,
-        left: Dimensions.get('window').width*0.02,
-        bottom: Dimensions.get('window').width*0.02,
-        right: Dimensions.get('window').width*0.02
+    answerTextStyle: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textShadowColor: '#6495ed'
+    },
+    optionTextStyle: {
+        fontSize: 16,
+        marginTop: 2
+    },
+    colorBarStyle: {
+        height: Dimensions.get('window').height*0.002,
+        width: Dimensions.get('window').width*0.93,
+        backgroundColor: 'black',
+        alignSelf: 'center',
+        marginTop: Dimensions.get('window').height*0.02
+    },
+    instructionContainerStyle: {
+        height: Dimensions.get('window').height*0.08,
+        width: Dimensions.get('window').width,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        //borderColor: 'black',
+        //borderWidth: 2
     }
 };
 
