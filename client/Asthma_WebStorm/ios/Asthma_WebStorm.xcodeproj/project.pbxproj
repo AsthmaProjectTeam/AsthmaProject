@@ -51,6 +51,47 @@
 		4E11EA151EF32F8E000FF818 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0B1EF32F8E000FF818 /* Octicons.ttf */; };
 		4E11EA161EF32F8E000FF818 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0C1EF32F8E000FF818 /* SimpleLineIcons.ttf */; };
 		4E11EA171EF32F8E000FF818 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0D1EF32F8E000FF818 /* Zocial.ttf */; };
+		4E3990521F30EEA900002C5A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		4E3990531F30EEA900002C5A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4E3990551F30EEA900002C5A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		4E3990561F30EEA900002C5A /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		4E3990571F30EEA900002C5A /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		4E3990581F30EEA900002C5A /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		4E3990591F30EEA900002C5A /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		4E39905A1F30EEA900002C5A /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		4E39905B1F30EEA900002C5A /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		4E39905C1F30EEA900002C5A /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		4E39905D1F30EEA900002C5A /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		4E39905E1F30EEA900002C5A /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		4E39905F1F30EEA900002C5A /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
+		4E3990601F30EEA900002C5A /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4625489E7DBD4454AB256C26 /* libRCTCamera.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		4E3990611F30EEA900002C5A /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222A35C4AC314D469AA66C13 /* libRNVectorIcons.a */; };
+		4E3990621F30EEA900002C5A /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C6E06619F414526994D88E0 /* libLRDRCTSimpleToast.a */; };
+		4E3990631F30EEA900002C5A /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FC6871F1D0E24007BA3D0 /* libRNExitApp.a */; };
+		4E3990641F30EEA900002C5A /* libRNInstabug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF6FBAB4AD04B6F9D750B32 /* libRNInstabug.a */; };
+		4E3990651F30EEA900002C5A /* libPods-Asthma_WebStorm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D61F0E64EF820560AD60826 /* libPods-Asthma_WebStorm.a */; };
+		4E3990671F30EEA900002C5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		4E3990681F30EEA900002C5A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA071EF32F8E000FF818 /* Foundation.ttf */; };
+		4E39906A1F30EEA900002C5A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B385E1DBA9445B7A24DE5BC /* Entypo.ttf */; };
+		4E39906B1F30EEA900002C5A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0A1EF32F8E000FF818 /* MaterialIcons.ttf */; };
+		4E39906C1F30EEA900002C5A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0C1EF32F8E000FF818 /* SimpleLineIcons.ttf */; };
+		4E39906D1F30EEA900002C5A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0D1EF32F8E000FF818 /* Zocial.ttf */; };
+		4E39906E1F30EEA900002C5A /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA081EF32F8E000FF818 /* Ionicons.ttf */; };
+		4E39906F1F30EEA900002C5A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA051EF32F8E000FF818 /* EvilIcons.ttf */; };
+		4E3990701F30EEA900002C5A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6F3D5EA817F4182B7176232 /* EvilIcons.ttf */; };
+		4E3990711F30EEA900002C5A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A85127307DBD44FBB4CE40CC /* FontAwesome.ttf */; };
+		4E3990721F30EEA900002C5A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A00ABCDD2B5441168348DBCC /* Foundation.ttf */; };
+		4E3990731F30EEA900002C5A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA0B1EF32F8E000FF818 /* Octicons.ttf */; };
+		4E3990741F30EEA900002C5A /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D4E5C0B5C1E443DB6DB795D /* Ionicons.ttf */; };
+		4E3990751F30EEA900002C5A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA041EF32F8E000FF818 /* Entypo.ttf */; };
+		4E3990761F30EEA900002C5A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71F970DEE3114C9EA105146E /* MaterialCommunityIcons.ttf */; };
+		4E3990771F30EEA900002C5A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9056E4018334EFF9641C9B3 /* MaterialIcons.ttf */; };
+		4E3990781F30EEA900002C5A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA061EF32F8E000FF818 /* FontAwesome.ttf */; };
+		4E3990791F30EEA900002C5A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF0D01DF34CA2BE631A9F /* Octicons.ttf */; };
+		4E39907A1F30EEA900002C5A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7165D0010353459EAF10FEF9 /* SimpleLineIcons.ttf */; };
+		4E39907B1F30EEA900002C5A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E11EA091EF32F8E000FF818 /* MaterialCommunityIcons.ttf */; };
+		4E39907C1F30EEA900002C5A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 021BBC19D1664702B106F970 /* Zocial.ttf */; };
+		4E3990A61F30EEAC00002C5A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E3990A41F30EEAC00002C5A /* LaunchScreen.xib */; };
 		4E8FC68A1F1D0EF2007BA3D0 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FC6871F1D0E24007BA3D0 /* libRNExitApp.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		5EA666542C7B403996625E97 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF0D01DF34CA2BE631A9F /* Octicons.ttf */; };
@@ -332,6 +373,9 @@
 		4E11EA0B1EF32F8E000FF818 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		4E11EA0C1EF32F8E000FF818 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		4E11EA0D1EF32F8E000FF818 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		4E3990831F30EEA900002C5A /* Asthma_WebStorm-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Asthma_WebStorm-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E3990851F30EEA900002C5A /* Asthma_WebStorm copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Asthma_WebStorm copy-Info.plist"; path = "/Users/lixiao/github/AsthmaProject/client/Asthma_WebStorm/ios/Asthma_WebStorm copy-Info.plist"; sourceTree = "<absolute>"; };
+		4E3990A51F30EEAC00002C5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Resources-iPad/Asthma_WebStorm/Base.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 		4E8FC6671F1D0E24007BA3D0 /* RNExitApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNExitApp.xcodeproj; path = "../node_modules/react-native-exit-app/ios/RNExitApp.xcodeproj"; sourceTree = "<group>"; };
 		53B96ACF4CE1DC4DDBBF2459 /* libPods-Asthma_WebStorm-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Asthma_WebStorm-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C6E06619F414526994D88E0 /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
@@ -404,6 +448,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E3990541F30EEA900002C5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E3990551F30EEA900002C5A /* libReact.a in Frameworks */,
+				4E3990561F30EEA900002C5A /* libRCTAnimation.a in Frameworks */,
+				4E3990571F30EEA900002C5A /* libRCTActionSheet.a in Frameworks */,
+				4E3990581F30EEA900002C5A /* libRCTGeolocation.a in Frameworks */,
+				4E3990591F30EEA900002C5A /* libRCTImage.a in Frameworks */,
+				4E39905A1F30EEA900002C5A /* libRCTLinking.a in Frameworks */,
+				4E39905B1F30EEA900002C5A /* libRCTNetwork.a in Frameworks */,
+				4E39905C1F30EEA900002C5A /* libRCTSettings.a in Frameworks */,
+				4E39905D1F30EEA900002C5A /* libRCTText.a in Frameworks */,
+				4E39905E1F30EEA900002C5A /* libRCTVibration.a in Frameworks */,
+				4E39905F1F30EEA900002C5A /* libRCTWebSocket.a in Frameworks */,
+				4E3990601F30EEA900002C5A /* libRCTCamera.a in Frameworks */,
+				4E3990611F30EEA900002C5A /* libRNVectorIcons.a in Frameworks */,
+				4E3990621F30EEA900002C5A /* libLRDRCTSimpleToast.a in Frameworks */,
+				4E3990631F30EEA900002C5A /* libRNExitApp.a in Frameworks */,
+				4E3990641F30EEA900002C5A /* libRNInstabug.a in Frameworks */,
+				4E3990651F30EEA900002C5A /* libPods-Asthma_WebStorm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +645,14 @@
 			path = "../node_modules/react-native-vector-icons/Fonts";
 			sourceTree = "<group>";
 		};
+		4E3990841F30EEA900002C5A /* Resources-iPad */ = {
+			isa = PBXGroup;
+			children = (
+				4E3990A41F30EEAC00002C5A /* LaunchScreen.xib */,
+			);
+			name = "Resources-iPad";
+			sourceTree = "<group>";
+		};
 		4E8FC6681F1D0E24007BA3D0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,8 +736,10 @@
 				00E356EF1AD99517003FC87E /* Asthma_WebStormTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				18EA21ABBF3B4C74A8A3C189 /* Resources */,
+				4E3990841F30EEA900002C5A /* Resources-iPad */,
 				9CB7DB64A425EDEFFB1F7231 /* Pods */,
 				3931C5F067C5EE62A73C246A /* Frameworks */,
+				4E3990851F30EEA900002C5A /* Asthma_WebStorm copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -674,6 +752,7 @@
 				00E356EE1AD99517003FC87E /* Asthma_WebStormTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Asthma_WebStorm-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Asthma_WebStorm-tvOSTests.xctest */,
+				4E3990831F30EEA900002C5A /* Asthma_WebStorm-iPad.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -765,6 +844,27 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* Asthma_WebStorm-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4E39904F1F30EEA900002C5A /* Asthma_WebStorm-iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E3990801F30EEA900002C5A /* Build configuration list for PBXNativeTarget "Asthma_WebStorm-iPad" */;
+			buildPhases = (
+				4E3990501F30EEA900002C5A /* [CP] Check Pods Manifest.lock */,
+				4E3990511F30EEA900002C5A /* Sources */,
+				4E3990541F30EEA900002C5A /* Frameworks */,
+				4E3990661F30EEA900002C5A /* Resources */,
+				4E39907D1F30EEA900002C5A /* Bundle React Native code and images */,
+				4E39907E1F30EEA900002C5A /* [CP] Embed Pods Frameworks */,
+				4E39907F1F30EEA900002C5A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Asthma_WebStorm-iPad";
+			productName = "Hello World";
+			productReference = 4E3990831F30EEA900002C5A /* Asthma_WebStorm-iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -790,6 +890,9 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
+					};
+					4E39904F1F30EEA900002C5A = {
+						DevelopmentTeam = RQP8639J8H;
 					};
 				};
 			};
@@ -876,6 +979,7 @@
 				00E356ED1AD99517003FC87E /* Asthma_WebStormTests */,
 				2D02E47A1E0B4A5D006451C7 /* Asthma_WebStorm-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* Asthma_WebStorm-tvOSTests */,
+				4E39904F1F30EEA900002C5A /* Asthma_WebStorm-iPad */,
 			);
 		};
 /* End PBXProject section */
@@ -1145,6 +1249,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4E3990661F30EEA900002C5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E3990671F30EEA900002C5A /* Images.xcassets in Resources */,
+				4E3990681F30EEA900002C5A /* Foundation.ttf in Resources */,
+				4E39906A1F30EEA900002C5A /* Entypo.ttf in Resources */,
+				4E39906B1F30EEA900002C5A /* MaterialIcons.ttf in Resources */,
+				4E39906C1F30EEA900002C5A /* SimpleLineIcons.ttf in Resources */,
+				4E39906D1F30EEA900002C5A /* Zocial.ttf in Resources */,
+				4E39906E1F30EEA900002C5A /* Ionicons.ttf in Resources */,
+				4E39906F1F30EEA900002C5A /* EvilIcons.ttf in Resources */,
+				4E3990701F30EEA900002C5A /* EvilIcons.ttf in Resources */,
+				4E3990711F30EEA900002C5A /* FontAwesome.ttf in Resources */,
+				4E3990721F30EEA900002C5A /* Foundation.ttf in Resources */,
+				4E3990731F30EEA900002C5A /* Octicons.ttf in Resources */,
+				4E3990741F30EEA900002C5A /* Ionicons.ttf in Resources */,
+				4E3990751F30EEA900002C5A /* Entypo.ttf in Resources */,
+				4E3990761F30EEA900002C5A /* MaterialCommunityIcons.ttf in Resources */,
+				4E3990771F30EEA900002C5A /* MaterialIcons.ttf in Resources */,
+				4E3990781F30EEA900002C5A /* FontAwesome.ttf in Resources */,
+				4E3990791F30EEA900002C5A /* Octicons.ttf in Resources */,
+				4E39907A1F30EEA900002C5A /* SimpleLineIcons.ttf in Resources */,
+				4E39907B1F30EEA900002C5A /* MaterialCommunityIcons.ttf in Resources */,
+				4E3990A61F30EEAC00002C5A /* LaunchScreen.xib in Resources */,
+				4E39907C1F30EEA900002C5A /* Zocial.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1189,6 +1322,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Asthma_WebStorm/Pods-Asthma_WebStorm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E3990501F30EEA900002C5A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4E39907D1F30EEA900002C5A /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		4E39907E1F30EEA900002C5A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Asthma_WebStorm/Pods-Asthma_WebStorm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E39907F1F30EEA900002C5A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Asthma_WebStorm/Pods-Asthma_WebStorm-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6B38FBC09AEBD050C54A70FE /* [CP] Copy Pods Resources */ = {
@@ -1258,6 +1450,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4E3990511F30EEA900002C5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E3990521F30EEA900002C5A /* AppDelegate.m in Sources */,
+				4E3990531F30EEA900002C5A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1281,6 +1482,14 @@
 			);
 			name = LaunchScreen.xib;
 			path = Asthma_WebStorm;
+			sourceTree = "<group>";
+		};
+		4E3990A41F30EEAC00002C5A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E3990A51F30EEAC00002C5A /* Base */,
+			);
+			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1365,6 +1574,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug",
+					"$(SRCROOT)/../../react-native/React",
+					"$(SRCROOT)/../../react-native/Libraries",
 				);
 				INFOPLIST_FILE = Asthma_WebStorm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1392,6 +1603,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug",
+					"$(SRCROOT)/../../react-native/React",
+					"$(SRCROOT)/../../react-native/Libraries",
 				);
 				INFOPLIST_FILE = Asthma_WebStorm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1534,6 +1747,65 @@
 			};
 			name = Release;
 		};
+		4E3990811F30EEA900002C5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DF205FBC9D9ED91BF29A2A7 /* Pods-Asthma_WebStorm.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = RQP8639J8H;
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/../../react-native/React",
+					"$(SRCROOT)/../../react-native/Libraries",
+					"$(SRCROOT)/../../React",
+				);
+				INFOPLIST_FILE = "Asthma_WebStorm copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp;
+				PRODUCT_NAME = "Asthma_WebStorm-iPad";
+				TARGETED_DEVICE_FAMILY = 2;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		4E3990821F30EEA900002C5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B8ADACBD041A3485AE22A99 /* Pods-Asthma_WebStorm.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RQP8639J8H;
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/../../react-native/React",
+					"$(SRCROOT)/../../react-native/Libraries",
+					"$(SRCROOT)/../../React",
+				);
+				INFOPLIST_FILE = "Asthma_WebStorm copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp;
+				PRODUCT_NAME = "Asthma_WebStorm-iPad";
+				TARGETED_DEVICE_FAMILY = 2;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1654,6 +1926,15 @@
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E3990801F30EEA900002C5A /* Build configuration list for PBXNativeTarget "Asthma_WebStorm-iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E3990811F30EEA900002C5A /* Debug */,
+				4E3990821F30EEA900002C5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

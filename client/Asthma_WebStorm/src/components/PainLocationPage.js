@@ -1,65 +1,73 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Switch } from 'react-native';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import Dimensions from 'Dimensions';
 import { Actions } from 'react-native-router-flux';
-import { Button } from 'native-base';
+import { Tabs, Flex, Tag } from 'antd-mobile';
+import { Button, Icon } from 'native-base';
 import { connect } from 'react-redux';
-
-const radio_props_head = [
-    {label: 'Head', value: 'Head' }
-];
-
-const radio_props_back_head = [
-    {label: 'Back of Head', value: 'Back of Head' }
-];
-
-const radio_props_upper = [
-    {label: 'Left Shoulder', value: 'Left Shoulder' },
-    {label: 'Chest', value: 'Chest' },
-    {label: 'Right Shoulder', value: 'Right Shoulder' }
-];
-
-const radio_props_back_upper = [
-    {label: 'Back - Upper Left', value: 'Back - Upper Left' },
-    {label: 'Back', value: 'Back' },
-    {label: 'Back - Upper Right', value: 'Back - Upper Right' }
-];
-
-const radio_props_middle = [
-    {label: 'Belly', value: 'Belly' }
-];
-
-const radio_props_back_middle = [
-    {label: 'Lower Back', value: 'Lower Back' }
-];
-
-const radio_props_bottom = [
-    {label: 'Left Leg', value: 'Left Leg' },
-    {label: 'Right Leg', value: 'Right Leg' }
-];
-
-const radio_props_back_bottom = [
-    {label: 'Back  of Left Leg', value: 'Back of Left Leg' },
-    {label: 'Back of Right Leg', value: 'Back of Right Leg' }
-];
+import { MAP } from '../CONST';
 
 class PainLocationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            switchValue: true,
-            checked: null,
-            error: null
+            error: null,
+            tmpresult: [],
+            selectedTab: '1'
         }
     }
 
-    toggleSwtich(value){
-        this.setState({ switchValue: value });
+    handleTouch(evt){
+        let min = Number.MAX_SAFE_INTEGER;
+        let location = "";
+        let newtmpresult = this.state.tmpresult;
+        let map = {};
+
+        switch (this.state.selectedTab){
+            case "1":
+                map = MAP['1'];
+                break;
+            case "2":
+                map = MAP['2'];
+                break;
+            case "3":
+                map = MAP['3'];
+                break;
+            case "4":
+                map = MAP['4'];
+                break;
+        }
+
+        for(let key of Object.keys(map)){
+            for(let coor of map[key]){
+                let a = evt.nativeEvent.locationX - coor[0];
+                let b = evt.nativeEvent.locationY - coor[1];
+                let distance = Math.sqrt(a*a + b*b);
+                if(distance < min) {
+                    min = distance;
+                    location = key;
+                }
+            }
+        }
+
+        if(newtmpresult.includes(location) || min>50){}
+        else {
+            newtmpresult.push(location);
+        }
+
+        this.setState({
+            error: null,
+            tmpresult: newtmpresult
+        });
     }
 
-    locatePain(value){
-        this.setState({...this.state, checked:value, error:null});
+    removeItem(item){
+        let newtmpresult = this.state.tmpresult;
+        let index = newtmpresult.indexOf(item);
+        newtmpresult.splice(index, 1);
+        this.setState({
+            tmpresult: newtmpresult
+        });
     }
 
     async onBackButtonPress(){
@@ -85,13 +93,14 @@ class PainLocationPage extends Component {
     }
 
     async onNextButtonPress(){
-        if(this.state.checked == null){
-            this.setState({...this.state, error: 'Please make a selection.'});
+        if(this.state.tmpresult.length == 0){
+            console.log('1');
+            this.setState({...this.state, error: 'Please locate your pain area.'});
         }else{
             this.props.results.push({
                 q_id: this.props.currentquestion.question._id,
-                key: this.state.checked,
-                value: this.state.checked,
+                key: "pain location",
+                value: this.state.tmpresult,
                 description: this.props.currentquestion.question.description
             });
 
@@ -102,7 +111,7 @@ class PainLocationPage extends Component {
                         type: 'nextButtonClicked',
                         payload: {
                             currentquestion: question,
-                            results: this.props.results,
+                            results: this.state.tmpresult,
                             history: this.props.history
                         }
                     });
@@ -112,102 +121,61 @@ class PainLocationPage extends Component {
                 }
             }
          }
+
     }
 
-    render() {
-        const { containerStyle, headButtonStyle, upperButtonStyle, bottomButtonStyle, middleButtonStyle, switchTextStyle, buttonStyle, textStyle, buttonRowStyle, errorStyle } = styles;
-        const frontOrback = this.state.switchValue?
-            <Image style={containerStyle} source={require('../img/bodymap_front.png')}>
-                <Switch onValueChange = {() => this.toggleSwtich(!this.state.switchValue)} value = {this.state.switchValue}/>
-                <Text style={switchTextStyle}>{this.state.switchValue ? 'Front' : 'Back'}</Text>
-                <View style={headButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_head}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={upperButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_upper}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={middleButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_middle}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={bottomButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_bottom}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
+    render(){
+        const TabPane = Tabs.TabPane;
+        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle } = styles;
+        return(
+            <Flex direction="column">
+                <Flex>
+                    <Tabs activeKey={this.state.selectedTab} animated={false}
+                          onTabClick={(key)=>{
+                               this.setState({...this.state, selectedTab:key});
+                          }}>
+                        <TabPane tab="Front" key="1">
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image style={imageStyle} source={require('../img/front.jpeg')}/>
+                            </TouchableWithoutFeedback>
+                        </TabPane>
+                        <TabPane tab="Back" key="2">
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image style={imageStyle} source={require('../img/back.jpeg')}/>
+                            </TouchableWithoutFeedback>
+                        </TabPane>
+                        <TabPane tab="Left Side" key="3">
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image style={imageStyle} source={require('../img/leftside.jpeg')}/>
+                            </TouchableWithoutFeedback>
+                        </TabPane>
+                        <TabPane tab="Right Side" key="4">
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image style={imageStyle} source={require('../img/rightside.jpeg')}/>
+                            </TouchableWithoutFeedback>
+                        </TabPane>
+                    </Tabs>
+                </Flex>
+                <Flex style={resultContainerStyle} >
+                    {this.state.tmpresult.map((r) => {
+                        return(
+                            <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                        )
+                    })}
+                </Flex>
                 <Text style={errorStyle}>{this.state.error}</Text>
-            </Image>:
-            <Image style={containerStyle} source={require('../img/bodymap_back.png')}>
-                <Switch onValueChange = {() => this.toggleSwtich(!this.state.switchValue)} value = {this.state.switchValue}/>
-                <Text style={switchTextStyle}>{this.state.switchValue ? 'Front' : 'Back'}</Text>
-                <View style={headButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_back_head}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={upperButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_back_upper}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={middleButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_back_middle}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <View style={bottomButtonStyle}>
-                    <RadioForm
-                        radio_props={radio_props_back_bottom}
-                        initial={null}
-                        onPress={(value) => this.locatePain(value)}
-                        formHorizontal={true}
-                    />
-                </View>
-                <Text style={errorStyle}>{this.state.error}</Text>
-            </Image>;
+                <Flex>
+                    <Button  style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
+                        <Text style={textStyle}>Back</Text>
+                    </Button>
 
-            return (
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    {frontOrback}
-                    <View style={buttonRowStyle}>
-                        <Button style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
-                            <Text style={textStyle}>Back</Text>
-                        </Button>
-
-                        <Button style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
-                            <Text style={textStyle}>Next</Text>
-                        </Button>
-                    </View>
-                </View>
-
-            )
-        }
+                    <Button  style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
+                        <Text style={textStyle}>Next</Text>
+                    </Button>
+                </Flex>
+            </Flex>
+        )
+    }
 }
 
 const styles = {
@@ -217,50 +185,34 @@ const styles = {
         resizeMode: 'stretch',
         position: 'absolute',
         width: '100%',
-        height: '85%',
-    },
-    headButtonStyle: {
-        position: 'absolute',
-        alignSelf: 'center',
-        marginTop: 30
-    },
-    upperButtonStyle: {
-        position: 'absolute',
-        alignSelf: 'center',
-        marginTop: Dimensions.get('window').height/3.5+10,
-        justifyContent: 'space-between'
-    },
-    middleButtonStyle:{
-        position: 'absolute',
-        alignSelf: 'center',
-        marginTop: Dimensions.get('window').height/2.5,
-    },
-    bottomButtonStyle:{
-        position: 'absolute',
-        alignSelf: 'center',
-        marginTop: Dimensions.get('window').height/1.9,
-    },
-    switchTextStyle: {
-        fontSize: 20,
-        color: 'red'
+        height: '88%',
     },
     buttonStyle: {
-        flex: 0.4, margin: 5
+        flex: 0.4,
+        margin: 5
     },
     textStyle: {
         color: 'white',
         fontSize: 16
     },
-    buttonRowStyle: {
-        flexDirection: 'row',
-        flex: 1,
-        marginTop: Dimensions.get('window').height*0.8
-    },
     errorStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: 'red',
-        marginTop: Dimensions.get('window').height*0.62
+        color: 'red'
+    },
+    resultContainerStyle: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: Dimensions.get('window').width*0.9,
+        alignSelf:'center',
+    },
+    imageStyle: {
+        width:Dimensions.get('window').width*0.8,
+        height: Dimensions.get('window').height*0.6,
+        alignSelf: 'center',
+        marginTop: 5
     }
 
 };
@@ -270,8 +222,6 @@ const mapStateToProps = state => {
         currentquestionset: state.questions.currentquestionset,
         questionset: state.questions.questionset,
         currentquestion: state.questions.currentquestion,
-        checked_option : state.questions.checked_option,
-        checked_option_value: state.questions.checked_option_value,
         results: state.questions.results,
         history:state.questions.history
     };
