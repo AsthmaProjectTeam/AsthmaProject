@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Image, Text, View, AsyncStorage, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
+import { Image, Text, View, AsyncStorage, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity, TouchableHighlight, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Button, Icon, Right } from 'native-base';
+import { Button, Icon, Right, Body, Left, CardItem } from 'native-base';
 import Dimensions from 'Dimensions';
 import { HOST } from '../CONST';
 
@@ -14,7 +14,8 @@ class WelcomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            refreshing: false
+            refreshing: false,
+            modalShowing: false
         };
     }
 
@@ -63,7 +64,7 @@ class WelcomePage extends Component {
         });
     }
 
-     onButtonPress(qset_id){
+    onButtonPress(qset_id){
         const dispatch = this.props.dispatch;
         const history = this.props.history;
 
@@ -137,8 +138,12 @@ class WelcomePage extends Component {
         });
     }
 
+    setModalVisible() {
+        this.setState({modalShowing: true});
+    }
+
     render(){
-        const { colorBarStyle, textStyle, messageContent, messageBox, messageBoxText, spinnerStyle, copyrightStyle } = styles;
+        const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle, copyrightStyle } = styles;
 
         const listcolor = function get_random_color() {
             let letters = 'BCDEF'.split('');
@@ -149,7 +154,7 @@ class WelcomePage extends Component {
             return color;
         };
 
-        const set = (this.props.questionset.length!=0)?this.props.questionset.map(qset => {
+        const set = (this.props.questionset.length!==0)?this.props.questionset.map(qset => {
             return (
                 <Button
                     block
@@ -174,6 +179,51 @@ class WelcomePage extends Component {
 
         return (
             <View>
+                <Modal
+                    animationType={"slide"}
+                    transparent
+                    visible={this.state.modalShowing}
+                    //presentationStyle='fullScreen'
+                >
+                    <View style={{
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(0,0,0,0.75)',
+                        height: Dimensions.get('window').height,
+                        width: Dimensions.get('window').width }}
+                    >
+                        <View style={{ width: Dimensions.get('window').width*0.8,
+                                       height: Dimensions.get('window').height*0.8,
+                                       alignSelf: 'center',
+                                       backgroundColor: 'white',
+                                       borderRadius: 3,
+                                       borderWidth: 2,
+                                       borderColor: 'dodgerblue' }}>
+                            <Text>Instructions on using app...</Text>
+
+                            <TouchableOpacity title={null} onPress={() => {this.setState({modalShowing: false})}}>
+                                <Text>Okay, got it!</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 60 }}>
+
+                    </View>
+                </Modal>
+
+                <Text style={{ ...textStyle,
+                    color: 'dodgerblue',
+                    marginTop: 10,
+                    fontWeight: '500',
+                    marginRight: 8,
+                    marginLeft: 8}}>
+                    Welcome! Please tap on a questionnaire below to begin.
+                </Text>
+
+                {/*<View style={colorBarStyle}>*/}
+                {/*</View>*/}
+
                 <ScrollView
                     refreshControl={
                     <RefreshControl
@@ -181,30 +231,37 @@ class WelcomePage extends Component {
                         onRefresh={this._onRefresh.bind(this)}
                     />
                 }
-                    style={{height:Dimensions.get('window').height*0.4}}
+                    style={{height:Dimensions.get('window').height*0.72,
+                            width: Dimensions.get('window').width*0.97,
+                            alignSelf: 'center',
+                            borderColor: 'dodgerblue',
+                            borderWidth: 1,
+                            shadowColor: '#778899',
+                            shadowRadius: 3,
+                            shadowOpacity: 0.2,
+                            marginTop:Dimensions.get('window').height*0.01}}
                 >
                     <View style={spinnerStyle}>
                         <ActivityIndicator animating={this.props.spinning}/>
                     </View>
 
-                    <Text style={{ ...textStyle,
-                               color: 'dodgerblue',
-                               marginTop: 10,
-                               fontWeight: '500',
-                               marginRight: 8,
-                               marginLeft: 8}}>
-                        Welcome! Please tap on a questionnaire below to begin.
-                    </Text>
-
-                    <View style={colorBarStyle}>
-                    </View>
                     {set}
                     {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
                         {/*<Text>log out</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </ScrollView>
-                <Image style={{width: '60%', height:Dimensions.get('window').height*0.4, marginTop: 15, alignSelf:'center'}} source={require('../img/welcomebg.png')}/>
-                <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
+                <View style={{ width: Dimensions.get('window').width,
+                               height: Dimensions.get('window').height*0.095,
+                               justifyContent: 'center' }}>
+                    <CardItem>
+                        <Text style={copyrightStyle}>             Copyright © 2017 by Vanderbilt University</Text>
+                        <Right>
+                            <TouchableOpacity title={null} onPress={this.setModalVisible.bind(this)}>
+                                <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40 }}/>
+                            </TouchableOpacity>
+                        </Right>
+                    </CardItem>
+                </View>
             </View>
 
         )
@@ -254,9 +311,9 @@ const styles = {
     },
     copyrightStyle: {
         alignSelf: 'center',
+        textAlign: 'center',
         fontSize: 13,
-        color: '#777',
-        marginTop: 20
+        color: '#777'
     }
 };
 

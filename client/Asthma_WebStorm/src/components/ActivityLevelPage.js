@@ -123,42 +123,42 @@ class ActivityLevelPage extends Component {
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('F',optionArray[5].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/exercising.jpg')}
+                            source={require('../img/ActivityLevel_sleeping.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[5].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity focusedOpacity={1} style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/sleeping.jpg')}
+                            source={require('../img/ActivityLevel_laying.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[0].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/walking.jpg')}
+                            source={require('../img/ActivityLevel_sitting.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[1].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/running.jpg')}
+                            source={require('../img/ActivityLevel_standing.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[2].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/exercising.jpg')}
+                            source={require('../img/ActivityLevel_room.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[3].value}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('E',optionArray[4].value)}>
                         <Image
                             style={imageStyle}
-                            source={require('../img/exercising.jpg')}
+                            source={require('../img/ActivityLevel_hallway.jpg')}
                         />
                         <Text style={optionTextStyle}>{optionArray[4].value}</Text>
                     </TouchableOpacity>
@@ -204,8 +204,8 @@ const styles = {
         marginRight: Dimensions.get('window').width*0.02,
         borderColor: '#6495ed',
         borderRadius: 4,
-        borderWidth: 2,
-        shadowColor: '#6495ed',
+        borderWidth: 3,
+        shadowColor: '#696969',
         shadowOpacity: 5
     },
     imageStyle: {
