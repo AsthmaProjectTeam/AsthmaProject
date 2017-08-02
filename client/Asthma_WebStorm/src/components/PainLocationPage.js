@@ -94,7 +94,6 @@ class PainLocationPage extends Component {
 
     async onNextButtonPress(){
         if(this.state.tmpresult.length == 0){
-            console.log('1');
             this.setState({...this.state, error: 'Please locate your pain area.'});
         }else{
             this.props.results.push({
@@ -111,7 +110,7 @@ class PainLocationPage extends Component {
                         type: 'nextButtonClicked',
                         payload: {
                             currentquestion: question,
-                            results: this.state.tmpresult,
+                            results: this.props.results,
                             history: this.props.history
                         }
                     });
@@ -121,7 +120,6 @@ class PainLocationPage extends Component {
                 }
             }
          }
-
     }
 
     render(){
