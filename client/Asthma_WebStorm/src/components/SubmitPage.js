@@ -47,7 +47,6 @@ class SubmitPage extends Component {
             })
         }).then(response => globalerrorhandling(response))
             .then(function (response) {
-            console.log({response});
             if(response.status == 200){
                 Toast.show('Answers successfully submitted!', Toast.SHORT);
             }

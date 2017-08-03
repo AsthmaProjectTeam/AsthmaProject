@@ -57,6 +57,7 @@ class PainLevelPage extends Component {
                         history: this.props.history
                     }
                 });
+                break;
             }
         }
 

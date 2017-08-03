@@ -114,11 +114,13 @@ class PainLocationPage extends Component {
                             history: this.props.history
                         }
                     });
-                    Actions.pop();
-                    Actions.activity();
+
                     break;
                 }
             }
+
+            Actions.pop();
+            Actions.activity();
          }
     }
 
@@ -127,6 +129,7 @@ class PainLocationPage extends Component {
         const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle } = styles;
         return(
             <Flex direction="column">
+
                 <Flex>
                     <Tabs activeKey={this.state.selectedTab} animated={false}
                           onTabClick={(key)=>{
@@ -134,7 +137,10 @@ class PainLocationPage extends Component {
                           }}>
                         <TabPane tab="Front" key="1">
                             <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                <Image style={imageStyle} source={require('../img/front.jpeg')}/>
+                                <Flex direction="column">
+                                    <Text>change here!!</Text>
+                                    <Image style={imageStyle} source={require('../img/front.jpeg')}/>
+                                </Flex>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Back" key="2">
