@@ -64,6 +64,8 @@ class SubmitPage extends Component {
         const { messageBoxText,summaryStyle, buttonListStyle, buttonStyle } = styles;
         return (
             <View>
+                <Text style={messageBoxText}>You have finished this questionnaire, review your answers and submit below.</Text>
+
                 <ListView
                     dataSource={this.dataSource}
                     renderRow={(r) => {
@@ -71,14 +73,12 @@ class SubmitPage extends Component {
                             <View style={summaryStyle}>
                                 {/*<TouchableOpacity>*/}
                                     <Text style={{marginBottom: 3}}>{r.description} </Text>
-                                    <Text style={{marginTop: 3, marginBottom: 3, color: '#9e9e9e'}}>{r.value} </Text>
+                                    <Text style={{marginTop: 3, marginBottom: 3, fontWeight: '700'}}>{r.value} </Text>
                                 {/*</TouchableOpacity>*/}
                             </View>
                         )
                     }}
                 />
-
-                <Text style={messageBoxText}>You have finished this question set, click below to submit or cancel.</Text>
 
                 <View style={buttonListStyle}>
                     <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
@@ -95,7 +95,7 @@ class SubmitPage extends Component {
 
 const styles = {
     messageBoxText:{
-        width:Dimensions.get('window').width*0.9,
+        width:Dimensions.get('window').width*0.96,
         marginTop: 10,
         marginBottom: 10,
         fontWeight:'bold',
