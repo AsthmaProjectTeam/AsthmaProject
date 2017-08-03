@@ -69,31 +69,24 @@ class MedicationPage extends Component {
 
         return (
             <View>
-                <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+                <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
-                {/*{this.props.currentquestion.question.options.map((option) => {*/}
-                    {/*return (*/}
-                        {/*<CheckBox*/}
-                            {/*center*/}
-                            {/*checked={this.state.checkedOption == option.key}*/}
-                            {/*onIconPress={() => this.onSelect(option.key, option.value)}*/}
-                            {/*key={option.key}*/}
-                            {/*title={option.value}*/}
-                            {/*checkedIcon='dot-circle-o'*/}
-                            {/*uncheckedIcon='circle-o'*/}
-                        {/*/>*/}
-                    {/*)*/}
-                {/*})}*/}
+                <View style={{width: 300, alignSelf:'center'}}>
 
                 {this.props.currentquestion.question.options.map((option) => {
                     return (
-                        <TouchableOpacity key={option.key}>
-                            <Text style={{borderWeight: 1}}>
-                                {option.value}
-                            </Text>
-                        </TouchableOpacity>
+                        <CheckBox
+                            checked={this.state.checkedOption == option.key}
+                            onPress={() => this.onSelect(option.key, option.value)}
+                            key={option.key}
+                            title={option.value}
+                            checkedIcon='dot-circle-o'
+                            uncheckedIcon='circle-o'
+                        />
                     )
                 })}
+
+                </View>
 
                 <Text style={errorStyle}>
                     {this.state.error}

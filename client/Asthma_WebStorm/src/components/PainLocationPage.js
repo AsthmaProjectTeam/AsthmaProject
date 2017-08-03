@@ -137,10 +137,7 @@ class PainLocationPage extends Component {
                           }}>
                         <TabPane tab="Front" key="1">
                             <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                <Flex direction="column">
-                                    <Text>change here!!</Text>
-                                    <Image style={imageStyle} source={require('../img/front.jpeg')}/>
-                                </Flex>
+                                <Image style={imageStyle} source={require('../img/front.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Back" key="2">
