@@ -116,6 +116,7 @@ module.exports = app => {
                                         value:        {type:Joi.number()},
                                         include_value:{type:Joi.boolean().required()},
                                     }),
+                                    all:    Joi.boolean(),
                                 }).length(1).required(),
                             })
                         ).required(),

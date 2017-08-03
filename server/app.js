@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Setup pipeline support for server-side templates
 app.engine('pug', require('pug').__express);
 app.set('views', __dirname);
-
+//
 //
 function enableCORSMiddleware (req,res,next) {
     // You could use * instead of the url below to allow any origin,

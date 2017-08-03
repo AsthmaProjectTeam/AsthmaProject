@@ -114,11 +114,13 @@ class PainLocationPage extends Component {
                             history: this.props.history
                         }
                     });
-                    Actions.pop();
-                    Actions.activity();
+
                     break;
                 }
             }
+
+            Actions.pop();
+            Actions.activity();
          }
     }
 
@@ -127,6 +129,7 @@ class PainLocationPage extends Component {
         const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle } = styles;
         return(
             <Flex direction="column">
+
                 <Flex>
                     <Tabs activeKey={this.state.selectedTab} animated={false}
                           onTabClick={(key)=>{

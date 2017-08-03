@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import DatePicker from 'react-native-datepicker'
-import { CheckBox } from 'react-native-elements'
+import { View, Text, Image, TouchableOpacity, ListView } from 'react-native';
+import { CheckBox, SocialIcon } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
-import Dimensions from 'Dimensions';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 class MedicationPage extends Component {
 
@@ -72,14 +69,15 @@ class MedicationPage extends Component {
 
         return (
             <View>
-                <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+                <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+
+                <View style={{width: 300, alignSelf:'center'}}>
 
                 {this.props.currentquestion.question.options.map((option) => {
                     return (
                         <CheckBox
-                            center
                             checked={this.state.checkedOption == option.key}
-                            onIconPress={() => this.onSelect(option.key, option.value)}
+                            onPress={() => this.onSelect(option.key, option.value)}
                             key={option.key}
                             title={option.value}
                             checkedIcon='dot-circle-o'
@@ -88,6 +86,7 @@ class MedicationPage extends Component {
                     )
                 })}
 
+                </View>
 
                 <Text style={errorStyle}>
                     {this.state.error}

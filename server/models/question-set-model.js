@@ -25,7 +25,8 @@ let NextQuestion = new Schema({
         'less_than':{
             'value':{type:Number},
             'include_value':{type:Boolean},
-        }
+        },
+        'all':{type:Boolean}
     },
 },
     { _id : false }

@@ -57,6 +57,7 @@ class PainLevelPage extends Component {
                         history: this.props.history
                     }
                 });
+                break;
             }
         }
 
@@ -68,7 +69,7 @@ class PainLevelPage extends Component {
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
         return (
             <View style={containerStyle}>
-                <Text style={titleStyle}>Q. {this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+                <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
                 <Image style={imageStyle} source={require('../img/painlevel.jpg')} />
                 <Slider
                     style={{ width:Dimensions.get('window').width*0.9, marginTop: 20 }}

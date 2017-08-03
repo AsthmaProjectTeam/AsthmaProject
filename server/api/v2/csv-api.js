@@ -50,6 +50,7 @@ module.exports = app=> {
      */
     app.post('/v2/csv/patients/profile', csvHelp.uploadAndSaveCsv, (req, res)=>{
         const csvFilePath = path.join(__dirname, '/../../uploads/'+ req.file_name);
+        console.log(csvFilePath);
         let patients = [];
         csv()
             .fromFile(csvFilePath)
