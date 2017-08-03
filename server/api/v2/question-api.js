@@ -116,7 +116,10 @@ module.exports = app => {
                                         value:        {type:Joi.number()},
                                         include_value:{type:Joi.boolean().required()},
                                     }),
-                                }).min(0).max(1).required(),
+                                    all:        Joi.object().keys({
+                                        value:  {type: Joi.boolean().required()},
+                                    })
+                                }).length(1).required(),
                             })
                         ).required(),
                     })),
