@@ -117,13 +117,14 @@ class WelcomePage extends Component {
             }
         }).then(response => globalerrorhandling(response))
             .then(response => response.json())
-            .then(response => response.patient.question_set)
+            .then(response => response.patient)
             .then(function (response) {
                 dispatch({
                     type: 'getAllQuestionSets',
                     payload: {
-                        questionset: response,
-                        spinning: false
+                        questionset: response.question_set,
+                        spinning: false,
+                        patientName: `${response.first_name}`
                     }
                 });
             })
@@ -145,13 +146,13 @@ class WelcomePage extends Component {
 
     backString() {
         return (this.props.patientName.length===0)?
-            ("")
+            ("!")
         :(" back, ");
     }
 
     nameString() {
         return (this.props.patientName.length===0)?
-            ("!")
+            ("")
         :(`${this.props.patientName}!`);
     }
 
