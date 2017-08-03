@@ -365,7 +365,32 @@ module.exports = async app => {
         });
     })
 
-
+    /**
+     * Initiator retrieve a patient's results
+     */
+    app.get('/v2/initiators/patients/:id/results', initiatorAuth, (req, res)=>{
+        Initiator.findById(req.user.id, (err, initiator)=> {
+            if (err) res.status(500).send("Error Occurs When Query Initiator");
+            else {
+                if (initiator) {
+                    if (!initiator.patients.includes(patient_id)) {
+                        res.status(403).send("You can not access this patient");
+                    }
+                    else{
+                        Patient.findById(patient_id)
+                            .exec( (err, patient)=>{
+                                if(err)  res.status(500).send("Error Occurs When Query Patient");
+                                else {
+                                    if(patient) {
+                                        res.status(200).send({results:"not decided"})
+                                    }
+                                    else res.status(400).send("Can not Find Target Patient");
+                                }});
+                    }
+                }
+            }
+        });
+    })
 
 
 };

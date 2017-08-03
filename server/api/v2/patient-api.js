@@ -56,19 +56,19 @@ module.exports = app => {
      *
      * @return {object} Return profile object
      */
-    app.get('/v2/patients/results', patientAuth, (req, res)=>{
-        if (req.query.context){
-            // if(!QUESTION_CONTEXT.CONTEXT.includes(req.query.context)){
-            //     res.status(400).send("Invalid Query Request!");
-            // }
-            // else {
-            res.status(200).send(req.user.result_set[req.query.context])
-            //}
-        } else {
-            res.status(200).send(req.user.result_set)
-        }
-
-    });
+    // app.get('/v2/patients/results', patientAuth, (req, res)=>{
+    //     if (req.query.context){
+    //         // if(!QUESTION_CONTEXT.CONTEXT.includes(req.query.context)){
+    //         //     res.status(400).send("Invalid Query Request!");
+    //         // }
+    //         // else {
+    //         res.status(200).send(req.user.result_set[req.query.context])
+    //         //}
+    //     } else {
+    //         res.status(200).send(req.user.result_set)
+    //     }
+    //
+    // });
 
     /**
      * GET a patient's profile via jwt

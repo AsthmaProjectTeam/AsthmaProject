@@ -97,15 +97,25 @@ module.exports = app => {
      * rn {200, {token}} Return token for registration. token will expire in 30 seconds
      */
     app.get('/v2/accounts/patients/:id/register/temp-token', initiatorAuth, (req,res)=>{
-       const temp_user = {
-           initiator_id :  req.user.id,  //this is number
-           role:        "temp",
-           patient_id:  req.params.id,  //this is string
-       };
-       const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
-           expiresIn: '1h',
-       });
-       res.status(200).send({token});
+        Patient.findOne({_id:req.params.id}, (err, patient)=>{
+            if(err) res.status(500).send({error: 'Error Occured When Querying data'});
+            else {
+                if(patient){
+                    const temp_user = {
+                        initiator_id :  req.user.id,  //this is number
+                        role:        "temp",
+                        patient_id:  req.params.id,  //this is string
+                    };
+                    const token = jwt.sign(temp_user, process.env.SECRET_KEY, {
+                        expiresIn: '1h',
+                    });
+                    res.status(200).send({token});
+                } else {
+                    res.status(400).send({error: 'Patient doest not exist!'});
+                }
+            }
+
+        });
     });
 
     /**

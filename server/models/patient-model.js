@@ -51,7 +51,7 @@ let Patient = new Schema({
     "created_date": { type: Date,       default:Date.now},
     'first_name':   { type: String ,                     },
     'last_name':    { type: String,                   },
-    'mrn':          { type: String   ,},
+    'mrn':          { type: String   , required:true, unique:true},
     'date_of_birth': {type: Date,     },
     "role":         { type: String, enum:['patient'], default:'patient'},
     //TODO: Result set can contain different key according to the context of the question
