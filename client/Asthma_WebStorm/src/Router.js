@@ -30,13 +30,13 @@ const RouterComponent = () => {
                 <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>
             </Scene>
             <Scene key="location">
-                <Scene style={{ paddingTop: 65 }} key="painLocation" component={PainLocationPage} title="Locate your pain"/>
+                <Scene style={{ paddingTop: 65 }} key="painLocation" component={PainLocationPage} title="Pain Location"/>
             </Scene>
             <Scene key="activity">
                 <Scene style={{ paddingTop: 65 }} key="activityLevel" component={ActivityLevelPage} title="Activity Level"/>
             </Scene>
             <Scene key="medication">
-                <Scene style={{ paddingTop: 65 }} key="medicationPage" component={MedicationPage} title="Medication"/>
+                <Scene style={{ paddingTop: 65 }} key="medicationPage" component={MedicationPage} title="Last Medicated"/>
             </Scene>
             <Scene key="main">
                 <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>
