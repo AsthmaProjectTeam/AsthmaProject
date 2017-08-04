@@ -209,10 +209,10 @@ class WelcomePage extends Component {
                     animationType={"slide"}
                     transparent
                     visible={this.state.modalShowing}
+                    onRequestClose={() => {this.setState({modalShowing: false})}}
                     //presentationStyle='fullScreen'
                 >
-                    <View style={ modalContainerStyle }
-                    >
+                    <View style={ modalContainerStyle }>
                         <View style={ instructionContainerStyle }>
                             <Text style={ instructionTitleStyle }>How to use the app...</Text>
                             <Text style={ instructionStyle }>
@@ -255,9 +255,6 @@ class WelcomePage extends Component {
                     <Text style={ nameStyle }>{`${this.nameString()}`}</Text>
                     <Text> Please tap on a questionnaire below to begin.</Text>
                 </Text>
-
-                {/*<View style={colorBarStyle}>*/}
-                {/*</View>*/}
 
                 <ScrollView
                     refreshControl={
