@@ -278,7 +278,9 @@ class WelcomePage extends Component {
                                height: Dimensions.get('window').height*0.095,
                                justifyContent: 'center' }}>
                     <CardItem>
-                        <Text style={copyrightStyle}>             Copyright © 2017 by Vanderbilt University</Text>
+                        <Left>
+                        </Left>
+                        <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
                         <Right>
                             <TouchableOpacity title={null} onPress={this.setModalVisible.bind(this)}>
                                 <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40 }}/>
