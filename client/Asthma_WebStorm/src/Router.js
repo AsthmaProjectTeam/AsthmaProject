@@ -14,15 +14,15 @@ import MedicationPage from './components/MedicationPage';
 const RouterComponent = () => {
     return (
         <Router panHandlers={null}>
-            <Scene key="entrance">
-                <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
-            </Scene>
-            <Scene key="dummy">
-                <Scene style={{ paddingTop: 65 }} key="dummyPage" component={DummyPage} title="Scan QR Code"/>
-            </Scene>
-            <Scene key="auth">
-                <Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>
-            </Scene>
+            {/*<Scene key="entrance">*/}
+                {/*<Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>*/}
+            {/*</Scene>*/}
+            {/*<Scene key="dummy">*/}
+                {/*<Scene style={{ paddingTop: 65 }} key="dummyPage" component={DummyPage} title="Scan QR Code"/>*/}
+            {/*</Scene>*/}
+            {/*<Scene key="auth">*/}
+                {/*<Scene style={{ paddingTop: 65 }} key="scanScreen" component={ScanScreen} title="Scan QR Code"/>*/}
+            {/*</Scene>*/}
             <Scene direction="leftToRight" key="welcome">
                 <Scene style={{ paddingTop: 65 }} key="welcomePage" component={WelcomePage} title="Home"/>
             </Scene>
@@ -30,18 +30,17 @@ const RouterComponent = () => {
                 <Scene style={{ paddingTop: 65 }} key="painLevel" component={PainLevelPage} title="Pain Level"/>
             </Scene>
             <Scene key="location">
-                <Scene style={{ paddingTop: 65 }} key="painLocation" component={PainLocationPage} title="Locate your pain"/>
+                <Scene style={{ paddingTop: 65 }} key="painLocation" component={PainLocationPage} title="Pain Location"/>
             </Scene>
             <Scene key="activity">
                 <Scene style={{ paddingTop: 65 }} key="activityLevel" component={ActivityLevelPage} title="Activity Level"/>
             </Scene>
             <Scene key="medication">
-                <Scene style={{ paddingTop: 65 }} key="medicationPage" component={MedicationPage} title="Medication"/>
+                <Scene style={{ paddingTop: 65 }} key="medicationPage" component={MedicationPage} title="Last Medicated"/>
             </Scene>
             <Scene key="main">
                 <Scene style={{ paddingTop: 65 }} key="questionList" component={QuestionList} title="Questions"/>
             </Scene>
-
             <Scene key="submit">
                 <Scene style={{ paddingTop: 65 }} key="submitPage" component={SubmitPage} title="Summary"/>
             </Scene>

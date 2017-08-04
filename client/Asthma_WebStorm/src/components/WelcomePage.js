@@ -48,13 +48,14 @@ class WelcomePage extends Component {
                     }
                 }).then(response => globalerrorhandling(response))
                     .then(response => response.json())
-                    .then(response => response.patient.question_set)
+                    .then(response => response.patient)
                     .then(function (response) {
                         dispatch({
                             type: 'getAllQuestionSets',
                             payload: {
-                                questionset: response,
-                                spinning: false
+                                questionset: response.question_set,
+                                spinning: false,
+                                patientName: `${response.first_name}`
                             }
                         });
                     }).catch((error) => {
@@ -116,13 +117,14 @@ class WelcomePage extends Component {
             }
         }).then(response => globalerrorhandling(response))
             .then(response => response.json())
-            .then(response => response.patient.question_set)
+            .then(response => response.patient)
             .then(function (response) {
                 dispatch({
                     type: 'getAllQuestionSets',
                     payload: {
-                        questionset: response,
-                        spinning: false
+                        questionset: response.question_set,
+                        spinning: false,
+                        patientName: `${response.first_name}`
                     }
                 });
             })
@@ -142,8 +144,32 @@ class WelcomePage extends Component {
         this.setState({modalShowing: true});
     }
 
+    backString() {
+        return (this.props.patientName.length===0)?
+            ("!")
+        :(" back, ");
+    }
+
+    nameString() {
+        return (this.props.patientName.length===0)?
+            ("")
+        :(`${this.props.patientName}!`);
+    }
+
     render(){
-        const { textStyle, messageContent, messageBox, messageBoxText, spinnerStyle, copyrightStyle } = styles;
+        const { textStyle,
+                messageContent,
+                messageBox,
+                messageBoxText,
+                spinnerStyle,
+                copyrightStyle,
+                questionSetListContainer,
+                modalContainerStyle,
+                instructionContainerStyle,
+                instructionTitleStyle,
+                instructionStyle,
+                closeModalButtonStyle,
+                nameStyle } = styles;
 
         const listcolor = function get_random_color() {
             let letters = 'BCDEF'.split('');
@@ -183,27 +209,34 @@ class WelcomePage extends Component {
                     animationType={"slide"}
                     transparent
                     visible={this.state.modalShowing}
+                    onRequestClose={() => {this.setState({modalShowing: false})}}
                     //presentationStyle='fullScreen'
                 >
-                    <View style={{
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'rgba(0,0,0,0.75)',
-                        height: Dimensions.get('window').height,
-                        width: Dimensions.get('window').width }}
-                    >
-                        <View style={{ width: Dimensions.get('window').width*0.8,
-                                       height: Dimensions.get('window').height*0.8,
-                                       alignSelf: 'center',
-                                       backgroundColor: 'white',
-                                       borderRadius: 3,
-                                       borderWidth: 2,
-                                       borderColor: 'dodgerblue' }}>
-                            <Text>Instructions on using app...</Text>
+                    <View style={ modalContainerStyle }>
+                        <View style={ instructionContainerStyle }>
+                            <Text style={ instructionTitleStyle }>How to use the app...</Text>
+                            <Text style={ instructionStyle }>
+                                {'- Select the questionnaire you wish to answer\n\n' +
+                                 '- Follow the prompts and answer the questions accordingly,' +
+                                 ' using the "Back" and "Next" buttons to progress through the' +
+                                 ' questionnaire\n\n' +
+                                 '- After reviewing your answers, press "Submit" and your information' +
+                                 ' will be instantly sent to your healthcare provider\n\n' +
+                                 '- You may continue to answer questionnaires as you like or' +
+                                 ' as instructed by your doctor\n\n\n'}
+                            </Text>
 
-                            <TouchableOpacity title={null} onPress={() => {this.setState({modalShowing: false})}}>
-                                <Text>Okay, got it!</Text>
+                            <TouchableOpacity title={null}
+                                              onPress={() => {this.setState({modalShowing: false})}}
+                                              style={ closeModalButtonStyle }
+                            >
+                                <Text style={{ ...instructionStyle,
+                                               alignSelf: 'center',
+                                               textAlign: 'center',
+                                               fontWeight: '500',
+                                               color: 'white' }}>
+                                    Okay, got it!
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -218,11 +251,10 @@ class WelcomePage extends Component {
                     fontWeight: '500',
                     marginRight: 8,
                     marginLeft: 8}}>
-                    Welcome! Please tap on a questionnaire below to begin.
+                    <Text>{`Welcome${this.backString()}`}</Text>
+                    <Text style={ nameStyle }>{`${this.nameString()}`}</Text>
+                    <Text> Please tap on a questionnaire below to begin.</Text>
                 </Text>
-
-                {/*<View style={colorBarStyle}>*/}
-                {/*</View>*/}
 
                 <ScrollView
                     refreshControl={
@@ -231,15 +263,7 @@ class WelcomePage extends Component {
                         onRefresh={this._onRefresh.bind(this)}
                     />
                 }
-                    style={{height:Dimensions.get('window').height*0.72,
-                            width: Dimensions.get('window').width*0.97,
-                            alignSelf: 'center',
-                            borderColor: 'dodgerblue',
-                            borderWidth: 1,
-                            shadowColor: '#778899',
-                            shadowRadius: 3,
-                            shadowOpacity: 0.2,
-                            marginTop:Dimensions.get('window').height*0.01}}
+                    style={ questionSetListContainer }
                 >
                     <View style={spinnerStyle}>
                         <ActivityIndicator animating={this.props.spinning}/>
@@ -314,6 +338,64 @@ const styles = {
         textAlign: 'center',
         fontSize: 13,
         color: '#777'
+    },
+    questionSetListContainer: {
+        height:Dimensions.get('window').height*0.72,
+        width: Dimensions.get('window').width*0.97,
+        alignSelf: 'center',
+        borderColor: 'dodgerblue',
+        borderWidth: 1,
+        shadowColor: '#778899',
+        shadowRadius: 3,
+        shadowOpacity: 0.2,
+        marginTop:Dimensions.get('window').height*0.01
+    },
+    modalContainerStyle: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.75)',
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width
+    },
+    instructionContainerStyle: {
+        width: Dimensions.get('window').width*0.9,
+        height: Dimensions.get('window').height*0.9,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        borderRadius: 3,
+        borderWidth: 4,
+        borderColor: 'dodgerblue'
+    },
+    instructionTitleStyle: {
+        alignSelf: 'center',
+        textAlign: 'center',
+        color: '#13263a',
+        fontSize: 24,
+        marginTop: Dimensions.get('window').height*0.02,
+        marginBottom: Dimensions.get('window').height*0.02,
+        textDecorationLine: 'underline'
+    },
+    instructionStyle: {
+        marginLeft: Dimensions.get('window').width*0.03,
+        marginRight: Dimensions.get('window').width*0.03,
+        fontSize: 18,
+        color: '#13263a'
+    },
+    closeModalButtonStyle: {
+        backgroundColor: 'dodgerblue',
+        height: Dimensions.get('window').height*0.08,
+        width: Dimensions.get('window').width*0.4,
+        margin: Dimensions.get('window').width*0.04,
+        alignSelf: 'center',
+        borderWidth: 1,
+        borderColor: 'dodgerblue',
+        borderRadius: 6,
+        justifyContent: 'center'
+    },
+    nameStyle: {
+        color: '#ffa85b',
+        fontWeight: '600'
     }
 };
 
@@ -327,7 +409,8 @@ const mapStateToProps = state => {
         checked_option: state.questions.checked_option,
         checked_option_value: state.questions.checked_option_value,
         history: state.questions.history,
-        spinning: state.questions.spinning
+        spinning: state.questions.spinning,
+        patientName: state.questions.patientName
     };
 };
 

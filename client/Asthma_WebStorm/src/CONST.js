@@ -9,6 +9,7 @@ import Dimensions from 'Dimensions';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
+
 export const MAP = {
     "1":{
         "upper left": [[width*0.55, height*0.2]],

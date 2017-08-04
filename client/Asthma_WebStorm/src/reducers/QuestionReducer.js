@@ -9,13 +9,18 @@ const INITIAL_STATE = {
     title:null,
     results:[],
     history:[],
-    spinning: true
+    spinning: true,
+    patientName: ""
 };
 
 export default (state=INITIAL_STATE, action) => {
     switch (action.type){
         case 'getAllQuestionSets':
-            return {  ...state, questionset:action.payload.questionset, spinning: action.payload.spinning };
+            return {  ...state,
+                questionset:action.payload.questionset,
+                spinning: action.payload.spinning,
+                patientName: action.payload.patientName
+            };
         case 'startButtonClicked':
             return { ...state,
                 currentquestionset:action.payload.currentquestionset,
