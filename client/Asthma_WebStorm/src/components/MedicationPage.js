@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ListView } from 'react-native';
-import { CheckBox, SocialIcon } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
+import Dimensions from 'Dimensions';
 
 class MedicationPage extends Component {
 
@@ -71,21 +72,19 @@ class MedicationPage extends Component {
             <View>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
-                <View style={{width: 300, alignSelf:'center'}}>
-
-                {this.props.currentquestion.question.options.map((option) => {
-                    return (
-                        <CheckBox
-                            checked={this.state.checkedOption == option.key}
-                            onPress={() => this.onSelect(option.key, option.value)}
-                            key={option.key}
-                            title={option.value}
-                            checkedIcon='dot-circle-o'
-                            uncheckedIcon='circle-o'
-                        />
-                    )
-                })}
-
+                <View style={{width: Dimensions.get('window').width*0.7, alignSelf:'center'}}>
+                    {this.props.currentquestion.question.options.map((option) => {
+                        return (
+                            <CheckBox
+                                checked={this.state.checkedOption == option.key}
+                                onPress={() => this.onSelect(option.key, option.value)}
+                                key={option.key}
+                                title={option.value}
+                                checkedIcon='dot-circle-o'
+                                uncheckedIcon='circle-o'
+                            />
+                        )
+                    })}
                 </View>
 
                 <Text style={errorStyle}>
