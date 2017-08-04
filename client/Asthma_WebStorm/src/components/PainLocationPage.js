@@ -18,6 +18,8 @@ class PainLocationPage extends Component {
     }
 
     handleTouch(evt){
+        console.log(evt.nativeEvent.locationX);
+        console.log(evt.nativeEvent.locationY);
         let min = Number.MAX_SAFE_INTEGER;
         let location = "";
         let newtmpresult = this.state.tmpresult;
@@ -125,6 +127,13 @@ class PainLocationPage extends Component {
     }
 
     render(){
+        Image.getSize('https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiDj-f2_L3VAhXC5yYKHerTAXIQjRwIBw&url=https%3A%2F%2Fgiphy.com%2Fsearch%2Fminions&psig=AFQjCNEtLd16ZQNLTjdFeuLf7lsPqK6a8w&ust=1501949738475432', (width, height) => {
+                console.log('haha image size is:');
+                console.log(width);
+                console.log(height);
+            }, (error)=> {
+            console.log('error');
+        });
         const TabPane = Tabs.TabPane;
         const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle } = styles;
         return(
