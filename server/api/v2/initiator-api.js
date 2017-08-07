@@ -136,6 +136,7 @@ module.exports = async app => {
                 data.first_name = data.first_name[0].toUpperCase()+data.first_name.slice(1).toLowerCase();
                 data.last_name  = data.last_name[0].toUpperCase()+data.last_name.slice(1).toLowerCase();
                 let patient = new Patient(data);
+                patient.question_set.push(22);
                 patient.save(err=>{
                     console.log(err);
                     if(err) res.status(500).send('Error occurs when save data');
@@ -296,7 +297,9 @@ module.exports = async app => {
             app:        Joi.string().required(),
             results:    Joi.array().items({
                 q_id:   Joi.number().required(),
-                value: Joi.any().required(),
+                key:    Joi.any().required(),
+                value:  Joi.any().required(),
+                description: Joi.any().required(),
             }).min(1).required(),
         });
         Joi.validate(req.body, schema, (err, data) => {
@@ -332,7 +335,7 @@ module.exports = async app => {
                 });
             }
         });
-    })
+    });
 
     /**
      * Initiator query a patient
