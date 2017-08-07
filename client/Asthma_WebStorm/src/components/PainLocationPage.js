@@ -18,8 +18,10 @@ class PainLocationPage extends Component {
     }
 
     handleTouch(evt){
-        console.log(evt.nativeEvent.locationX);
-        console.log(evt.nativeEvent.locationY);
+        // console.log(Dimensions.get('window').width);
+        // console.log(Dimensions.get('window').height);
+        // console.log(evt.nativeEvent.locationX);
+        // console.log(evt.nativeEvent.locationY);
         let min = Number.MAX_SAFE_INTEGER;
         let location = "";
         let newtmpresult = this.state.tmpresult;
@@ -127,54 +129,53 @@ class PainLocationPage extends Component {
     }
 
     render(){
-        Image.getSize('https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiDj-f2_L3VAhXC5yYKHerTAXIQjRwIBw&url=https%3A%2F%2Fgiphy.com%2Fsearch%2Fminions&psig=AFQjCNEtLd16ZQNLTjdFeuLf7lsPqK6a8w&ust=1501949738475432', (width, height) => {
-                console.log('haha image size is:');
-                console.log(width);
-                console.log(height);
-            }, (error)=> {
-            console.log('error');
-        });
         const TabPane = Tabs.TabPane;
-        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle } = styles;
+        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle,imageFrameStyle, messageStyle } = styles;
         return(
-            <Flex direction="column">
-
-                <Flex>
+            <Flex direction="column" style={{height:'100%'}}>
+                <Flex wrap="wrap">
                     <Tabs activeKey={this.state.selectedTab} animated={false}
                           onTabClick={(key)=>{
                                this.setState({...this.state, selectedTab:key});
                           }}>
                         <TabPane tab="Front" key="1">
-                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                            <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
+                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
                                 <Image style={imageStyle} source={require('../img/front.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Back" key="2">
-                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                            <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
+                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
                                 <Image style={imageStyle} source={require('../img/back.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Left Side" key="3">
-                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                            <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
+                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
                                 <Image style={imageStyle} source={require('../img/leftside.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Right Side" key="4">
-                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                            <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
+                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
                                 <Image style={imageStyle} source={require('../img/rightside.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                     </Tabs>
                 </Flex>
-                <Flex style={resultContainerStyle} >
-                    {this.state.tmpresult.map((r) => {
-                        return(
-                            <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
-                        )
-                    })}
-                </Flex>
+
+                <View style={resultContainerStyle}>
+                {this.state.tmpresult.map((r) => {
+                    return(
+                        <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                    )
+                })}
+                </View>
+
                 <Text style={errorStyle}>{this.state.error}</Text>
-                <Flex>
+
+                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', flex: 1}}>
                     <Button  style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
@@ -182,21 +183,14 @@ class PainLocationPage extends Component {
                     <Button  style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
-                </Flex>
+                </View>
+
             </Flex>
         )
     }
 }
 
 const styles = {
-    containerStyle: {
-        backgroundColor: 'transparent',
-        flex: 1,
-        resizeMode: 'stretch',
-        position: 'absolute',
-        width: '100%',
-        height: '88%',
-    },
     buttonStyle: {
         flex: 0.4,
         margin: 5
@@ -208,7 +202,9 @@ const styles = {
     errorStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: 'red'
+        color: 'red',
+        position: 'absolute',
+        bottom: 55
     },
     resultContainerStyle: {
         flexDirection: 'row',
@@ -216,13 +212,24 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         width: Dimensions.get('window').width*0.9,
+        height:75,
         alignSelf:'center',
     },
+    // imageFrameStyle: {
+    //     alignSelf:'center'
+    // },
     imageStyle: {
-        width:Dimensions.get('window').width*0.8,
+        width: Dimensions.get('window').width*0.8,
         height: Dimensions.get('window').height*0.6,
         alignSelf: 'center',
-        marginTop: 5
+        justifyContent: 'center',
+        // borderWidth: 1,
+        // borderColor:'red'
+    },
+    messageStyle: {
+        fontSize: 16,
+        fontWeight:'bold',
+        alignSelf: 'center'
     }
 
 };

@@ -1585,9 +1585,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp.uni.ipad;
+				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp.iphone;
 				PRODUCT_NAME = Asthma_WebStorm;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1615,9 +1615,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp.uni.ipad;
+				PRODUCT_BUNDLE_IDENTIFIER = org.magnum.pcheckp.iphone;
 				PRODUCT_NAME = Asthma_WebStorm;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

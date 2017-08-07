@@ -7,7 +7,7 @@ import Dimensions from 'Dimensions';
 import Toast from 'react-native-simple-toast';
 import { HOST } from '../CONST';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM2LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMTUxNTc2NSwiZXhwIjoxNTMzMDUxNzY1fQ.i9AjBKKjgGnqzjkDUvNJGwnwiSG3bHzZRF2r_omWut0';
+//const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM2LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMTUxNTc2NSwiZXhwIjoxNTMzMDUxNzY1fQ.i9AjBKKjgGnqzjkDUvNJGwnwiSG3bHzZRF2r_omWut0';
 let savedToken = "";
 class SubmitPage extends Component {
 
@@ -37,8 +37,8 @@ class SubmitPage extends Component {
         fetch(HOST+'/v2/patients/results', {
             method: 'POST',
             headers: {
-                //'Authorization': `token ${savedToken}`,
-                'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedToken}`,
+                //'Authorization': `token ${hardcodeToken}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({

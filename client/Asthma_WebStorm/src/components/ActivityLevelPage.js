@@ -77,7 +77,9 @@ class ActivityLevelPage extends Component {
         }
     }
     render(){
-        const { scrollViewContainerStyle,
+
+        const {
+                scrollViewContainerStyle,
                 activityButtonStyle,
                 titleStyle,
                 optionTextStyle,
@@ -91,7 +93,7 @@ class ActivityLevelPage extends Component {
         const optionArray = this.props.currentquestion.question.options;
 
         return(
-            <View style={{ backgroundColor: '#f5fffa' }}>
+            <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column'}}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
                 <View style={colorBarStyle}></View>
 
@@ -107,73 +109,75 @@ class ActivityLevelPage extends Component {
                     </View>
                 </View>
 
-                <ScrollView horizontal
-                            decelerationRate={0}
-                            centerContent
-                            directionalLockEnabled
-                            showsHorizontalScrollIndicator//={false}
-                            showsVerticalScrollIndicator={false}
-                            overScrollMode="never"
-                            style={scrollViewContainerStyle}
-                            snapToAlignment="start"
-                            snapToInterval={Dimensions.get('window').width*0.84}
-                            //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
-                >
-                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('F',optionArray[5].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_sleeping.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[5].value}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity focusedOpacity={1} style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_laying.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[0].value}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_sitting.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[1].value}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_standing.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[2].value}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_room.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[3].value}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('E',optionArray[4].value)}>
-                        <Image
-                            style={imageStyle}
-                            source={require('../img/ActivityLevel_hallway.jpg')}
-                        />
-                        <Text style={optionTextStyle}>{optionArray[4].value}</Text>
-                    </TouchableOpacity>
-                    <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
-                </ScrollView>
+                {optionArray.length!=0?
+                <View style={scrollViewContainerStyle}>
+                    <ScrollView horizontal
+                                decelerationRate={0}
+                                centerContent
+                                directionalLockEnabled
+                                showsHorizontalScrollIndicator//={false}
+                                overScrollMode="never"
+                                snapToAlignment="start"
+                                snapToInterval={Dimensions.get('window').width*0.84}
 
-                <View style={{ width: Dimensions.get('window').width,
-                               height: Dimensions.get('window').height*0.15 }}>
-                    <Text style={{marginTop:10, alignSelf:'center', fontSize:16 }}>Your Answer:</Text>
+                                //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
+                    >
+                        <View style={{width:Dimensions.get('window').width*0.08}} />
+                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('F',optionArray[5].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_sleeping.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[5].value}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity focusedOpacity={1} style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_laying.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[0].value}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_sitting.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[1].value}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_standing.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[2].value}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_room.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[3].value}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('E',optionArray[4].value)}>
+                            <Image
+                                style={imageStyle}
+                                source={require('../img/ActivityLevel_hallway.jpg')}
+                            />
+                            <Text style={optionTextStyle}>{optionArray[4].value}</Text>
+                        </TouchableOpacity>
+                        <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
+                    </ScrollView>
+                </View>:<View></View>}
+
+                <View style={{marginTop: 10}}>
+                    <Text style={{alignSelf:'center', fontSize:16 }}>Your Answer:</Text>
                     <Text style={answerTextStyle}> {this.state.value}</Text>
                     <Text style={errorStyle}> {this.state.error}</Text>
                 </View>
-                <View style={{ width: Dimensions.get('window').width,
-                               height: Dimensions.get('window').height*0.13,
-                               flexDirection: 'row' }}>
+                <View style={{
+                               flexDirection: 'row',
+                               position: 'absolute',
+                               left: 0, right: 0, bottom: 0}}>
                     <Button warning style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
@@ -197,9 +201,9 @@ const styles = {
     activityButtonStyle: {
         width: Dimensions.get('window').width*0.8,
         height: Dimensions.get('window').width*0.7,
-        alignSelf: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
+        marginTop: 40,
         marginLeft: Dimensions.get('window').width*0.02,
         marginRight: Dimensions.get('window').width*0.02,
         borderColor: '#6495ed',
@@ -223,26 +227,13 @@ const styles = {
     },
     optionStyle: {
         margin: 10,
-        alignSelf: 'center',
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: Dimensions.get('window').width*0.8
+        alignSelf: 'center'
     },
     errorStyle: {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red',
         marginTop: 10
-    },
-    scrollViewContainerStyle: {
-        //backgroundColor: '#87ceeb',
-        alignSelf: 'center',
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height*0.45,
-        //borderColor: 'black',
-        //borderWidth: 2
     },
     answerTextStyle: {
         fontSize: 21,
@@ -262,13 +253,14 @@ const styles = {
         marginTop: Dimensions.get('window').height*0.02
     },
     instructionContainerStyle: {
-        height: Dimensions.get('window').height*0.08,
-        width: Dimensions.get('window').width,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: 5,
+        alignSelf: 'center'
         //borderColor: 'black',
         //borderWidth: 2
+    },
+    scrollViewContainerStyle:{
+        //backgroundColor: 'yellow',
+        height: Dimensions.get('window').height*0.5
     }
 };
 

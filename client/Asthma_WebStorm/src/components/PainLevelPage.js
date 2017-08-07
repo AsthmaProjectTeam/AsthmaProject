@@ -85,7 +85,7 @@ class PainLevelPage extends Component {
                 <Text style={instructionStyle}>
                     Please select your current pain level.
                 </Text>
-                <View style={{flexDirection: 'row', flex: 1, marginTop: 20}}>
+                <View style={{flexDirection: 'row', flex: 1, position: 'absolute', left: 0, right: 0, bottom: 0}}>
                     <Button danger style={bottomButtonStyle} onPress={this.onCancelButtonPress.bind(this)}>
                         <Text style={textStyle}>Cancel</Text>
                     </Button>

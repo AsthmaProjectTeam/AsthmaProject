@@ -10,21 +10,40 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 
+// export const MAP = {
+//     "1":{
+//         "upper left": [[width*0.383, height*0.21]],
+//         "upper right" : [[width*0.238, height*0.21]],
+//         "belly": [[width*0.307, height*0.345]]
+//     },
+//     "2": {
+//         "right upper back": [[width*0.404, height*0.215]],
+//         "left upper back": [[width*0.264, height*0.215]],
+//         "lower back": [[width*0.332, height*0.368]]
+//     },
+//     "3": {
+//         "left side": [[width*0.232, height*0.283]]
+//     },
+//     "4": {
+//         "right side": [[width*0.21, height*0.3]]
+//     }
+// };
+
 export const MAP = {
     "1":{
-        "upper left": [[width*0.55, height*0.2]],
-        "upper right" : [[width*0.4, height*0.2]],
-        "belly": [[width*0.5,height*0.35]]
+        "upper left": [[width*0.504, height*0.177]],
+        "upper right" : [[width*0.31, height*0.177]],
+        "belly": [[width*0.40, height*0.305]]
     },
     "2": {
-        "right upper back": [[200,120]],
-        "left upper back": [[129,120]],
-        "lower back": [[164,219]]
+        "right upper back": [[width*0.528, height*0.178]],
+        "left upper back": [[width*0.344, height*0.178]],
+        "lower back": [[width*0.435, height*0.324]]
     },
     "3": {
-        "left side": [[141,189]]
+        "left side": [[width*0.373, height*0.282]]
     },
     "4": {
-        "right side": [[163,183]]
+        "right side": [[width*0.435, height*0.276]]
     }
 };
