@@ -172,8 +172,8 @@ class ActivityLevelPage extends Component {
                 <View style={{marginTop: 10}}>
                     <Text style={{alignSelf:'center', fontSize:16 }}>Your Answer:</Text>
                     <Text style={answerTextStyle}> {this.state.value}</Text>
-                    <Text style={errorStyle}> {this.state.error}</Text>
                 </View>
+                <Text style={errorStyle}> {this.state.error}</Text>
                 <View style={{
                                flexDirection: 'row',
                                position: 'absolute',
@@ -193,17 +193,16 @@ class ActivityLevelPage extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: Dimensions.get('window').height*0.01,
     },
     activityButtonStyle: {
         width: Dimensions.get('window').width*0.8,
-        height: Dimensions.get('window').width*0.7,
+        height: Dimensions.get('window').width*0.8,
         alignItems: 'center',
         backgroundColor: 'white',
-        marginTop: 40,
         marginLeft: Dimensions.get('window').width*0.02,
         marginRight: Dimensions.get('window').width*0.02,
         borderColor: '#6495ed',
@@ -233,7 +232,8 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red',
-        marginTop: 10
+        position: 'absolute',
+        bottom: 55
     },
     answerTextStyle: {
         fontSize: 21,
@@ -260,7 +260,7 @@ const styles = {
     },
     scrollViewContainerStyle:{
         //backgroundColor: 'yellow',
-        height: Dimensions.get('window').height*0.5
+        height: Dimensions.get('window').width*0.8
     }
 };
 

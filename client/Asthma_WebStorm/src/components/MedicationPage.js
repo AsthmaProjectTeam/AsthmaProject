@@ -82,6 +82,7 @@ class MedicationPage extends Component {
                                 title={option.value}
                                 checkedIcon='dot-circle-o'
                                 uncheckedIcon='circle-o'
+                                textStyle={{fontSize: 18}}
                             />
                         )
                     })}
@@ -107,7 +108,7 @@ class MedicationPage extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'left',
         padding: 15,
@@ -133,7 +134,8 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red',
-        marginTop: 10
+        position: 'absolute',
+        bottom: 55
     }
 };
 

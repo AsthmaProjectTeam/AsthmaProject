@@ -70,7 +70,9 @@ class PainLevelPage extends Component {
         return (
             <View style={containerStyle}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
-                <Image style={imageStyle} source={require('../img/painlevel.jpg')} />
+
+                    <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel.jpg')} />
+
                 <Slider
                     style={{ width:Dimensions.get('window').width*0.9, marginTop: 20 }}
                     step={1}
@@ -101,7 +103,7 @@ class PainLevelPage extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'left',
         padding: 15
@@ -124,7 +126,9 @@ const styles = {
     },
     imageStyle: {
         width: Dimensions.get('window').width*0.9,
-        height: Dimensions.get('window').height*0.3
+        height: Dimensions.get('window').height*0.4
+        // borderWidth: 1,
+        // borderColor: 'red'
     },
     textStyle: {
         color: 'white',

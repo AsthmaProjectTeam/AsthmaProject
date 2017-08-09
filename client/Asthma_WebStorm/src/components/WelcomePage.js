@@ -276,17 +276,16 @@ class WelcomePage extends Component {
                 </ScrollView>
                 <View style={{ width: Dimensions.get('window').width,
                                height: Dimensions.get('window').height*0.095,
-                               justifyContent: 'center' }}>
-                    <CardItem>
-                        <Left>
-                        </Left>
-                        <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
-                        <Right>
-                            <TouchableOpacity title={null} onPress={this.setModalVisible.bind(this)}>
-                                <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40 }}/>
-                            </TouchableOpacity>
-                        </Right>
-                    </CardItem>
+                               justifyContent: 'space-between',
+                               alignItems: 'center',
+                               marginTop: 8,
+                               flexDirection: 'row',
+                               flex: 1}}>
+                    <View></View>
+                    <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
+                    <TouchableOpacity title={null} onPress={this.setModalVisible.bind(this)}>
+                        <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40 }}/>
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -342,7 +341,7 @@ const styles = {
         color: '#777'
     },
     questionSetListContainer: {
-        height:Dimensions.get('window').height*0.72,
+        height: '78%',
         width: Dimensions.get('window').width*0.97,
         alignSelf: 'center',
         borderColor: 'dodgerblue',

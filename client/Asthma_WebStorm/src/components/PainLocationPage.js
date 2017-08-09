@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import Dimensions from 'Dimensions';
 import { Actions } from 'react-native-router-flux';
 import { Tabs, Flex, Tag } from 'antd-mobile';
@@ -130,48 +130,51 @@ class PainLocationPage extends Component {
 
     render(){
         const TabPane = Tabs.TabPane;
-        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle,imageFrameStyle, messageStyle } = styles;
+        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle, messageStyle } = styles;
         return(
             <Flex direction="column" style={{height:'100%'}}>
-                <Flex wrap="wrap">
+                <Flex>
                     <Tabs activeKey={this.state.selectedTab} animated={false}
                           onTabClick={(key)=>{
                                this.setState({...this.state, selectedTab:key});
                           }}>
                         <TabPane tab="Front" key="1">
                             <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
-                                <Image style={imageStyle} source={require('../img/front.jpeg')}/>
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image resizeMode="contain" style={imageStyle} source={require('../img/front.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Back" key="2">
                             <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
-                                <Image style={imageStyle} source={require('../img/back.jpeg')}/>
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image resizeMode="contain" style={imageStyle} source={require('../img/back.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Left Side" key="3">
                             <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
-                                <Image style={imageStyle} source={require('../img/leftside.jpeg')}/>
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image resizeMode="contain" style={imageStyle} source={require('../img/leftside.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                         <TabPane tab="Right Side" key="4">
                             <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                            <TouchableWithoutFeedback style={imageFrameStyle} onPress={(evt) => this.handleTouch(evt)}>
-                                <Image style={imageStyle} source={require('../img/rightside.jpeg')}/>
+                            <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
+                                <Image resizeMode="contain" style={imageStyle} source={require('../img/rightside.jpeg')}/>
                             </TouchableWithoutFeedback>
                         </TabPane>
                     </Tabs>
                 </Flex>
 
-                <View style={resultContainerStyle}>
-                {this.state.tmpresult.map((r) => {
-                    return(
-                        <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
-                    )
-                })}
-                </View>
+                <ScrollView>
+                    <View style={resultContainerStyle}>
+                        {this.state.tmpresult.map((r) => {
+                            return(
+                                <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                            )
+                        })}
+                    </View>
+                </ScrollView>
+
 
                 <Text style={errorStyle}>{this.state.error}</Text>
 
@@ -222,14 +225,15 @@ const styles = {
         width: Dimensions.get('window').width*0.8,
         height: Dimensions.get('window').height*0.6,
         alignSelf: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
         // borderWidth: 1,
         // borderColor:'red'
     },
     messageStyle: {
-        fontSize: 16,
+        fontSize: 17,
         fontWeight:'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign: 'center'
     }
 
 };

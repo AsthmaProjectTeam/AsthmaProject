@@ -95,12 +95,11 @@ class SubmitPage extends Component {
 
 const styles = {
     messageBoxText:{
-        width:Dimensions.get('window').width*0.96,
         marginTop: 10,
         marginBottom: 10,
         fontWeight:'bold',
         textAlign:'center',
-        fontSize:16
+        fontSize:20
     },
     summaryStyle: {
         width: Dimensions.get('window').width*0.9,
@@ -111,15 +110,14 @@ const styles = {
     },
     buttonListStyle: {
         flexDirection: 'row',
-        alignSelf: 'center',
         position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0
     },
     buttonStyle: {
-        margin: 10,
-        width: Dimensions.get('window').width*0.45
+        flex: 0.4,
+        margin: 5
     },
 };
 
