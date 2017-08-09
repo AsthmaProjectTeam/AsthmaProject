@@ -63,7 +63,7 @@ class SubmitPage extends Component {
     render() {
         const { messageBoxText,summaryStyle, buttonListStyle, buttonStyle } = styles;
         return (
-            <View>
+            <View style={{height: '100%'}}>
                 <Text style={messageBoxText}>You have finished this questionnaire, review your answers and submit below.</Text>
 
                 <ListView
@@ -111,8 +111,11 @@ const styles = {
     },
     buttonListStyle: {
         flexDirection: 'row',
-        padding: 5,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0
     },
     buttonStyle: {
         margin: 10,

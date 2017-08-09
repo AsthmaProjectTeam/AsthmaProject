@@ -69,7 +69,7 @@ class MedicationPage extends Component {
         const { titleStyle, buttonStyle, buttonRowStyle, textStyle, errorStyle } = styles;
 
         return (
-            <View>
+            <View style={{height: '100%'}}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
                 <View style={{width: Dimensions.get('window').width*0.7, alignSelf:'center'}}>
@@ -123,7 +123,11 @@ const styles = {
     },
     buttonRowStyle: {
         flexDirection: 'row',
-         flex: 1
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0
     },
     errorStyle: {
         fontSize: 20,
