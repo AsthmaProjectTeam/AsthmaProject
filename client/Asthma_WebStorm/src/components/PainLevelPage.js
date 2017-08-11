@@ -71,10 +71,10 @@ class PainLevelPage extends Component {
             <View style={containerStyle}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
-                    <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel.jpg')} />
+                <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel.jpg')} />
 
                 <Slider
-                    style={{ width:Dimensions.get('window').width*0.9, marginTop: 20 }}
+                    style={{width: '90%', marginTop: 20 }}
                     step={1}
                     minimumValue={0}
                     maximumValue={10}
@@ -112,7 +112,9 @@ const styles = {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        width: Dimensions.get('window').width
+        width: '100%',
+        height: '100%',
+        alignSelf: 'center'
     },
     welcomeStyle: {
         fontSize: 20,
@@ -125,8 +127,8 @@ const styles = {
         marginBottom: 5,
     },
     imageStyle: {
-        width: Dimensions.get('window').width*0.9,
-        height: Dimensions.get('window').height*0.4
+        width: '90%',
+        height: '40%'
         // borderWidth: 1,
         // borderColor: 'red'
     },

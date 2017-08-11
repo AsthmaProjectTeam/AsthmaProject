@@ -4,6 +4,8 @@ import Entrance from './Entrance';
 import { AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import Dimensions from 'Dimensions';
+import { MAP_V, MAP_H, MAP_VH, MAP_HV } from '../CONST';
 
 class EntrancePage extends Component {
     constructor() {
@@ -32,6 +34,14 @@ class EntrancePage extends Component {
             .catch((error) => {
                 console.log('error:' + error.message);
             });
+
+        this.props.dispatch({
+            type: 'initialLayout',
+            payload: {
+                MAP_V: Dimensions.get('window').height > Dimensions.get('window').width?MAP_V:MAP_HV,
+                MAP_H: Dimensions.get('window').height < Dimensions.get('window').width?MAP_H:MAP_VH
+            }
+        })
     }
 
     _hideEntrance() {
@@ -51,4 +61,11 @@ class EntrancePage extends Component {
     }
 }
 
-export default connect()(EntrancePage);
+const mapStateToProps = state => {
+    return {
+        MAP_V : state.questions.MAP_V,
+        MAP_H : state.questions.MAP_H
+    };
+};
+
+export default connect(mapStateToProps)(EntrancePage);

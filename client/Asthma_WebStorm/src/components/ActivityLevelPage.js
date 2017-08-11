@@ -11,11 +11,19 @@ class ActivityLevelPage extends Component {
         this.state = {
             key: null,
             value: null,
-            error: null
+            error: null,
+            activityButtonWidth: Dimensions.get('window').height*0.5
         };
+        this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
 
+    onLayoutChange(e) {
+        let layout = e.nativeEvent.layout;
+        this.setState({
+            activityButtonWidth: (layout.height+65)*0.5
+        });
+    }
 
     onClick(key, value){
         this.setState({
@@ -77,9 +85,7 @@ class ActivityLevelPage extends Component {
         }
     }
     render(){
-
         const {
-                scrollViewContainerStyle,
                 activityButtonStyle,
                 titleStyle,
                 optionTextStyle,
@@ -93,7 +99,7 @@ class ActivityLevelPage extends Component {
         const optionArray = this.props.currentquestion.question.options;
 
         return(
-            <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column'}}>
+            <View onLayout={(evt) => this.onLayoutChange(evt)}  style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
                 <View style={colorBarStyle}></View>
 
@@ -110,57 +116,63 @@ class ActivityLevelPage extends Component {
                 </View>
 
                 {optionArray.length!=0?
-                <View style={scrollViewContainerStyle}>
+                <View style={{height: this.state.activityButtonWidth}}>
                     <ScrollView horizontal
-                                decelerationRate={0}
-                                centerContent
+                                decelerationRate="fast"
+                                centerContent={true}
                                 directionalLockEnabled
                                 showsHorizontalScrollIndicator//={false}
                                 overScrollMode="never"
-                                snapToAlignment="start"
+                                snapToAlignment="center"
                                 snapToInterval={Dimensions.get('window').width*0.84}
 
                                 //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
                     >
-                        <View style={{width:Dimensions.get('window').width*0.08}} />
-                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('F',optionArray[5].value)}>
+                        <View style={{width: '1%'}}></View>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('F',optionArray[5].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_sleeping.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[5].value}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity focusedOpacity={1} style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} focusedOpacity={1} onPress={() => this.onClick('A',optionArray[0].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_laying.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[0].value}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('B',optionArray[1].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_sitting.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[1].value}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('C',optionArray[2].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_standing.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[2].value}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[3].value)}>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('D',optionArray[3].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_room.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[3].value}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('E',optionArray[4].value)}>
+                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('E',optionArray[4].value)}>
                             <Image
-                                style={imageStyle}
+                                resizeMode='contain'
+                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
                                 source={require('../img/ActivityLevel_hallway.jpg')}
                             />
                             <Text style={optionTextStyle}>{optionArray[4].value}</Text>
@@ -199,10 +211,8 @@ const styles = {
         marginTop: Dimensions.get('window').height*0.01,
     },
     activityButtonStyle: {
-        width: Dimensions.get('window').width*0.8,
-        height: Dimensions.get('window').width*0.8,
         alignItems: 'center',
-        backgroundColor: 'white',
+        justifyContent: 'center',
         marginLeft: Dimensions.get('window').width*0.02,
         marginRight: Dimensions.get('window').width*0.02,
         borderColor: '#6495ed',
@@ -212,9 +222,11 @@ const styles = {
         shadowOpacity: 5
     },
     imageStyle: {
-        width: Dimensions.get('window').width*0.57,
-        height: Dimensions.get('window').width*0.57,
-        marginTop: Dimensions.get('window').width*0.03
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin:5
+        // borderColor: 'red',
+        // borderWidth: 1
     },
     bottomButtonStyle: {
         flex: 0.3,
@@ -247,7 +259,7 @@ const styles = {
     },
     colorBarStyle: {
         height: Dimensions.get('window').height*0.002,
-        width: Dimensions.get('window').width*0.93,
+        width: '93%',
         backgroundColor: 'black',
         alignSelf: 'center',
         marginTop: Dimensions.get('window').height*0.02
@@ -257,10 +269,6 @@ const styles = {
         alignSelf: 'center'
         //borderColor: 'black',
         //borderWidth: 2
-    },
-    scrollViewContainerStyle:{
-        //backgroundColor: 'yellow',
-        height: Dimensions.get('window').width*0.8
     }
 };
 

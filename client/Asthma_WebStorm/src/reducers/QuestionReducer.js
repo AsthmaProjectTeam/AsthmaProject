@@ -10,7 +10,9 @@ const INITIAL_STATE = {
     results:[],
     history:[],
     spinning: true,
-    patientName: ""
+    patientName: "",
+    MAP_V: null,
+    MAP_H: null
 };
 
 export default (state=INITIAL_STATE, action) => {
@@ -62,6 +64,11 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state,
                 checked_option:action.payload.checked_option,
                 checked_option_value: action.payload.checked_option_value
+            };
+        case 'initialLayout':
+            return { ...state,
+                MAP_V: action.payload.MAP_V,
+                MAP_H: action.payload.MAP_H
             };
         default:
             return state;

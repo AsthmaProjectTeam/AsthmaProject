@@ -204,7 +204,7 @@ class WelcomePage extends Component {
                 </View>;
 
         return (
-            <View>
+            <View style={{height: '100%', width: '100%'}}>
                 <Modal
                     animationType={"slide"}
                     transparent
@@ -274,8 +274,8 @@ class WelcomePage extends Component {
                         {/*<Text>log out</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </ScrollView>
-                <View style={{ width: Dimensions.get('window').width,
-                               height: Dimensions.get('window').height*0.095,
+                <View style={{ width: '100%',
+                               height: '95%',
                                justifyContent: 'space-between',
                                alignItems: 'center',
                                marginTop: 8,
@@ -342,7 +342,7 @@ const styles = {
     },
     questionSetListContainer: {
         height: '78%',
-        width: Dimensions.get('window').width*0.97,
+        width: '97%',
         alignSelf: 'center',
         borderColor: 'dodgerblue',
         borderWidth: 1,
@@ -356,12 +356,12 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.75)',
-        height: Dimensions.get('window').height,
-        width: Dimensions.get('window').width
+        height: '100%',
+        width: '100%'
     },
     instructionContainerStyle: {
-        width: Dimensions.get('window').width*0.9,
-        height: Dimensions.get('window').height*0.9,
+        width: '90%',
+        height: '90%',
         alignSelf: 'center',
         backgroundColor: 'white',
         borderRadius: 3,

@@ -102,7 +102,7 @@ const styles = {
         fontSize:20
     },
     summaryStyle: {
-        width: Dimensions.get('window').width*0.9,
+        width: '90%',
         borderBottomWidth: 2,
         borderBottomColor: '#dddadf',
         alignSelf: 'center',
