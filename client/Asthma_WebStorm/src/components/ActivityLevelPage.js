@@ -124,11 +124,11 @@ class ActivityLevelPage extends Component {
                                 showsHorizontalScrollIndicator//={false}
                                 overScrollMode="never"
                                 snapToAlignment="center"
-                                snapToInterval={Dimensions.get('window').width*0.84}
+                                snapToInterval={this.state.activityButtonWidth + Dimensions.get('window').width*0.04}
 
                                 //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
                     >
-                        <View style={{width: '1%'}}></View>
+                        {/*<View style={{width: '1%'}}></View>*/}
                         <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('F',optionArray[5].value)}>
                             <Image
                                 resizeMode='contain'
@@ -177,7 +177,7 @@ class ActivityLevelPage extends Component {
                             />
                             <Text style={optionTextStyle}>{optionArray[4].value}</Text>
                         </TouchableOpacity>
-                        <View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.08}} />
+                        {/*<View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.1}} />*/}
                     </ScrollView>
                 </View>:<View></View>}
 

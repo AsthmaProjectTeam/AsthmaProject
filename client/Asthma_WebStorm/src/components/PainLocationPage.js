@@ -237,7 +237,10 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         width: '90%',
-        alignSelf:'center'
+        alignSelf:'center',
+        // borderColor: 'blue',
+        // borderWidth: 1,
+        marginTop: 4
     },
     // imageFrameStyle: {
     //     alignSelf:'center'

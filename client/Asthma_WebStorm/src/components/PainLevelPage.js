@@ -65,8 +65,16 @@ class PainLevelPage extends Component {
         Actions.location();
     }
 
+    // helper(height, width){
+    //     if(height / width > 1)
+    //         return '80%';
+    //     else
+    //         return '50%';
+    // };
+
     render() {
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
+        //const w = helper(Dimensions.get('window').height, Dimensions.get('window').width);
         return (
             <View style={containerStyle}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
@@ -74,7 +82,7 @@ class PainLevelPage extends Component {
                 <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel.jpg')} />
 
                 <Slider
-                    style={{width: '90%', marginTop: 20 }}
+                    style={{width: '80%', marginTop: 20 }}
                     step={1}
                     minimumValue={0}
                     maximumValue={10}
@@ -129,8 +137,8 @@ const styles = {
     imageStyle: {
         width: '90%',
         height: '40%'
-        // borderWidth: 1,
-        // borderColor: 'red'
+        //borderWidth: 1,
+        //borderColor: 'red'
     },
     textStyle: {
         color: 'white',
