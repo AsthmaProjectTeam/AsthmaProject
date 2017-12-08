@@ -41,8 +41,8 @@ class WelcomePage extends Component {
                 fetch(HOST+'/v2/patients/profile', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `token ${hardcodeToken}`,
-                        //'Authorization': `token ${savedToken}`,
+                        //'Authorization': `token ${hardcodeToken}`,
+                        'Authorization': `token ${savedToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
@@ -72,8 +72,8 @@ class WelcomePage extends Component {
         fetch(HOST+`/v2/question-set/${qset_id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept' : 'application/json'
             }
@@ -110,8 +110,8 @@ class WelcomePage extends Component {
         fetch(HOST+'/v2/patients/profile', {
             method: 'GET',
             headers: {
-                'Authorization': `token ${hardcodeToken}`,
-                //'Authorization': `token ${savedTokenfromPhone}`,
+                //'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedTokenfromPhone}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }

@@ -84,9 +84,9 @@ class ScanScreen extends Component {
     render(){
 
         return(
-            <View>
+            //<View>
                 <QRCodeScanner onRead={this.onSuccess.bind(this)}/>
-            </View>
+            //</View>
 
         );
     }

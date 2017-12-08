@@ -37,8 +37,8 @@ class SubmitPage extends Component {
         fetch(HOST+'/v2/patients/results', {
             method: 'POST',
             headers: {
-                //'Authorization': `token ${savedToken}`,
-                'Authorization': `token ${hardcodeToken}`,
+                'Authorization': `token ${savedToken}`,
+                //'Authorization': `token ${hardcodeToken}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({

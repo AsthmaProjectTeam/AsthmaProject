@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Button } from 'native-base';
@@ -95,8 +95,11 @@ class ActivityLevelPage extends Component {
                 answerTextStyle,
                 imageStyle,
                 colorBarStyle,
-                instructionContainerStyle } = styles;
+                instructionContainerStyle,
+                answerTextStyleAndroid} = styles;
         const optionArray = this.props.currentquestion.question.options;
+        let yourAnswer = this.state.error && Platform.OS === "android" ? <Text></Text> : <Text style={{alignSelf:'center', fontSize:16 }}>Your Answer:</Text>;
+        let realAnswer = Platform.OS === "ios" ? <Text style={answerTextStyle}> {this.state.value}</Text> : <Text style={answerTextStyleAndroid}> {this.state.value}</Text>;
 
         return(
             <View onLayout={(evt) => this.onLayoutChange(evt)}  style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
@@ -181,10 +184,10 @@ class ActivityLevelPage extends Component {
                     </ScrollView>
                 </View>:<View></View>}
 
-                <View style={{marginTop: 10}}>
-                    <Text style={{alignSelf:'center', fontSize:16 }}>Your Answer:</Text>
-                    <Text style={answerTextStyle}> {this.state.value}</Text>
-                </View>
+                <Text style={{marginTop: 10, alignSelf: "center", textAlign: "center"}}>
+                    {yourAnswer}
+                    {realAnswer}
+                </Text>
                 <Text style={errorStyle}> {this.state.error}</Text>
                 <View style={{
                                flexDirection: 'row',
@@ -252,6 +255,13 @@ const styles = {
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: '#6495ed'
+    },
+    answerTextStyleAndroid: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textShadowColor: '#6495ed',
+        alignSelf: 'flex-end'
     },
     optionTextStyle: {
         fontSize: 16,

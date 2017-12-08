@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import Entrance from './Entrance';
 import { AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -19,14 +19,14 @@ class EntrancePage extends Component {
         AsyncStorage.getItem('loginToken')
             .then(
                 function (result) {
-                    if (result === 1) { //change back to null
+                    if (result === null) { //change back to null or 1
                         setTimeout(() => {
-                            Actions.pop();
+                            //Actions.pop();
                             Actions.auth();
                         }, 5000)
                     } else {
                         setTimeout(() => {
-                            Actions.pop();
+                            //Actions.pop();
                             Actions.welcome();
                         }, 2800);
                     }
