@@ -6,7 +6,7 @@ import { Button, Icon, Right, Body, Left, CardItem } from 'native-base';
 import Dimensions from 'Dimensions';
 import { HOST } from '../CONST';
 
-const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM2LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUwMTUxNTc2NSwiZXhwIjoxNTMzMDUxNzY1fQ.i9AjBKKjgGnqzjkDUvNJGwnwiSG3bHzZRF2r_omWut0';
+const hardcodeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTUxNTc4NDQ4MCwiZXhwIjoxNTQ3MzIwNDgwfQ.f3sP2MSNxd5yuD4__Qyc7svrACLkcMlhPHqS5r-WMII';
 let savedTokenfromPhone = "";
 
 class WelcomePage extends Component {
@@ -270,9 +270,9 @@ class WelcomePage extends Component {
                     </View>
 
                     {set}
-                    {/*<TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
-                        {/*<Text>log out</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                    <TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>
+                        <Text>log out</Text>
+                    </TouchableOpacity>
                 </ScrollView>
                 <View style={{ width: '100%',
                                height: '95%',
