@@ -186,7 +186,7 @@ class WelcomePage extends Component {
                     block
                     key={qset._id}
                     onPress={() => this.onButtonPress(qset._id)}
-                    style={{backgroundColor: listcolor(), flex:1, margin: 10, marginTop: 5}}
+                    style={{backgroundColor: listcolor(), flex:1, margin: 10, marginTop: 5, height: 100}}
                 >
                    <Text style={textStyle}>{qset.title}</Text>
                    <Right>
@@ -270,8 +270,10 @@ class WelcomePage extends Component {
                     </View>
 
                     {set}
-                    <TouchableOpacity style={{marginTop: 20, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>
-                        <Text>log out</Text>
+
+
+                    <TouchableOpacity style={{marginTop: 400, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>
+                        <Text style={textStyle}>log out</Text>
                     </TouchableOpacity>
                 </ScrollView>
                 <View style={{ width: '100%',
@@ -295,7 +297,7 @@ class WelcomePage extends Component {
 
 const styles = {
     textStyle: {
-        fontSize: 18,
+        fontSize: 36,
         fontWeight: 'bold',
         alignSelf: 'center',
         textAlign: 'center',

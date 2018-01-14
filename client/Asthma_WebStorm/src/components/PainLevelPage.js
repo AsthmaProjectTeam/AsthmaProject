@@ -111,7 +111,7 @@ class PainLevelPage extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 20,
+        fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'left',
         padding: 15
@@ -125,7 +125,7 @@ const styles = {
         alignSelf: 'center'
     },
     welcomeStyle: {
-        fontSize: 20,
+        fontSize: 36,
         textAlign: 'center',
         margin: 10
     },
@@ -133,6 +133,7 @@ const styles = {
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+        fontSize: 36,
     },
     imageStyle: {
         width: '90%',
@@ -142,7 +143,7 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 16
+        fontSize: 30
     },
     bottomButtonStyle: {
         flex: 0.4,
