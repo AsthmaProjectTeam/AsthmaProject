@@ -75,7 +75,7 @@ class SubmitPage extends Component {
                                     <Text style={{marginBottom: 3, fontSize:30}}>{r.description} </Text>
                                     <Text style={{marginTop: 3, fontSize:30, marginBottom: 3, fontWeight: '700'}}>
 
-                                      {Array.isArray(r.value)? r.value.toString():
+                                      {Array.isArray(r.value)? r.value.join(', '):
                                         r.value
                                       }
                                       </Text>
