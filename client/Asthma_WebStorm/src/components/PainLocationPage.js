@@ -189,14 +189,14 @@ class PainLocationPage extends Component {
                         </Tabs>
                     </Flex>
 
-                    <ScrollView style={{position:'absolute', bottom: 59, height: 90}}>
-                        <View style={resultContainerStyle}>
+                    <ScrollView style={{position:'absolute', bottom: 100, height: 120 }}>
+                        <View style={resultContainerStyle} minHeight={20}>
                             {this.state.tmpresult.map((r) => {
                                 // return(
                                 //     <Tag  closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
                                 // )
                                 return (
-                                  <Button key={r} onPress={() => this.removeItem(r)}><Text style={textStyle}>{r}</Text></Button>
+                                  <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={textStyle}>{r}</Text></Button>
                                 )
                             })}
                         </View>
@@ -243,9 +243,9 @@ const styles = {
         justifyContent: 'center',
         width: '90%',
         alignSelf:'center',
-        // borderColor: 'blue',
-        // borderWidth: 1,
-        marginTop: 4,
+        borderColor: 'blue',
+        borderWidth: 1,
+        // marginTop: 4,
 
     },
     // imageFrameStyle: {

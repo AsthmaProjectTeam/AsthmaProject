@@ -87,10 +87,10 @@ class SubmitPage extends Component {
 
                 <View style={buttonListStyle}>
                     <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
-                        <Text style={{fontSize:30}}>Cancel</Text>
+                        <Text style={{fontSize:26}}>Cancel</Text>
                     </Button>
                     <Button block info onPress={this.submitButtonClicked.bind(this)} style={buttonStyle}>
-                        <Text style={{fontSize:30}}>Submit</Text>
+                        <Text style={{fontSize:26}}>Submit</Text>
                     </Button>
                 </View>
             </View>
