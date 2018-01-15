@@ -98,7 +98,7 @@ class ActivityLevelPage extends Component {
                 instructionContainerStyle,
                 answerTextStyleAndroid} = styles;
         const optionArray = this.props.currentquestion.question.options;
-        let yourAnswer = this.state.error && Platform.OS === "android" ? <Text></Text> : <Text style={{alignSelf:'center', fontSize:16 }}>Your Answer:</Text>;
+        let yourAnswer = this.state.error && Platform.OS === "android" ? <Text></Text> : <Text style={{alignSelf:'center', fontSize:30 }}>Your Answer:</Text>;
         let realAnswer = Platform.OS === "ios" ? <Text style={answerTextStyle}> {this.state.value}</Text> : <Text style={answerTextStyleAndroid}> {this.state.value}</Text>;
 
         return(
@@ -208,7 +208,7 @@ class ActivityLevelPage extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 20,
+        fontSize: 36,
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: Dimensions.get('window').height*0.01,
@@ -237,34 +237,34 @@ const styles = {
     },
     textStyle: {
       color: 'white',
-      fontSize: 16
+      fontSize: 36
     },
     optionStyle: {
         margin: 10,
         alignSelf: 'center'
     },
     errorStyle: {
-        fontSize: 20,
+        fontSize: 30,
         alignSelf: 'center',
         color: 'red',
         position: 'absolute',
         bottom: 55
     },
     answerTextStyle: {
-        fontSize: 21,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: '#6495ed'
     },
     answerTextStyleAndroid: {
-        fontSize: 21,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: '#6495ed',
         alignSelf: 'flex-end'
     },
     optionTextStyle: {
-        fontSize: 16,
+        fontSize: 30,
         marginTop: 2
     },
     colorBarStyle: {

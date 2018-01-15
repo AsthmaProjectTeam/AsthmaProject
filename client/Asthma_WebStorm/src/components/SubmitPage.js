@@ -72,8 +72,13 @@ class SubmitPage extends Component {
                         return(
                             <View style={summaryStyle}>
                                 {/*<TouchableOpacity>*/}
-                                    <Text style={{marginBottom: 3}}>{r.description} </Text>
-                                    <Text style={{marginTop: 3, marginBottom: 3, fontWeight: '700'}}>{r.value} </Text>
+                                    <Text style={{marginBottom: 3, fontSize:30}}>{r.description} </Text>
+                                    <Text style={{marginTop: 3, fontSize:30, marginBottom: 3, fontWeight: '700'}}>
+
+                                      {Array.isArray(r.value)? r.value.toString():
+                                        r.value
+                                      }
+                                      </Text>
                                 {/*</TouchableOpacity>*/}
                             </View>
                         )
@@ -82,10 +87,10 @@ class SubmitPage extends Component {
 
                 <View style={buttonListStyle}>
                     <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
-                        <Text>Cancel</Text>
+                        <Text style={{fontSize:30}}>Cancel</Text>
                     </Button>
                     <Button block info onPress={this.submitButtonClicked.bind(this)} style={buttonStyle}>
-                        <Text>Submit</Text>
+                        <Text style={{fontSize:30}}>Submit</Text>
                     </Button>
                 </View>
             </View>
@@ -99,14 +104,14 @@ const styles = {
         marginBottom: 10,
         fontWeight:'bold',
         textAlign:'center',
-        fontSize:20
+        fontSize: 30
     },
     summaryStyle: {
         width: '90%',
         borderBottomWidth: 2,
         borderBottomColor: '#dddadf',
         alignSelf: 'center',
-        marginTop: 5
+        marginTop: 5,
     },
     buttonListStyle: {
         flexDirection: 'row',
@@ -117,8 +122,9 @@ const styles = {
     },
     buttonStyle: {
         flex: 0.4,
-        margin: 5
+        margin: 5,
     },
+
 };
 
 const mapStateToProps = state => {

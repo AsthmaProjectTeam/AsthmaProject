@@ -88,6 +88,7 @@ class PainLevelPage extends Component {
                     maximumValue={10}
                     value={this.state.level}
                     onSlidingComplete={ val => this.getVal(val)}
+
                 />
                 <Text style={welcomeStyle}>
                     {parseInt(this.state.level)}

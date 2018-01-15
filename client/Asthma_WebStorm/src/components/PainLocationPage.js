@@ -159,7 +159,9 @@ class PainLocationPage extends Component {
                         <Tabs activeKey={this.state.selectedTab} animated={false}
                               onTabClick={(key)=>{
                                    this.setState({...this.state, selectedTab:key});
-                              }}>
+                              }}
+
+                        >
                             <TabPane tab="Front" key="1">
                                 <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
                                 <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
@@ -190,8 +192,11 @@ class PainLocationPage extends Component {
                     <ScrollView style={{position:'absolute', bottom: 59, height: 90}}>
                         <View style={resultContainerStyle}>
                             {this.state.tmpresult.map((r) => {
-                                return(
-                                    <Tag closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                                // return(
+                                //     <Tag  closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                                // )
+                                return (
+                                  <Button key={r} onPress={() => this.removeItem(r)}><Text style={textStyle}>{r}</Text></Button>
                                 )
                             })}
                         </View>
@@ -222,10 +227,10 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 16
+        fontSize: 30
     },
     errorStyle: {
-        fontSize: 20,
+        fontSize: 30,
         alignSelf: 'center',
         color: 'red',
         position: 'absolute',
@@ -240,7 +245,8 @@ const styles = {
         alignSelf:'center',
         // borderColor: 'blue',
         // borderWidth: 1,
-        marginTop: 4
+        marginTop: 4,
+
     },
     // imageFrameStyle: {
     //     alignSelf:'center'
@@ -253,7 +259,7 @@ const styles = {
         // borderColor:'red'
     },
     messageStyle: {
-        fontSize: 17,
+        fontSize: 30,
         fontWeight:'bold',
         alignSelf: 'center',
         textAlign: 'center'
