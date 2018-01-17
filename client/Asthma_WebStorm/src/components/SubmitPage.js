@@ -102,6 +102,8 @@ const styles = {
     messageBoxText:{
         marginTop: 10,
         marginBottom: 10,
+        marginRight: 4,
+        marginLeft: 4,
         fontWeight:'bold',
         textAlign:'center',
         fontSize: 30

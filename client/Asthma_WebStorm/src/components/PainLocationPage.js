@@ -151,7 +151,7 @@ class PainLocationPage extends Component {
 
     render(){
         const TabPane = Tabs.TabPane;
-        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle, messageStyle } = styles;
+        const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle, messageStyle, answersBoxStyle } = styles;
         return(
             <View style={{height: '100%', width: '100%'}} onLayout={(evt) => this.onLayoutChange(evt)}>
                 <Flex direction="column" style={{height: '100%', width: '100%'}}>
@@ -189,18 +189,23 @@ class PainLocationPage extends Component {
                         </Tabs>
                     </Flex>
 
-                    <ScrollView style={{position:'absolute', bottom: 100, height: 120 }}>
-                        <View style={resultContainerStyle} minHeight={20}>
-                            {this.state.tmpresult.map((r) => {
-                                // return(
-                                //     <Tag  closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
-                                // )
-                                return (
-                                  <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={textStyle}>{r}</Text></Button>
-                                )
-                            })}
-                        </View>
-                    </ScrollView>
+                    <View style={{width: Dimensions.get('window').width, height: 42}}>
+                        <Text style={{textAlign: 'center', alignSelf:'center', fontSize:40, color: 'orange', marginTop: 2}}>Your Answers:</Text>
+                    </View>
+                    <View style={ answersBoxStyle }>
+                        <ScrollView >
+                            <View style={resultContainerStyle} minHeight={60}>
+                                {this.state.tmpresult.map((r) => {
+                                    // return(
+                                    //     <Tag  closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
+                                    // )
+                                    return (
+                                      <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={textStyle}>{r}</Text></Button>
+                                    )
+                                })}
+                            </View>
+                        </ScrollView>
+                    </View>
 
 
                     <Text style={errorStyle}>{this.state.error}</Text>
@@ -219,6 +224,8 @@ class PainLocationPage extends Component {
         )
     }
 }
+
+// { alignSelf:'center', position: 'absolute', bottom: 55, height: 120, width: '92%' }
 
 const styles = {
     buttonStyle: {
@@ -243,14 +250,22 @@ const styles = {
         justifyContent: 'center',
         width: '90%',
         alignSelf:'center',
-        borderColor: 'blue',
-        borderWidth: 1,
+        // borderColor: 'orange',
+        // borderWidth: 2,
+        // borderRadius: 3
         // marginTop: 4,
 
     },
-    // imageFrameStyle: {
-    //     alignSelf:'center'
-    // },
+    answersBoxStyle: {
+        alignSelf:'center',
+        position: 'absolute',
+        bottom: 55,
+        height: 100,
+        width: '92%',
+        borderColor: 'mediumblue',
+        borderWidth: 2,
+        borderRadius: 3
+    },
     imageStyle: {
         width: '80%',
         alignSelf: 'center',

@@ -286,7 +286,7 @@ class WelcomePage extends Component {
                     <View></View>
                     <Text style={copyrightStyle}>Copyright © 2017 by Vanderbilt University</Text>
                     <TouchableOpacity title={null} onPress={this.setModalVisible.bind(this)}>
-                        <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40, marginRight: 15 }}/>
+                        <Icon name="ios-help-circle-outline" style={{ color: 'dodgerblue', fontSize: 40, marginRight: 15, marginBottom: 15 }}/>
                     </TouchableOpacity>
                 </View>
             </View>
