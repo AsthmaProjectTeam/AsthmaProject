@@ -272,9 +272,9 @@ class WelcomePage extends Component {
                     {set}
 
 
-                    <TouchableOpacity style={{marginTop: 400, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>
-                        <Text style={textStyle}>log out</Text>
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity style={{marginTop: 400, alignSelf: 'center'}} onPress={() => {AsyncStorage.getItem('loginToken')?AsyncStorage.removeItem('loginToken'):null; Actions.auth()}}>*/}
+                        {/*<Text style={textStyle}>log out</Text>*/}
+                    {/*</TouchableOpacity>*/}
                 </ScrollView>
                 <View style={{ width: '100%',
                                height: '95%',
