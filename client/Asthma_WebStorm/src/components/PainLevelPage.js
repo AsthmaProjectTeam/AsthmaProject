@@ -6,7 +6,9 @@ import {
     Text,
     View,
     Slider,
-    Image
+    Image,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import { Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -14,7 +16,9 @@ import { Actions } from 'react-native-router-flux';
 class PainLevelPage extends Component {
 
     componentWillMount(){
-        this.state = {level: 0};
+        this.state = {
+            level: 0
+        };
     }
 
     componentWillReceiveProps(){
@@ -65,6 +69,15 @@ class PainLevelPage extends Component {
         Actions.location();
     }
 
+    onClick(value){
+        console.log(value);
+        console.log(this.state.level);
+        console.log(parseInt(value));
+        this.setState({
+            level: parseInt(value)
+        });
+    }
+
     // helper(height, width){
     //     if(height / width > 1)
     //         return '80%';
@@ -78,23 +91,55 @@ class PainLevelPage extends Component {
         return (
             <View style={containerStyle}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
+                <View style={{ height: Dimensions.get('window').height*0.15}}>
+                <ScrollView
+                    horizontal
+                    decelerationRate="fast"
+                    centerContent={true}
+                    overScrollMode="never"
+                    showsHorizontalScrollIndicator = {false}
+                    style = {{
+                        width: '90%',
+                        paddingTop: 50,
+                        flex: 1
+                        //backgroundColor: 'red'
+                    }}
+                >
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('0')}>
+                        <Image source={require('../img/face0.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('1')}>
+                        <Image source={require('../img/face1.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('2')}>
+                        <Image source={require('../img/face2.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('3')}>
+                        <Image source={require('../img/face3.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('4')}>
+                        <Image source={require('../img/face4.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('5')}>
+                        <Image source={require('../img/face5.png')}/>
+                    </TouchableOpacity>
+                    </ScrollView>
+                </View>
+                <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel3.png')} />
 
-                <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel.jpg')} />
-
-                <Slider
-                    style={{width: '80%', marginTop: 20 }}
-                    step={1}
-                    minimumValue={0}
-                    maximumValue={10}
-                    value={this.state.level}
-                    onSlidingComplete={ val => this.getVal(val)}
-
-                />
+                {/*<Slider*/}
+                    {/*style={{width: '80%', marginTop: 20 }}*/}
+                    {/*step={1}*/}
+                    {/*minimumValue={0}*/}
+                    {/*maximumValue={10}*/}
+                    {/*value={this.state.level}*/}
+                    {/*onSlidingComplete={ val => this.getVal(val)}*/}
+                {/*/>*/}
                 <Text style={welcomeStyle}>
                     {parseInt(this.state.level)}
                 </Text>
                 <Text style={instructionStyle}>
-                    Please select your current pain level.
+                    Please tab a face to rate your current pain level.
                 </Text>
                 <View style={{flexDirection: 'row', flex: 1, position: 'absolute', left: 0, right: 0, bottom: 0}}>
                     <Button danger style={bottomButtonStyle} onPress={this.onCancelButtonPress.bind(this)}>
@@ -116,6 +161,8 @@ const styles = {
         fontWeight: 'bold',
         textAlign: 'left',
         padding: 15
+        //borderWidth: 1,
+        //borderColor: 'red'
     },
     containerStyle: {
         flex: 1,
@@ -123,6 +170,7 @@ const styles = {
         alignItems: 'center',
         width: '100%',
         height: '100%',
+        //backgroundColor: 'yellow',
         alignSelf: 'center'
     },
     welcomeStyle: {
@@ -138,9 +186,11 @@ const styles = {
     },
     imageStyle: {
         width: '90%',
-        height: '40%'
+        //height: '30%',
+        // marginTop: 50,
+        // paddingTop: 30,
         //borderWidth: 1,
-        //borderColor: 'red'
+        //borderColor: 'green'
     },
     textStyle: {
         color: 'white',

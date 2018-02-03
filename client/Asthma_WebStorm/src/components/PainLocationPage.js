@@ -29,6 +29,7 @@ class PainLocationPage extends Component {
     }
 
     async handleTouch(evt){
+        console.log(this);
         //console.log(this.state.isPortrait);
         // console.log(Dimensions.get('window').width);
         // console.log(Dimensions.get('window').height);
