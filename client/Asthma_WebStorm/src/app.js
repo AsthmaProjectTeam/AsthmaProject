@@ -5,12 +5,13 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 import RouterComponent from './Router';
 import globalerrorhandling from './components/GlobalErrorHandler';
-import Instabug from 'instabug-reactnative';
+//import Instabug from 'instabug-reactnative';
 import {BackAndroid} from 'react-native'
 class App extends Component {
-    componentWillMount(){
-        Instabug.startWithToken('e14409db9e7a772099b678b9c9e8e98c', Instabug.invocationEvent.shake);
-    }
+    // componentWillMount(){
+    //     Instabug.startWithToken('e14409db9e7a772099b678b9c9e8e98c', Instabug.invocationEvent.shake);
+    // }
+
     componentDidMount() {
       BackAndroid.addEventListener('hardwareBackPress', this.handleBackButton);
     }
