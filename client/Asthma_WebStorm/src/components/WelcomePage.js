@@ -24,9 +24,9 @@ class WelcomePage extends Component {
         dispatch({
             type: 'clearHistory',
             payload: {
-                results: [],
-                history: [],
-                checked_option:null
+                // results: [],
+                // history: [],
+                // checked_option:null,
             }
         });
 

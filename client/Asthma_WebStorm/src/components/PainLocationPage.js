@@ -5,6 +5,10 @@ import { Actions } from 'react-native-router-flux';
 import { Tabs, Flex, Tag } from 'antd-mobile';
 import { Button, Icon } from 'native-base';
 import { connect } from 'react-redux';
+import FrontBody from '../SmallComponent/FrontBody';
+import BackBody from '../SmallComponent/BackBody';
+import LeftBody from '../SmallComponent/LeftBody';
+import RightBody from '../SmallComponent/RightBody';
 
 class PainLocationPage extends Component {
     constructor(props) {
@@ -19,72 +23,28 @@ class PainLocationPage extends Component {
         this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
-    async onLayoutChange(e) {
+    componentWillMount() {
+      //Clear Previous Location Information
+      this.props.dispatch({
+        type: 'updatePainLocation',
+        payload: {
+          painLocation:{
+            front:new Set(),
+            back:new Set(),
+            left:new Set(),
+            right:new Set(),
+          }
+        }
+      });
+    }
+
+    onLayoutChange(e) {
         let layout = e.nativeEvent.layout;
-        await this.setState({
+        this.setState({
             imageHeight: (layout.height+65)*0.6,
             MAP: layout.height > layout.width?this.props.MAP_V:this.props.MAP_H
         });
         //console.log(this.state.isPortrait);
-    }
-
-    async handleTouch(evt){
-        console.log(this);
-        //console.log(this.state.isPortrait);
-        // console.log(Dimensions.get('window').width);
-        // console.log(Dimensions.get('window').height);
-        // console.log(evt.nativeEvent.locationX);
-        // console.log(evt.nativeEvent.locationY);
-        let min = Number.MAX_SAFE_INTEGER;
-        let location = "";
-        let newtmpresult = this.state.tmpresult;
-        let map = {};
-        //console.log(MAP);
-
-        switch (this.state.selectedTab){
-            case "1":
-                map = this.state.MAP['1'];
-                break;
-            case "2":
-                map = this.state.MAP['2'];
-                break;
-            case "3":
-                map = this.state.MAP['3'];
-                break;
-            case "4":
-                map = this.state.MAP['4'];
-                break;
-        }
-
-        for(let key of Object.keys(map)){
-            for(let coor of map[key]){
-                let a = evt.nativeEvent.locationX - coor[0];
-                let b = evt.nativeEvent.locationY - coor[1];
-                let distance = Math.sqrt(a*a + b*b);
-                if(distance < min) {
-                    min = distance;
-                    location = key;
-                }
-            }
-        }
-
-        if(newtmpresult.includes(location) && min > 50){
-            alert("Sorry, you are out of range.");
-        }
-        else if(newtmpresult.includes(location)){
-            alert(`You have selected "${location}", please remove it or select a different location.`);
-        }
-        else if(min > 70){
-            alert("Sorry, you are out of range.");
-        }
-        else {
-            newtmpresult.push(location);
-        }
-
-        await this.setState({
-            error: null,
-            tmpresult: newtmpresult
-        });
     }
 
     removeItem(item){
@@ -96,13 +56,13 @@ class PainLocationPage extends Component {
         });
     }
 
-    async onBackButtonPress(){
+    onBackButtonPress(){
         this.props.results.pop();
         this.props.history.pop();
 
         for(let question of this.props.currentquestionset){
             if(question.question._id == this.props.history[this.props.history.length-1]){
-                await this.props.dispatch({
+                this.props.dispatch({
                     type: 'backButtonClicked',
                     payload: {
                         results: this.props.results,
@@ -118,36 +78,36 @@ class PainLocationPage extends Component {
         Actions.pain();
     }
 
-    async onNextButtonPress(){
-        if(this.state.tmpresult.length == 0){
-            this.setState({...this.state, error: 'Please locate your pain area.'});
-        }else{
-            this.props.results.push({
-                q_id: this.props.currentquestion.question._id,
-                key: "pain location",
-                value: this.state.tmpresult,
-                description: this.props.currentquestion.question.description
-            });
+    onNextButtonPress(){
+        if(!this.props.painLocation.length===0){
+          this.props.painLocation.push("No Pain");
+        }
+        this.props.results.push({
+            q_id: this.props.currentquestion.question._id,
+            key: "pain location",
+            value: this.props.painLocation,
+            description: this.props.currentquestion.question.description
+        });
 
-            for(let question of this.props.currentquestionset){
-                if(question.question._id == this.props.currentquestion.next_question[0].question_id){
-                    this.props.history.push(question.question._id);
-                    await this.props.dispatch({
-                        type: 'nextButtonClicked',
-                        payload: {
-                            currentquestion: question,
-                            results: this.props.results,
-                            history: this.props.history
-                        }
-                    });
+          for(let question of this.props.currentquestionset){
+              if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+                  this.props.history.push(question.question._id);
+                  this.props.dispatch({
+                      type: 'nextButtonClicked',
+                      payload: {
+                          currentquestion: question,
+                          results: this.props.results,
+                          history: this.props.history
+                      }
+                  });
 
-                    break;
-                }
-            }
+                  break;
+              }
+          }
 
-            Actions.pop();
-            Actions.activity();
-         }
+          Actions.pop();
+          Actions.activity();
+
     }
 
     render(){
@@ -165,27 +125,19 @@ class PainLocationPage extends Component {
                         >
                             <TabPane tab="Front" key="1">
                                 <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                                <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                    <Image resizeMode="contain" style={[imageStyle, {height: this.state.imageHeight}]} source={require('../img/front.jpeg')}/>
-                                </TouchableWithoutFeedback>
+                                <FrontBody />
                             </TabPane>
                             <TabPane tab="Back" key="2">
                                 <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                                <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                    <Image resizeMode="contain" style={[imageStyle, {height: this.state.imageHeight}]} source={require('../img/back.jpeg')}/>
-                                </TouchableWithoutFeedback>
+                                <BackBody/>
                             </TabPane>
                             <TabPane tab="Left Side" key="3">
                                 <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                                <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                    <Image resizeMode="contain" style={[imageStyle, {height: this.state.imageHeight}]} source={require('../img/leftside.jpeg')}/>
-                                </TouchableWithoutFeedback>
+                                <LeftBody/>
                             </TabPane>
                             <TabPane tab="Right Side" key="4">
                                 <Text style={messageStyle}>Please select the areas(s) of your pain</Text>
-                                <TouchableWithoutFeedback onPress={(evt) => this.handleTouch(evt)}>
-                                    <Image resizeMode="contain" style={[imageStyle, {height: this.state.imageHeight}]} source={require('../img/rightside.jpeg')}/>
-                                </TouchableWithoutFeedback>
+                                <RightBody/>
                             </TabPane>
                         </Tabs>
                     </Flex>
@@ -196,21 +148,16 @@ class PainLocationPage extends Component {
                     <View style={ answersBoxStyle }>
                         <ScrollView >
                             <View style={resultContainerStyle} minHeight={60}>
-                                {this.state.tmpresult.map((r) => {
-                                    // return(
-                                    //     <Tag  closable key={r} onClose={() => this.removeItem(r)}>{r}</Tag>
-                                    // )
+                                {this.props.painLocation?this.props.painLocation.map((r) => {
                                     return (
                                       <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={textStyle}>{r}</Text></Button>
                                     )
-                                })}
+                                }):null
+                                }
                             </View>
                         </ScrollView>
                     </View>
-
-
                     <Text style={errorStyle}>{this.state.error}</Text>
-
                     <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', flex: 1}}>
                         <Button  style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
                             <Text style={textStyle}>Back</Text>
@@ -225,8 +172,6 @@ class PainLocationPage extends Component {
         )
     }
 }
-
-// { alignSelf:'center', position: 'absolute', bottom: 55, height: 120, width: '92%' }
 
 const styles = {
     buttonStyle: {
@@ -291,7 +236,14 @@ const mapStateToProps = state => {
         results: state.questions.results,
         history:state.questions.history,
         MAP_V : state.questions.MAP_V,
-        MAP_H : state.questions.MAP_H
+        MAP_H : state.questions.MAP_H,
+
+        painLocation: [
+          ...state.questions.painLocation.front,
+          ...state.questions.painLocation.back,
+          ...state.questions.painLocation.left,
+          ...state.questions.painLocation.right,
+        ]
     };
 };
 

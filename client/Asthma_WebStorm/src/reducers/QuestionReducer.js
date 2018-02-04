@@ -12,7 +12,13 @@ const INITIAL_STATE = {
     spinning: true,
     patientName: "",
     MAP_V: null,
-    MAP_H: null
+    MAP_H: null,
+    painLocation:{
+        front:new Set(),
+        back:new Set(),
+        left:new Set(),
+        right:new Set(),
+      }
 };
 
 export default (state=INITIAL_STATE, action) => {
@@ -55,10 +61,10 @@ export default (state=INITIAL_STATE, action) => {
             return { ...state, results:action.payload.results };
         case 'clearHistory':
             return { ...state,
-                results: action.payload.results,
-                history:action.payload.history,
+                results: [],
+                history: [],
                 checked_option: null,
-                checked_option_value: null
+                checked_option_value: null,
             };
         case 'optionSelected' :
             return { ...state,
@@ -70,6 +76,11 @@ export default (state=INITIAL_STATE, action) => {
                 MAP_V: action.payload.MAP_V,
                 MAP_H: action.payload.MAP_H
             };
+        case 'updatePainLocation':
+            return {...state,
+              painLocation: action.payload.painLocation
+            };
+
         default:
             return state;
     }
