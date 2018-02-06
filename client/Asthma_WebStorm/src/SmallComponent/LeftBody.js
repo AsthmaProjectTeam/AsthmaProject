@@ -3,7 +3,7 @@ import { Image, TouchableOpacity  } from 'react-native';
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { Row} from 'react-native-easy-grid';
+import Row from './Row';
 class LeftBody extends Component {
   constructor(props) {
     super(props)
