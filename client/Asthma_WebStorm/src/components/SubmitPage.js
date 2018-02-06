@@ -15,7 +15,7 @@ class SubmitPage extends Component {
         try {
             savedToken = await AsyncStorage.getItem('loginToken');
         } catch (error) {
-            console.log(error)
+            //.log(error)
         }
     }
 
@@ -56,7 +56,7 @@ class SubmitPage extends Component {
                     Actions.welcome();
                 })
             .catch(error => {
-                console.log(error);
+               // console.log(error);
             });
     }
 

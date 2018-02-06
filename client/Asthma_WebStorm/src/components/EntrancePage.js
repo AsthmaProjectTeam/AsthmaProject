@@ -32,7 +32,7 @@ class EntrancePage extends Component {
                     }
                 })
             .catch((error) => {
-                console.log('error:' + error.message);
+                //console.log('error:' + error.message);
             });
 
         this.props.dispatch({

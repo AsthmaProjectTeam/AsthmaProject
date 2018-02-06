@@ -32,8 +32,8 @@ class WelcomePage extends Component {
 
         AsyncStorage.getItem('loginToken',(err,savedToken)=>{
             if(err) {
-                console.log('err at getItem');
-                console.log(err);
+                // console.log('err at getItem');
+                // console.log(err);
             }
             else {
                 savedTokenfromPhone = savedToken;
@@ -59,7 +59,7 @@ class WelcomePage extends Component {
                             }
                         });
                     }).catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                 });
             }
         });
@@ -98,7 +98,7 @@ class WelcomePage extends Component {
                 // Actions.main()
              })
             .catch((error) => {
-            console.log('error:' + error.message);
+           // console.log('error:' + error.message);
         });
     }
 
@@ -136,7 +136,7 @@ class WelcomePage extends Component {
                 }, 1000);
             })
             .catch((error) => {
-            console.log(error);
+         //   console.log(error);
         });
     }
 

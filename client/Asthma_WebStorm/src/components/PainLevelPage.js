@@ -70,9 +70,9 @@ class PainLevelPage extends Component {
     }
 
     onClick(value){
-        console.log(value);
-        console.log(this.state.level);
-        console.log(parseInt(value));
+        // console.log(value);
+        // console.log(this.state.level);
+        // console.log(parseInt(value));
         this.setState({
             level: parseInt(value)
         });
