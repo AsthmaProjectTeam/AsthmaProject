@@ -86,11 +86,21 @@ class SubmitPage extends Component {
                 />
 
                 <View style={buttonListStyle}>
-                    <Button block danger style={buttonStyle} onPress={this.cancelButtonClicked.bind(this)}>
-                        <Text style={{fontSize:26}}>Cancel</Text>
+                    <Button
+                        large
+                        block
+                        danger
+                        style={buttonStyle}
+                        onPress={() => this.cancelButtonClicked()}>
+                        <Text style={{fontSize:45}}>Cancel</Text>
                     </Button>
-                    <Button block info onPress={this.submitButtonClicked.bind(this)} style={buttonStyle}>
-                        <Text style={{fontSize:26}}>Submit</Text>
+                    <Button
+                        large
+                        block
+                        info
+                        onPress={() => this.submitButtonClicked()}
+                        style={buttonStyle}>
+                        <Text style={{fontSize:45}}>Submit</Text>
                     </Button>
                 </View>
             </View>
@@ -117,6 +127,7 @@ const styles = {
     },
     buttonListStyle: {
         flexDirection: 'row',
+        flex: 1,
         position: 'absolute',
         left: 0,
         right: 0,

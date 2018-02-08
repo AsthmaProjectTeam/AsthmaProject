@@ -74,8 +74,8 @@ class ScanScreen extends Component {
             const parsedData = JSON.parse(val.data);
             Joi.validate(parsedData, schema, this.call.bind(this));
         } catch(error){
-            console.log('I am JSON parse error');
-            console.log(error);
+            //console.log('I am JSON parse error');
+            //console.log(error);
             Actions.pop();
             Actions.dummy();
         }

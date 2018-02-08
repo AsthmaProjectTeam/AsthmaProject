@@ -18,9 +18,11 @@ class PainLocationPage extends Component {
             tmpresult: [],
             selectedTab: '1',
             imageHeight: Dimensions.get('window').height*0.6,
+            next_disabled: false,
+            cancel_disabled: false
             // initialLayoutisVertical: Dimensions.get('window').height > Dimensions.get('window').width
         };
-        this.onLayoutChange = this.onLayoutChange.bind(this);
+        //this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
     componentWillMount() {
@@ -38,14 +40,14 @@ class PainLocationPage extends Component {
       });
     }
 
-    onLayoutChange(e) {
-        let layout = e.nativeEvent.layout;
-        this.setState({
-            imageHeight: (layout.height+65)*0.6,
-            MAP: layout.height > layout.width?this.props.MAP_V:this.props.MAP_H
-        });
-        //console.log(this.state.isPortrait);
-    }
+    // onLayoutChange(e) {
+    //     let layout = e.nativeEvent.layout;
+    //     this.setState({
+    //         imageHeight: (layout.height+65)*0.6,
+    //         MAP: layout.height > layout.width?this.props.MAP_V:this.props.MAP_H
+    //     });
+    //     //console.log(this.state.isPortrait);
+    // }
 
     removeItem(item){
         let newtmpresult = this.state.tmpresult;
@@ -57,6 +59,17 @@ class PainLocationPage extends Component {
     }
 
     onBackButtonPress(){
+        this.setState({
+            cancel_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                cancel_disabled: false,
+            });
+        }, 2000);
+
         this.props.results.pop();
         this.props.history.pop();
 
@@ -79,31 +92,45 @@ class PainLocationPage extends Component {
     }
 
     onNextButtonPress(){
-        if(!this.props.painLocation.length===0){
-          this.props.painLocation.push("No Pain");
-        }
-        this.props.results.push({
-            q_id: this.props.currentquestion.question._id,
-            key: "pain location",
-            value: this.props.painLocation,
-            description: this.props.currentquestion.question.description
+        this.setState({
+            next_disabled: true,
         });
 
-          for(let question of this.props.currentquestionset){
-              if(question.question._id == this.props.currentquestion.next_question[0].question_id){
-                  this.props.history.push(question.question._id);
-                  this.props.dispatch({
-                      type: 'nextButtonClicked',
-                      payload: {
-                          currentquestion: question,
-                          results: this.props.results,
-                          history: this.props.history
-                      }
-                  });
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                next_disabled: false,
+            });
+        }, 2000);
 
-                  break;
-              }
-          }
+        if(!this.props.painLocation.length===0){
+          this.props.result.push({
+              value: "No Pain"
+          });
+        }else{
+            this.props.results.push({
+                q_id: this.props.currentquestion.question._id,
+                key: "pain location",
+                value: this.props.painLocation,
+                description: this.props.currentquestion.question.description
+            });
+        }
+
+        for(let question of this.props.currentquestionset){
+             if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+                 this.props.history.push(question.question._id);
+                 this.props.dispatch({
+                     type: 'nextButtonClicked',
+                     payload: {
+                         currentquestion: question,
+                         results: this.props.results,
+                         history: this.props.history
+                     }
+                 });
+
+                 break;
+             }
+         }
 
           Actions.pop();
           Actions.activity();
@@ -114,7 +141,7 @@ class PainLocationPage extends Component {
         const TabPane = Tabs.TabPane;
         const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle, messageStyle, answersBoxStyle } = styles;
         return(
-            <View style={{height: '100%', width: '100%'}} onLayout={(evt) => this.onLayoutChange(evt)}>
+            <View style={{height: '100%', width: '100%'}}>
                 <Flex direction="column" style={{height: '100%', width: '100%'}}>
                     <Flex>
                         <Tabs activeKey={this.state.selectedTab} animated={false}
@@ -150,7 +177,7 @@ class PainLocationPage extends Component {
                             <View style={resultContainerStyle} minHeight={60}>
                                 {this.props.painLocation?this.props.painLocation.map((r) => {
                                     return (
-                                      <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={textStyle}>{r}</Text></Button>
+                                      <Button key={r} onPress={() => this.removeItem(r)} style={{marginRight:10, marginTop:5}}><Text style={{color: 'white', fontSize: 30}}>{r}</Text></Button>
                                     )
                                 }):null
                                 }
@@ -159,11 +186,21 @@ class PainLocationPage extends Component {
                     </View>
                     <Text style={errorStyle}>{this.state.error}</Text>
                     <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', flex: 1}}>
-                        <Button  style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
+                        <Button
+                            large
+                            disabled = {this.state.cancel_disabled}
+                            style={buttonStyle}
+                            warning
+                            onPress={() => this.onBackButtonPress()}>
                             <Text style={textStyle}>Back</Text>
                         </Button>
 
-                        <Button  style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
+                        <Button
+                            large
+                            disabled = {this.state.next_disabled}
+                            style={buttonStyle}
+                            success
+                            onPress={() => this.onNextButtonPress()}>
                             <Text style={textStyle}>Next</Text>
                         </Button>
                     </View>
@@ -180,7 +217,7 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 30
+        fontSize: 50
     },
     errorStyle: {
         fontSize: 30,
@@ -205,7 +242,7 @@ const styles = {
     answersBoxStyle: {
         alignSelf:'center',
         position: 'absolute',
-        bottom: 55,
+        bottom: 85,
         height: 100,
         width: '92%',
         borderColor: 'mediumblue',

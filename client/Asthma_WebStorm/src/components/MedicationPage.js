@@ -13,7 +13,9 @@ class MedicationPage extends Component {
         this.state = {
             checkedOption: null,
             checkedValue: null,
-            error: null
+            error: null,
+            next_disabled: false,
+            cancel_disabled: false
         }
     }
 
@@ -26,13 +28,24 @@ class MedicationPage extends Component {
         });
     }
 
-    async onBackButtonPress(){
+     onBackButtonPress(){
+        this.setState({
+            cancel_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                cancel_disabled: false,
+            });
+        }, 2000);
+
         this.props.results.pop();
         this.props.history.pop();
 
         for(let question of this.props.currentquestionset){
             if(question.question._id == this.props.history[this.props.history.length-1]){
-                await this.props.dispatch({
+                this.props.dispatch({
                     type: 'backButtonClicked',
                     payload: {
                         results: this.props.results,
@@ -49,6 +62,17 @@ class MedicationPage extends Component {
     }
 
     onNextButtonPress() {
+        this.setState({
+            next_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                next_disabled: false,
+            });
+        }, 2000);
+
         if(this.state.checkedOption == null){
             this.setState({...this.state, error: 'Please select a time.'});
         } else {
@@ -92,11 +116,21 @@ class MedicationPage extends Component {
                     {this.state.error}
                 </Text>
                 <View style={buttonRowStyle}>
-                    <Button style={buttonStyle} warning onPress={this.onBackButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.cancel_disabled}
+                        style={buttonStyle}
+                        warning
+                        onPress={() => this.onBackButtonPress()}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
 
-                    <Button style={buttonStyle} success onPress={this.onNextButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.next_disabled}
+                        style={buttonStyle}
+                        success
+                        onPress={() => this.onNextButtonPress()}>
                         <Text style={textStyle}>Review</Text>
                     </Button>
                 </View>
@@ -120,7 +154,7 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 30
+        fontSize: 50
     },
     buttonRowStyle: {
         flexDirection: 'row',
@@ -135,7 +169,7 @@ const styles = {
         alignSelf: 'center',
         color: 'red',
         position: 'absolute',
-        bottom: 55
+        bottom: 85
     }
 };
 

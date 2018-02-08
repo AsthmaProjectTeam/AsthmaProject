@@ -8,7 +8,8 @@ import {
     Slider,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 import { Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -17,7 +18,9 @@ class PainLevelPage extends Component {
 
     componentWillMount(){
         this.state = {
-            level: 0
+            level: 0,
+            next_disabled: false,
+            cancel_disabled: false
         };
     }
 
@@ -25,11 +28,22 @@ class PainLevelPage extends Component {
         this.state = {level: 0};
     }
 
-    getVal(val){
-        this.setState({level:val});
-    }
+    // getVal(val){
+    //     this.setState({level:val});
+    // }
 
     onCancelButtonPress(){
+        this.setState({
+            cancel_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                cancel_disabled: false,
+            });
+        }, 2000);
+
         this.props.dispatch({
             type: 'clearHistory',
             payload: {
@@ -43,6 +57,17 @@ class PainLevelPage extends Component {
     }
 
     onNextButtonPress(){
+        this.setState({
+            next_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                next_disabled: false,
+            });
+        }, 2000);
+
         this.props.results.push({
             q_id: this.props.currentquestion.question._id,
             key: this.state.level.toString(),
@@ -50,8 +75,8 @@ class PainLevelPage extends Component {
             description: this.props.currentquestion.question.description
         });
 
-        for(let question of this.props.currentquestionset){
-            if(question.question._id == this.props.currentquestion.next_question[0].question_id){
+        for (let question of this.props.currentquestionset) {
+            if (question.question._id == this.props.currentquestion.next_question[0].question_id) {
                 this.props.history.push(question.question._id);
                 this.props.dispatch({
                     type: 'nextButtonClicked',
@@ -67,6 +92,7 @@ class PainLevelPage extends Component {
 
         Actions.pop();
         Actions.location();
+
     }
 
     onClick(value){
@@ -142,11 +168,21 @@ class PainLevelPage extends Component {
                     Please tab a face to rate your current pain level.
                 </Text>
                 <View style={{flexDirection: 'row', flex: 1, position: 'absolute', left: 0, right: 0, bottom: 0}}>
-                    <Button danger style={bottomButtonStyle} onPress={this.onCancelButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.cancel_disabled}
+                        danger
+                        style={bottomButtonStyle}
+                        onPress={() => this.onCancelButtonPress()}>
                         <Text style={textStyle}>Cancel</Text>
                     </Button>
 
-                    <Button success style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.next_disabled}
+                        success
+                        style={bottomButtonStyle}
+                        onPress={() => this.onNextButtonPress()}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>
@@ -194,7 +230,7 @@ const styles = {
     },
     textStyle: {
         color: 'white',
-        fontSize: 30
+        fontSize: 50
     },
     bottomButtonStyle: {
         flex: 0.4,

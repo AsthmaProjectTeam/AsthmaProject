@@ -12,18 +12,20 @@ class ActivityLevelPage extends Component {
             key: null,
             value: null,
             error: null,
-            activityButtonWidth: Dimensions.get('window').height*0.5
+            activityButtonWidth: Dimensions.get('window').height*0.5,
+            next_disabled: false,
+            cancel_disabled: false
         };
-        this.onLayoutChange = this.onLayoutChange.bind(this);
+        //this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
 
-    onLayoutChange(e) {
-        let layout = e.nativeEvent.layout;
-        this.setState({
-            activityButtonWidth: (layout.height+65)*0.5
-        });
-    }
+    // onLayoutChange(e) {
+    //     let layout = e.nativeEvent.layout;
+    //     this.setState({
+    //         activityButtonWidth: (layout.height+65)*0.5
+    //     });
+    // }
 
     onClick(key, value){
         this.setState({
@@ -33,13 +35,24 @@ class ActivityLevelPage extends Component {
         });
     }
 
-    async onBackButtonPress(){
+    onBackButtonPress(){
+        this.setState({
+            cancel_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                cancel_disabled: false,
+            });
+        }, 2000);
+
         this.props.results.pop();
         this.props.history.pop();
 
         for(let question of this.props.currentquestionset){
             if(question.question._id == this.props.history[this.props.history.length-1]){
-                await this.props.dispatch({
+                this.props.dispatch({
                     type: 'backButtonClicked',
                     payload: {
                         results: this.props.results,
@@ -55,7 +68,18 @@ class ActivityLevelPage extends Component {
         Actions.location();
     }
 
-    async onNextButtonPress() {
+    onNextButtonPress() {
+        this.setState({
+            next_disabled: true,
+        });
+
+        // enable after 5 second
+        setTimeout(()=>{
+            this.setState({
+                next_disabled: false,
+            });
+        }, 2000);
+
         if (this.state.key == null) {
             this.setState({error: "Please make a selection."});
         } else {
@@ -69,7 +93,7 @@ class ActivityLevelPage extends Component {
             for(let question of this.props.currentquestionset){
                 if(question.question._id == this.props.currentquestion.next_question[0].question_id){
                     this.props.history.push(question.question._id);
-                    await this.props.dispatch({
+                    this.props.dispatch({
                         type: 'nextButtonClicked',
                         payload: {
                             currentquestion: question,
@@ -102,7 +126,7 @@ class ActivityLevelPage extends Component {
         let realAnswer = Platform.OS === "ios" ? <Text style={answerTextStyle}> {this.state.value}</Text> : <Text style={answerTextStyleAndroid}> {this.state.value}</Text>;
 
         return(
-            <View onLayout={(evt) => this.onLayoutChange(evt)}  style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
+            <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
                 <View style={colorBarStyle}></View>
 
@@ -193,11 +217,21 @@ class ActivityLevelPage extends Component {
                                flexDirection: 'row',
                                position: 'absolute',
                                left: 0, right: 0, bottom: 0}}>
-                    <Button warning style={bottomButtonStyle} onPress={this.onBackButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.cancel_disabled}
+                        warning
+                        style={bottomButtonStyle}
+                        onPress={() => this.onBackButtonPress()}>
                         <Text style={textStyle}>Back</Text>
                     </Button>
 
-                    <Button success style={bottomButtonStyle} onPress={this.onNextButtonPress.bind(this)}>
+                    <Button
+                        large
+                        disabled = {this.state.next_disabled}
+                        success
+                        style={bottomButtonStyle}
+                        onPress={() => this.onNextButtonPress()}>
                         <Text style={textStyle}>Next</Text>
                     </Button>
                 </View>
@@ -237,7 +271,7 @@ const styles = {
     },
     textStyle: {
       color: 'white',
-      fontSize: 36
+      fontSize: 50
     },
     optionStyle: {
         margin: 10,
@@ -248,7 +282,7 @@ const styles = {
         alignSelf: 'center',
         color: 'red',
         position: 'absolute',
-        bottom: 55
+        bottom: 85
     },
     answerTextStyle: {
         fontSize: 30,
