@@ -28,7 +28,7 @@ class SubmitPage extends Component {
     }
 
     cancelButtonClicked(){
-        Actions.pop();
+        // Actions.pop();
         Actions.welcome();
     }
 
@@ -52,7 +52,7 @@ class SubmitPage extends Component {
             }
         }).then(
                 () => {
-                    Actions.pop();
+                    // Actions.pop();
                     Actions.welcome();
                 })
             .catch(error => {

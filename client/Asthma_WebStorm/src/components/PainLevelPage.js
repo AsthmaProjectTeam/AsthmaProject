@@ -52,7 +52,7 @@ class PainLevelPage extends Component {
                 checked_option: null
             }
         });
-        Actions.pop();
+        // Actions.pop();
         Actions.welcome();
     }
 
