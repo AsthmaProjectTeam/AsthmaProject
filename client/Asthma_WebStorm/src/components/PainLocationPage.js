@@ -68,7 +68,7 @@ class PainLocationPage extends Component {
             this.setState({
                 cancel_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -88,7 +88,7 @@ class PainLocationPage extends Component {
         }
 
         Actions.pop();
-        Actions.pain();
+        //Actions.pain();
     }
 
     onNextButtonPress(){
@@ -101,7 +101,7 @@ class PainLocationPage extends Component {
             this.setState({
                 next_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         if(!this.props.painLocation.length===0){
           this.props.result.push({
@@ -132,7 +132,7 @@ class PainLocationPage extends Component {
              }
          }
 
-          Actions.pop();
+          //Actions.pop();
           Actions.activity();
 
     }

@@ -38,7 +38,7 @@ class MedicationPage extends Component {
             this.setState({
                 cancel_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -58,7 +58,7 @@ class MedicationPage extends Component {
         }
 
         Actions.pop();
-        Actions.activity();
+        //Actions.activity();
     }
 
     onNextButtonPress() {
@@ -71,7 +71,7 @@ class MedicationPage extends Component {
             this.setState({
                 next_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         if(this.state.checkedOption == null){
             this.setState({...this.state, error: 'Please select a time.'});
@@ -83,7 +83,7 @@ class MedicationPage extends Component {
                 description: this.props.currentquestion.question.description
             });
 
-            Actions.pop();
+            //Actions.pop();
             Actions.submit();
         }
     }

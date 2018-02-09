@@ -45,7 +45,7 @@ class ActivityLevelPage extends Component {
             this.setState({
                 cancel_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -65,7 +65,7 @@ class ActivityLevelPage extends Component {
         }
 
         Actions.pop();
-        Actions.location();
+        //Actions.location();
     }
 
     onNextButtonPress() {
@@ -78,7 +78,7 @@ class ActivityLevelPage extends Component {
             this.setState({
                 next_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         if (this.state.key == null) {
             this.setState({error: "Please make a selection."});
@@ -101,7 +101,7 @@ class ActivityLevelPage extends Component {
                             history: this.props.history
                         }
                     });
-                    Actions.pop();
+                    //Actions.pop();
                     Actions.medication();
                     break;
                 }

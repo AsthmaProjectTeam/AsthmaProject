@@ -20,6 +20,9 @@ class SubmitPage extends Component {
     }
 
     componentWillMount(){
+      this.state = {
+        next_disabled: false,
+      };
         this.retrievetoken();
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
@@ -33,6 +36,16 @@ class SubmitPage extends Component {
     }
 
     submitButtonClicked(){
+      this.setState({
+        next_disabled: true,
+      });
+
+      // enable after 5 second
+      setTimeout(()=>{
+        this.setState({
+          next_disabled: false,
+        });
+      }, 10000);
         const dispatch = this.props.dispatch;
         fetch(HOST+'/v2/patients/results', {
             method: 'POST',
@@ -95,6 +108,7 @@ class SubmitPage extends Component {
                         <Text style={{fontSize:45}}>Cancel</Text>
                     </Button>
                     <Button
+                      disabled = {this.state.next_disabled}
                         large
                         block
                         info

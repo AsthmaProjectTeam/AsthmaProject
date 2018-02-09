@@ -24,9 +24,9 @@ class PainLevelPage extends Component {
         };
     }
 
-    componentWillReceiveProps(){
-        this.state = {level: 0};
-    }
+    // componentWillReceiveProps(){
+    //     this.state = {level: 0};
+    // }
 
     // getVal(val){
     //     this.setState({level:val});
@@ -42,7 +42,7 @@ class PainLevelPage extends Component {
             this.setState({
                 cancel_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         this.props.dispatch({
             type: 'clearHistory',
@@ -66,7 +66,7 @@ class PainLevelPage extends Component {
             this.setState({
                 next_disabled: false,
             });
-        }, 2000);
+        }, 1000);
 
         this.props.results.push({
             q_id: this.props.currentquestion.question._id,
@@ -77,7 +77,8 @@ class PainLevelPage extends Component {
 
         for (let question of this.props.currentquestionset) {
             if (question.question._id == this.props.currentquestion.next_question[0].question_id) {
-                this.props.history.push(question.question._id);
+              Actions.location();
+              this.props.history.push(question.question._id);
                 this.props.dispatch({
                     type: 'nextButtonClicked',
                     payload: {
@@ -86,12 +87,13 @@ class PainLevelPage extends Component {
                         history: this.props.history
                     }
                 });
-                break;
+
+              break;
             }
         }
 
-        Actions.pop();
-        Actions.location();
+        //Actions.pop();
+
 
     }
 
