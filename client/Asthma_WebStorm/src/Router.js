@@ -13,7 +13,7 @@ import MedicationPage from './components/MedicationPage';
 
 const RouterComponent = () => {
     return (
-        <Router panHandlers={null}>
+        <Router panHandlers={null} duration={0}>
             <Scene key="entrance">
                 <Scene key="entrancePage" component={EntrancePage} hideNavBar={true}/>
             </Scene>
