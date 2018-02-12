@@ -374,7 +374,7 @@ const styles = {
         alignSelf: 'center',
         textAlign: 'center',
         color: '#13263a',
-        fontSize: 24,
+        fontSize: 30,
         marginTop: Dimensions.get('window').height*0.02,
         marginBottom: Dimensions.get('window').height*0.02,
         textDecorationLine: 'underline'
@@ -382,7 +382,7 @@ const styles = {
     instructionStyle: {
         marginLeft: Dimensions.get('window').width*0.03,
         marginRight: Dimensions.get('window').width*0.03,
-        fontSize: 18,
+        fontSize: 26,
         color: '#13263a'
     },
     closeModalButtonStyle: {
