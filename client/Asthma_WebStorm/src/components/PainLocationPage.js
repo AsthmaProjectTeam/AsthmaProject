@@ -103,18 +103,17 @@ class PainLocationPage extends Component {
             });
         }, 1000);
 
-        if(!this.props.painLocation.length===0){
-          this.props.result.push({
-              value: "No Pain"
-          });
-        }else{
-            this.props.results.push({
-                q_id: this.props.currentquestion.question._id,
-                key: "pain location",
-                value: this.props.painLocation,
-                description: this.props.currentquestion.question.description
-            });
+        if(this.props.painLocation.length===0) {
+          this.props.painLocation.push("No Pain");
         }
+
+          this.props.results.push({
+              q_id: this.props.currentquestion.question._id,
+              key: "pain location",
+              value: this.props.painLocation,
+              description: this.props.currentquestion.question.description
+          });
+
 
         for(let question of this.props.currentquestionset){
              if(question.question._id == this.props.currentquestion.next_question[0].question_id){
