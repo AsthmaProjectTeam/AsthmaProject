@@ -79,13 +79,13 @@ class PatientListTable extends React.Component{
                         this.state.touched?
                         <Table columns={cols} dataSource={this.state.searched_patients} rowKey="_id"
                                onRowClick={(record, index, event)=>{
-                                   browserHistory.push('/my/patients/profile/'+record._id);
+                                   browserHistory.push('/my/patients/'+ record._id+ '/profile');
                                }}
 
                         />:
                             <Table columns={cols} dataSource={this.props.all_patients} rowKey="_id"
                                    onRowClick={(record, index, event)=>{
-                                       browserHistory.push('/my/patients/profile/'+record._id);
+                                       browserHistory.push('/my/patients/'+ record._id+ '/profile');
                                    }}
 
                             />

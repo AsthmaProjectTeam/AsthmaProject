@@ -10,7 +10,7 @@ import {Row, Col, Switch} from 'antd'
 
 class UploadPage extends React.Component{
     componentWillMount(){
-        this.state = {uploadCsv:true};
+        this.state = {uploadCsv:false};
         this.props.dispatch({type:'admin/menuClick', payload:{selectedMenu:'upload'}});
     }
 
@@ -26,7 +26,7 @@ class UploadPage extends React.Component{
                 <Row type="flex" justify="center" style={{marginTop:120}}>
                     <Col span={4} offset={2}>
                         <Switch unCheckedChildren="Create single patient" checkedChildren="Upload via csv"
-                                defaultChecked={true} onChange={this.changeUpload.bind(this)}
+                                defaultChecked={false} onChange={this.changeUpload.bind(this)}
                                 style={{fontSize:22}}
                         />
                     </Col>

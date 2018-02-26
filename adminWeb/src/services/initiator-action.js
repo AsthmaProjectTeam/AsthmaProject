@@ -99,3 +99,18 @@ export async function getQrCodeToken(body) {
         },
     })
 }
+
+export async function answerQuestion(body) {
+    const patient_id = body.patient_id;
+    const results = body.results;
+    return request(SERVER_HOST+'/v2/initiators/patients/'+patient_id+'/results',{
+        method: 'POST',
+        headers:{
+            "Content-Type": "application/json",
+            'Authorization': 'token '+ window.sessionStorage.getItem('token'),
+        },
+        body:JSON.stringify(results),
+    });
+
+}
+

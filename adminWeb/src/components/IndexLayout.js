@@ -21,11 +21,20 @@ class IndexLayout extends React.Component{
                     <p className={styles.title}>Admin System</p>
                 </Header>
                 <Layout>
-                    <Sider width={250} className={styles.sider} >
+                    <Sider width={250} className={styles.sider}
+                           breakpoint="lg"
+                           collapsedWidth="0">
                         <LeftMenu className={styles.menu}/>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
-                        <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+                        <Content style={{
+                          background: '#fff',
+                          padding: 24,
+                          margin: 0,
+                          minHeight: 800,
+                          minWidth: 800
+
+                        }} >
                             {this.props.children}
                         </Content>
                     </Layout>

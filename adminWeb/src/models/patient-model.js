@@ -1,7 +1,8 @@
 /**
  * Created by tengzhongwei on 7/31/17.
  */
-import * as initiatorAction from '../services/initiator-action'
+import * as initiatorAction from '../services/initiator-action';
+import * as graphAction from '../services/graph-action';
 import {message} from 'antd';
 
 export default {
@@ -12,7 +13,8 @@ export default {
         patient_profile:null,
         found_patients:null,
         selected_patients:null,
-        qrcode_token:null
+        qrcode_token:null,
+        pain_level: null,
 
     },
 
@@ -38,7 +40,18 @@ export default {
         *getQrCodeToken({payload}, {call, put}){
             const {data} = yield call(initiatorAction.getQrCodeToken, payload);
             yield put({type:'putQrCodeToken', payload:data});
+        },
+
+        *answerQuestion({payload}, {call, put}){
+            const {data} = yield call(initiatorAction.answerQuestion, payload);
+            message.success('Answer Submitted!');
+        },
+
+        *getPainGraphData({payload}, {call, put}){
+          const {data} = yield call(graphAction.getPainGraphData, payload);
+          yield put({type:'putPainGraphData', payload:data});
         }
+
 
     },
 
@@ -54,8 +67,10 @@ export default {
         },
         putQrCodeToken(state, action){
             return { ...state, qrcode_token: action.payload.token};
-        }
-
+        },
+        putPainGraphData(state, action){
+          return { ...state, pain_level: action.payload.pain_level};
+        },
 
     },
 

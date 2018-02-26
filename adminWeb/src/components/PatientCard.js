@@ -7,7 +7,6 @@ import { Link } from 'dva/router';
 import moment from 'moment';
 import styles from '../styles/components/PatientCard.less'
 
-
 class PatientCard extends React.Component{
     componentWillMount(){
         this.props.dispatch({type:'patient/getPatientProfile', payload:{patient_id:this.props.params.patient_id}});
@@ -15,6 +14,7 @@ class PatientCard extends React.Component{
 
     render(){
         const p = this.props.patient_profile;
+
         return(
             <Row type="flex" justify="center" style={{marginTop:100}}>
                 <Card className = {styles.card}>
@@ -50,13 +50,31 @@ class PatientCard extends React.Component{
                     </Row>
                     <Row type="flex" justify="center" style={{marginTop:20}}>
                         <Col>
-                            <Link to = { '/my/patients/profile/'+ this.props.params.patient_id + '/qr-code'}>
+                            <Link to = { '/my/patients/'+this.props.params.patient_id+'/profile/qr-code'}>
                                 <Button type='primary'>
                                     Show QR Code
                                 </Button>
                             </Link>
                         </Col>
+                        <Col offset={2}>
+                            <Link to = { '/my/patients/'+this.props.params.patient_id+'/pain-checker'}>
+                                <Button type='primary'>
+                                    Submit Pain Check
+                                </Button>
+                        </Link>
+
+                        </Col>
                     </Row>
+                  <Row type="flex" justify="center" style={{marginTop:20}}>
+                    <Col>
+                      <Link to = { '/my/patients/'+this.props.params.patient_id+'/pain-graph'}>
+                        <Button type='primary'>
+                          Pain Graph
+                        </Button>
+                      </Link>
+                    </Col>
+                  </Row>
+
                 </Card>
             </Row>
         )

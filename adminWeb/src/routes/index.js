@@ -11,6 +11,8 @@ import PatientListPage from './PatientListPage';
 import PatientProfilePage from './PatientProfilePage';
 import AppendPatientsPage from './AppendPatientsPage';
 import QRCodePage from './QRCodePage';
+import PainCheckerPage from './PainCheckerPage';
+import PainGraphPage from './PainGraphPage';
 
 
 export default {
@@ -23,6 +25,8 @@ export default {
     PatientProfilePage,
     AppendPatientsPage,
     QRCodePage,
+    PainCheckerPage,
+    PainGraphPage
 
 
 }
