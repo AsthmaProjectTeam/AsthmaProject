@@ -37,15 +37,15 @@ app.engine('pug', require('pug').__express);
 app.set('views', __dirname);
 //
 //
-// function enableCORSMiddleware (req,res,next) {
-//     // You could use * instead of the url below to allow any origin,
-//     // but be careful, you're opening yourself up to all sorts of things!
-//     res.setHeader('Access-Control-Allow-Origin',  "http://localhost:8000");
-//     res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE,PATCH');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept,Authorization,X-Requested-With');
-//     next()
-// }
-// app.use(enableCORSMiddleware);
+function enableCORSMiddleware (req,res,next) {
+    // You could use * instead of the url below to allow any origin,
+    // but be careful, you're opening yourself up to all sorts of things!
+    res.setHeader('Access-Control-Allow-Origin',  "http://localhost:8000");
+    res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE,PATCH');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept,Authorization,X-Requested-With');
+    next()
+}
+app.use(enableCORSMiddleware);
 
 
 

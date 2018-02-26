@@ -3,6 +3,7 @@
  */
 let Patient             = require('../../models/patient-model'),
     patientAuth         = require('../../utils/patient_auth'),
+    generalAuth         = require('../../utils/general-auth'),
     Joi                 = require('joi'),
     QUESTION_CONTEXT    = require('../../utils/QUESTION_CONTEXT');
 
@@ -86,7 +87,37 @@ module.exports = app => {
         });
     });
 
-
+  /**
+   * Get a patient's pain level
+   *
+   */
+  app.get('/v2/patients/:id/pain-level', generalAuth,  (req, res)=>{
+    let pain_level_report = [];
+    let patient_id = parseInt(req.params.id);
+    console.log(patient_id);
+    Patient.findById(patient_id)
+      .exec( (err, patient)=>{
+        if(err)  res.status(500).send("Error Occurs When Query Patient");
+        else {
+          if(patient) {
+            if(patient.result_set){
+              for(let result_set of patient.result_set){
+                for(let result of result_set.results){
+                  //The id of pain level is 8
+                  if(result.q_id===8){
+                    pain_level_report.push({
+                      date: result_set.created_date,
+                      pain: result.value,
+                    })
+                  }
+                }
+              }
+            }
+            res.status(200).send({pain_level: pain_level_report});
+          }
+          else res.status(400).send("Can not Find Target Patient");
+        }});
+  });
 
 
 
