@@ -13,15 +13,20 @@ class QRCodePage extends React.Component{
   }
 
   render(){
-    console.log(this.props.pain_level);
+    //console.log(this.props.pain_level);
     return(
       <IndexLayout>
         <Row type="flex" justify="center" style={{marginTop:30}}>
           <Col>
-            <Card title="Pain Level Graph">
+            <Card title=
+                    {this.props.pain_level?
+                      "Pain Level Graph " +
+                      " Based on "+this.props.pain_level.length+" reports"
+                    :null}
+            >
               {this.props.pain_level?
                 <LineChart width={600} height={400} data={this.props.pain_level}>
-                  <XAxis dataKey="date" tickFormatter={timeStr => moment(timeStr).format('YYYY-MM-DDTHH:MM:SSZ')} />
+                  <XAxis dataKey="date" tickFormatter={timeStr => moment(timeStr).format('MM-DD HH:mm')} />
                   <YAxis />
                   <Tooltip />
                   <Legend />
@@ -60,7 +65,8 @@ function mapStateToProps(state) {
     }
   }
   return {
-    pain_level:updated_pain_level
+    pain_level:updated_pain_level,
+    patient_profile:state.patient.patient_profile
   }
 }
 
