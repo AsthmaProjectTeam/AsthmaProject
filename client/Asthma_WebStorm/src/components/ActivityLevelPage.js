@@ -110,17 +110,17 @@ class ActivityLevelPage extends Component {
     }
     render(){
         const {
-                activityButtonStyle,
-                titleStyle,
-                optionTextStyle,
-                bottomButtonStyle,
-                textStyle,
-                errorStyle,
-                answerTextStyle,
-                imageStyle,
-                colorBarStyle,
-                instructionContainerStyle,
-                answerTextStyleAndroid} = styles;
+            imageContainerStyle,
+            activityButtonStyle,
+            titleStyle,
+            optionTextStyle,
+            bottomButtonStyle,
+            textStyle,
+            errorStyle,
+            answerTextStyle,
+            optionContainerStyle,
+            answerTextStyleAndroid} = styles;
+
         const optionArray = this.props.currentquestion.question.options;
         let yourAnswer = this.state.error && Platform.OS === "android" ? <Text></Text> : <Text style={{alignSelf:'center', fontSize:30 }}>Your Answer:</Text>;
         let realAnswer = Platform.OS === "ios" ? <Text style={answerTextStyle}> {this.state.value}</Text> : <Text style={answerTextStyleAndroid}> {this.state.value}</Text>;
@@ -128,85 +128,50 @@ class ActivityLevelPage extends Component {
         return(
             <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
-                <View style={colorBarStyle}></View>
-
-                <View style={instructionContainerStyle}>
-                    <Text style={{ fontSize: 15 }}>Swipe and tap to make selection.</Text>
-                    <View style={{ flexDirection: 'row',
-                                   justifyContent: 'center',
-                                   alignItems: 'center',
-                                   alignSelf: 'center' }}>
-                        <Icon name="chevron-left" size={30} color="black" />
-                        <Icon name="pointer" size={30} color="black" />
-                        <Icon name="chevron-right" size={30} color="black" />
-                    </View>
-                </View>
 
                 {optionArray.length!=0?
-                <View style={{height: this.state.activityButtonWidth}}>
-                    <ScrollView horizontal
-                                decelerationRate="fast"
-                                centerContent={true}
-                                directionalLockEnabled
-                                showsHorizontalScrollIndicator//={false}
-                                overScrollMode="never"
-                                snapToAlignment="center"
-                                snapToInterval={this.state.activityButtonWidth + Dimensions.get('window').width*0.04}
-
-                                //contentOffset={{x: Dimensions.get('window').width*(-0.07), y: 0}}
-                    >
-                        {/*<View style={{width: '1%'}}></View>*/}
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('F',optionArray[5].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_sleeping.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[5].value}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} focusedOpacity={1} onPress={() => this.onClick('A',optionArray[0].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_laying.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[0].value}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('B',optionArray[1].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_sitting.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[1].value}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('C',optionArray[2].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_standing.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[2].value}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('D',optionArray[3].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_room.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[3].value}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[activityButtonStyle, {width: this.state.activityButtonWidth}]} onPress={() => this.onClick('E',optionArray[4].value)}>
-                            <Image
-                                resizeMode='contain'
-                                style={[imageStyle, {width: this.state.activityButtonWidth*0.7, height: this.state.activityButtonWidth*0.7}]}
-                                source={require('../img/ActivityLevel_hallway.jpg')}
-                            />
-                            <Text style={optionTextStyle}>{optionArray[4].value}</Text>
-                        </TouchableOpacity>
-                        {/*<View style={{height: Dimensions.get('window').width/2, width:Dimensions.get('window').width*0.1}} />*/}
-                    </ScrollView>
-                </View>:<View></View>}
+                    <View style={imageContainerStyle}>
+                        <View style={optionContainerStyle}>
+                            <View style={{margin: 0, padding: 0}}>
+                                <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('A',optionArray[0].value)}>
+                                    <Image
+                                        resizeMode='contain'
+                                        source={require('../img/ActivityLevel_laying.jpg')}
+                                    />
+                                    {/*<Text style={optionTextStyle}>{optionArray[0].value}</Text>*/}
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{margin: 0, padding: 0}}>
+                                <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('B',optionArray[1].value)}>
+                                    <Image
+                                        resizeMode='contain'
+                                        source={require('../img/ActivityLevel_sitting.jpg')}
+                                    />
+                                    {/*<Text style={optionTextStyle}>{optionArray[1].value}</Text>*/}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={optionContainerStyle}>
+                            <View style={{margin: 0, padding: 0}}>
+                                <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('C',optionArray[2].value)}>
+                                    <Image
+                                        resizeMode='contain'
+                                        source={require('../img/ActivityLevel_standing.jpg')}
+                                    />
+                                    {/*<Text style={optionTextStyle}>{optionArray[2].value}</Text>*/}
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{margin: 0, padding: 0}}>
+                                <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[4].value)}>
+                                    <Image
+                                        resizeMode='contain'
+                                        source={require('../img/ActivityLevel_hallway.jpg')}
+                                    />
+                                    {/*<Text style={optionTextStyle}>{optionArray[4].value}</Text>*/}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>:<View></View>}
 
                 <Text style={{marginTop: 10, alignSelf: "center", textAlign: "center"}}>
                     {yourAnswer}
@@ -214,9 +179,9 @@ class ActivityLevelPage extends Component {
                 </Text>
                 <Text style={errorStyle}> {this.state.error}</Text>
                 <View style={{
-                               flexDirection: 'row',
-                               position: 'absolute',
-                               left: 0, right: 0, bottom: 0}}>
+                    flexDirection: 'row',
+                    position: 'absolute',
+                    left: 0, right: 0, bottom: 0}}>
                     <Button
                         large
                         disabled = {this.state.cancel_disabled}
@@ -247,34 +212,30 @@ const styles = {
         textAlign: 'center',
         marginTop: Dimensions.get('window').height*0.01,
     },
+    imageContainerStyle: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: Dimensions.get('window').height*0.6,
+        width: Dimensions.get('window').width*0.9,
+        alignSelf: 'center'
+    },
     activityButtonStyle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: Dimensions.get('window').width*0.02,
-        marginRight: Dimensions.get('window').width*0.02,
+        padding: 0,
         borderColor: '#6495ed',
         borderRadius: 4,
         borderWidth: 3,
         shadowColor: '#696969',
         shadowOpacity: 5
     },
-    imageStyle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin:5
-        // borderColor: 'red',
-        // borderWidth: 1
-    },
     bottomButtonStyle: {
         flex: 0.3,
         margin: 5
     },
     textStyle: {
-      color: 'white',
-      fontSize: 50
+        color: 'white',
+        fontSize: 50
     },
     optionStyle: {
-        margin: 10,
         alignSelf: 'center'
     },
     errorStyle: {
@@ -298,21 +259,16 @@ const styles = {
         alignSelf: 'flex-end'
     },
     optionTextStyle: {
-        fontSize: 30,
-        marginTop: 2
-    },
-    colorBarStyle: {
-        height: Dimensions.get('window').height*0.002,
-        width: '93%',
-        backgroundColor: 'black',
-        alignSelf: 'center',
-        marginTop: Dimensions.get('window').height*0.02
-    },
-    instructionContainerStyle: {
-        marginTop: 5,
+        fontSize: 16,
         alignSelf: 'center'
-        //borderColor: 'black',
-        //borderWidth: 2
+    },
+    optionContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: '50%',
+        width: '100%',
+        margin: 0,
+        padding: 0
     }
 };
 

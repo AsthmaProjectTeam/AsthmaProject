@@ -106,7 +106,7 @@ class MedicationPage extends Component {
                                 title={option.value}
                                 checkedIcon='dot-circle-o'
                                 uncheckedIcon='circle-o'
-                                textStyle={{fontSize: 30}}
+                                textStyle={{fontSize: 40}}
                             />
                         )
                     })}

@@ -8,6 +8,7 @@ import {
     Slider,
     Image,
     TouchableOpacity,
+    TouchableHighlight,
     ScrollView,
     Alert
 } from 'react-native';
@@ -28,9 +29,9 @@ class PainLevelPage extends Component {
     //     this.state = {level: 0};
     // }
 
-    // getVal(val){
-    //     this.setState({level:val});
-    // }
+    getVal(val){
+        this.setState({level:val});
+    }
 
     onCancelButtonPress(){
         this.setState({
@@ -101,6 +102,10 @@ class PainLevelPage extends Component {
         // console.log(value);
         // console.log(this.state.level);
         // console.log(parseInt(value));
+        style = {
+          borderWidth: 1,
+          borderColor: 'red'
+        };
         this.setState({
             level: parseInt(value)
         });
@@ -114,58 +119,85 @@ class PainLevelPage extends Component {
     // };
 
     render() {
-        const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle } = styles;
+        const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle, facesViewStyle1, facesViewStyle2 } = styles;
         //const w = helper(Dimensions.get('window').height, Dimensions.get('window').width);
         return (
             <View style={containerStyle}>
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
-                <View style={{ height: Dimensions.get('window').height*0.15}}>
-                <ScrollView
-                    horizontal
-                    decelerationRate="fast"
-                    centerContent={true}
-                    overScrollMode="never"
-                    showsHorizontalScrollIndicator = {false}
-                    style = {{
-                        width: '90%',
-                        paddingTop: 50,
-                        flex: 1
-                        //backgroundColor: 'red'
-                    }}
-                >
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('0')}>
-                        <Image source={require('../img/face0.png')}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('1')}>
-                        <Image source={require('../img/face1.png')}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('2')}>
-                        <Image source={require('../img/face2.png')}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('3')}>
-                        <Image source={require('../img/face3.png')}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('4')}>
-                        <Image source={require('../img/face4.png')}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{padding: 2}} onPress={() => this.onClick('5')}>
-                        <Image source={require('../img/face5.png')}/>
-                    </TouchableOpacity>
-                    </ScrollView>
-                </View>
-                <Image style={imageStyle} resizeMode="contain" source={require('../img/painlevel3.png')} />
+                <View style={{flexDirection: 'column', width: Dimensions.get('window').width*0.9}}>
+                {/*<ScrollView*/}
+                    {/*horizontal*/}
+                    {/*decelerationRate="fast"*/}
+                    {/*centerContent={true}*/}
+                    {/*overScrollMode="never"*/}
+                    {/*showsHorizontalScrollIndicator = {false}*/}
+                    {/*style = {{*/}
+                        {/*width: '90%',*/}
+                        {/*paddingTop: 50,*/}
+                        {/*flex: 1,*/}
+                        {/*backgroundColor: 'red'*/}
+                    {/*}}*/}
+                {/*>*/}
 
-                {/*<Slider*/}
-                    {/*style={{width: '80%', marginTop: 20 }}*/}
-                    {/*step={1}*/}
-                    {/*minimumValue={0}*/}
-                    {/*maximumValue={10}*/}
-                    {/*value={this.state.level}*/}
-                    {/*onSlidingComplete={ val => this.getVal(val)}*/}
-                {/*/>*/}
+                    {/*first row*/}
+                    <View style={facesViewStyle1}>
+                        {/*<TouchableOpacity onPress={() => this.onClick('0')}>*/}
+                            {/*<Image source={require('../img/face0.png')}/>*/}
+                        {/*</TouchableOpacity>*/}
+                        <TouchableHighlight onPress={() => this.onClick('1')} underlayStyle={{style: 'blue'}}>
+                            <Image source={require('../img/1.png')}/>
+                        </TouchableHighlight>
+                        <TouchableOpacity onPress={() => this.onClick('2')}>
+                            <Image source={require('../img/2.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('3')}>
+                            <Image source={require('../img/3.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('4')}>
+                            <Image source={require('../img/4.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('5')}>
+                            <Image source={require('../img/5.png')}/>
+                        </TouchableOpacity>
+                    </View>
+
+
+                    {/*second row*/}
+                    <View style={facesViewStyle2}>
+                        <TouchableOpacity onPress={() => this.onClick('6')}>
+                            <Image source={require('../img/6.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('7')}>
+                            <Image source={require('../img/7.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('8')}>
+                            <Image source={require('../img/8.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('9')}>
+                            <Image source={require('../img/9.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onClick('10')}>
+                            <Image source={require('../img/10.png')}/>
+                        </TouchableOpacity>
+                    </View>
+
+                 {/*</ScrollView>*/}
+                </View>
+                <Image style={imageStyle} resizeMode="contain" source={require('../img/hint3.jpg')} />
+
+                <Slider
+                    style={{width: '80%', marginTop: 20 }}
+                    step={1}
+                    minimumValue={0}
+                    maximumValue={10}
+                    value={this.state.level}
+                    onSlidingComplete={ val => this.getVal(val)}
+                />
+
                 <Text style={welcomeStyle}>
                     {parseInt(this.state.level)}
                 </Text>
+
                 <Text style={instructionStyle}>
                     Please tab a face to rate your current pain level.
                 </Text>
@@ -203,8 +235,8 @@ const styles = {
         //borderColor: 'red'
     },
     containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
+        // flex: 1,
+        // flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
         height: '100%',
@@ -223,7 +255,7 @@ const styles = {
         fontSize: 36,
     },
     imageStyle: {
-        width: '90%',
+        width: '90%'
         //height: '30%',
         // marginTop: 50,
         // paddingTop: 30,
@@ -237,6 +269,17 @@ const styles = {
     bottomButtonStyle: {
         flex: 0.4,
         margin: 5
+    },
+    facesViewStyle1: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+        //backgroundColor: 'yellow'
+    },
+    facesViewStyle2: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20
+        //backgroundColor: 'blue'
     }
 };
 
