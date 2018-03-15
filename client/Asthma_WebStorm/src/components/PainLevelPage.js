@@ -25,25 +25,36 @@ class PainLevelPage extends Component {
         };
     }
 
+
     // componentWillReceiveProps(){
-    //     this.state = {level: 0};
+    //   setTimeout(()=>{
+    //     if(this !=null){
+    //       console.log("turn on button");
+    //       this.setState({
+    //         next_disabled: false,
+    //       });
+    //     }
+    //
+    //   }, 1000);
+    //
     // }
 
     getVal(val){
-        this.setState({level:val});
+        this.setState({...this.state, level:val});
     }
 
     onCancelButtonPress(){
         this.setState({
-            cancel_disabled: true,
+          ...this.state,
+          cancel_disabled: true,
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                cancel_disabled: false,
-            });
-        }, 1000);
+        // setTimeout(()=>{
+        //     this.setState({
+        //         cancel_disabled: false,
+        //     });
+        // }, 1000);
 
         this.props.dispatch({
             type: 'clearHistory',
@@ -64,9 +75,11 @@ class PainLevelPage extends Component {
 
         // enable after 5 second
         setTimeout(()=>{
+          if (this.refs.root){
             this.setState({
-                next_disabled: false,
+              next_disabled: false,
             });
+          }
         }, 1000);
 
         this.props.results.push({
@@ -122,7 +135,7 @@ class PainLevelPage extends Component {
         const { containerStyle, titleStyle, imageStyle, welcomeStyle, instructionStyle, textStyle, bottomButtonStyle, facesViewStyle1, facesViewStyle2 } = styles;
         //const w = helper(Dimensions.get('window').height, Dimensions.get('window').width);
         return (
-            <View style={containerStyle}>
+            <View style={containerStyle} ref="root">
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
                 <View style={{flexDirection: 'column', width: Dimensions.get('window').width*0.9}}>
                 {/*<ScrollView*/}

@@ -64,11 +64,12 @@ class PainLocationPage extends Component {
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                cancel_disabled: false,
-            });
-        }, 1000);
+      //This is not necessary, since after
+        // setTimeout(()=>{
+        //     this.setState({
+        //         cancel_disabled: false,
+        //     });
+        // }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -97,11 +98,13 @@ class PainLocationPage extends Component {
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                next_disabled: false,
-            });
-        }, 1000);
+      setTimeout(()=>{
+        if (this.refs.root){
+          this.setState({
+            next_disabled: false,
+          });
+        }
+      }, 1000);
 
         if(this.props.painLocation.length===0) {
           this.props.painLocation.push("No Pain");
@@ -140,7 +143,7 @@ class PainLocationPage extends Component {
         const TabPane = Tabs.TabPane;
         const { imageStyle, errorStyle, buttonStyle, textStyle, resultContainerStyle, messageStyle, answersBoxStyle } = styles;
         return(
-            <View style={{height: '100%', width: '100%'}}>
+            <View style={{height: '100%', width: '100%'}} ref="root">
                 <Flex direction="column" style={{height: '100%', width: '100%'}}>
                     <Flex>
                         <Tabs activeKey={this.state.selectedTab} animated={false}

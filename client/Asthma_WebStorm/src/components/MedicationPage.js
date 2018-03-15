@@ -34,11 +34,11 @@ class MedicationPage extends Component {
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                cancel_disabled: false,
-            });
-        }, 1000);
+        // setTimeout(()=>{
+        //     this.setState({
+        //         cancel_disabled: false,
+        //     });
+        // }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -67,11 +67,13 @@ class MedicationPage extends Component {
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                next_disabled: false,
-            });
-        }, 1000);
+      setTimeout(()=>{
+        if (this.refs.root){
+          this.setState({
+            next_disabled: false,
+          });
+        }
+      }, 1000);
 
         if(this.state.checkedOption == null){
             this.setState({...this.state, error: 'Please select a time.'});
@@ -93,7 +95,7 @@ class MedicationPage extends Component {
         const { titleStyle, buttonStyle, buttonRowStyle, textStyle, errorStyle } = styles;
 
         return (
-            <View style={{height: '100%'}}>
+            <View style={{height: '100%'}} ref="root">
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
                 <View style={{width: Dimensions.get('window').width*0.7, alignSelf:'center'}}>

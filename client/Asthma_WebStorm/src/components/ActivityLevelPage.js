@@ -41,11 +41,11 @@ class ActivityLevelPage extends Component {
         });
 
         // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                cancel_disabled: false,
-            });
-        }, 1000);
+        // setTimeout(()=>{
+        //     this.setState({
+        //         cancel_disabled: false,
+        //     });
+        // }, 1000);
 
         this.props.results.pop();
         this.props.history.pop();
@@ -73,12 +73,13 @@ class ActivityLevelPage extends Component {
             next_disabled: true,
         });
 
-        // enable after 5 second
-        setTimeout(()=>{
-            this.setState({
-                next_disabled: false,
-            });
-        }, 1000);
+      setTimeout(()=>{
+        if (this.refs.root){
+          this.setState({
+            next_disabled: false,
+          });
+        }
+      }, 1000);
 
         if (this.state.key == null) {
             this.setState({error: "Please make a selection."});
@@ -126,7 +127,8 @@ class ActivityLevelPage extends Component {
         let realAnswer = Platform.OS === "ios" ? <Text style={answerTextStyle}> {this.state.value}</Text> : <Text style={answerTextStyleAndroid}> {this.state.value}</Text>;
 
         return(
-            <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}>
+            <View style={{ backgroundColor: '#f5fffa', flex: 1, flexDirection: 'column', height: '100%', width: '100%'}}
+                  ref="root">
                 <Text style={titleStyle}>{this.props.currentquestion?this.props.currentquestion.question.description:"no question"}</Text>
 
                 {optionArray.length!=0?
