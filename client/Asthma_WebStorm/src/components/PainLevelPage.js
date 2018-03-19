@@ -212,7 +212,7 @@ class PainLevelPage extends Component {
                 </Text>
 
                 <Text style={instructionStyle}>
-                    Please tab a face to rate your current pain level.
+                    Please touch a face to rate your current pain level.
                 </Text>
                 <View style={{flexDirection: 'row', flex: 1, position: 'absolute', left: 0, right: 0, bottom: 0}}>
                     <Button
