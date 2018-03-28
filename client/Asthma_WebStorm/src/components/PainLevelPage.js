@@ -157,9 +157,9 @@ class PainLevelPage extends Component {
                         {/*<TouchableOpacity onPress={() => this.onClick('0')}>*/}
                             {/*<Image source={require('../img/face0.png')}/>*/}
                         {/*</TouchableOpacity>*/}
-                        <TouchableHighlight onPress={() => this.onClick('1')} underlayStyle={{style: 'blue'}}>
+                        <TouchableOpacity onPress={() => this.onClick('1')}>
                             <Image source={require('../img/1.png')}/>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.onClick('2')}>
                             <Image source={require('../img/2.png')}/>
                         </TouchableOpacity>
