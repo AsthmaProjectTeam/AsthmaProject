@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, View, ScrollView, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import { Button } from 'native-base';
@@ -14,11 +14,18 @@ class ActivityLevelPage extends Component {
             error: null,
             activityButtonWidth: Dimensions.get('window').height*0.5,
             next_disabled: false,
-            cancel_disabled: false
+            cancel_disabled: false,
+            pressState: false
         };
         //this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
+    _onHideUnderlay(){
+        this.setState({ pressStatus: false });
+    }
+    _onShowUnderlay(){
+        this.setState({ pressStatus: true });
+    }
 
     // onLayoutChange(e) {
     //     let layout = e.nativeEvent.layout;
@@ -162,6 +169,18 @@ class ActivityLevelPage extends Component {
                                     />
                                     {/*<Text style={optionTextStyle}>{optionArray[2].value}</Text>*/}
                                 </TouchableOpacity>
+                                {/*<TouchableHighlight*/}
+                                    {/*style={ this.state.pressStatus ? styles.activityButtonPressedStyle : styles.activityButtonStyle }*/}
+                                    {/*onHideUnderlay={this._onHideUnderlay.bind(this)}*/}
+                                    {/*onShowUnderlay={this._onShowUnderlay.bind(this)}*/}
+                                    {/*underlayColor={'#6495ed'}*/}
+                                    {/*onPress={() => this.onClick('C',optionArray[2].value)}*/}
+                                {/*>*/}
+                                    {/*<Image*/}
+                                        {/*resizeMode='contain'*/}
+                                        {/*source={require('../img/ActivityLevel_standing.jpg')}*/}
+                                    {/*/>*/}
+                                {/*</TouchableHighlight>*/}
                             </View>
                             <View style={{margin: 0, padding: 0}}>
                                 <TouchableOpacity style={activityButtonStyle} onPress={() => this.onClick('D',optionArray[4].value)}>
@@ -216,7 +235,7 @@ const styles = {
     },
     imageContainerStyle: {
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         height: Dimensions.get('window').height*0.6,
         width: Dimensions.get('window').width*0.9,
         alignSelf: 'center'
@@ -224,6 +243,15 @@ const styles = {
     activityButtonStyle: {
         padding: 0,
         borderColor: '#6495ed',
+        borderRadius: 4,
+        borderWidth: 3,
+        shadowColor: '#696969',
+        shadowOpacity: 5
+    },
+    activityButtonPressedStyle: {
+        padding: 0,
+        borderColor: '#6495ed',
+        backgroundColor: '#6495ed',
         borderRadius: 4,
         borderWidth: 3,
         shadowColor: '#696969',
@@ -266,7 +294,7 @@ const styles = {
     },
     optionContainerStyle: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         height: '50%',
         width: '100%',
         margin: 0,
